@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>timeout</key>
+	<integer>4000</integer>
+	<key>host</key>
+	<string>192.168.30.51</string>
+	<key>udpPortSend</key>
+	<real>50000</real>
+	<key>udpPortReceive</key>
+	<integer>50001</integer>
+</dict>
+</plist>

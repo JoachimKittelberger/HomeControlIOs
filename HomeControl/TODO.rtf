@@ -1,0 +1,67 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw12240\paperh15840\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Das Projekt HomeControl dient zur Steuerung der Rolladen\
+\
+\
+Noch offene Punkte:\
++ Delegate f\'fcr Jet32Delegate implementieren. Gibt ein R\'fcckruf der Funktionen ReadIntRegister, ReadFlag\
+\
+\
+- Die Elemente der Cell als Stackviews einbauen\
++ Anzeige der Echtzeituhr und Einstellen auf die aktuelle Zeit im Handy\
++ Einstellungen f\'fcr Rolladenautomatik global ein/aus\
++ Einstellungen f\'fcr Sommerposition in Abh\'e4ngigkeit von Rolladenautomatik ein/aus grau hinterlegt\
++ Einstellungen f\'fcr Jalousienautomatik ein/aus\
++ Button f\'fcr Alle Rolladen schlie\'dfen\
++ Button f\'fcr Alle Rolladen \'f6ffnen\
+\
++ IP-Adresse eingeben und als User-Settings abspeichern\
+- Zugriff auf Einstellungen nur \'fcber Passwort oder Touch-ID\
+- Anzeige des Kommunikationsstatus zur Steuerung\
+- Kommunikation in einem separaten Thread?\
+\
+\
+\
+- Rolladen \'fcber Buttons steuern. Solange Ausgang einschalten, wie Button getaped wird\
++ Rolladen \'fcber Flags automatisch hoch/runter fahren\
+	+ Dazu ist vermutlich ein weiteres Kommando in STX notwendig, das Commandos in einer Queue abarbeitet und die Rolladen entsprechend nach oben oder unten f\'e4hrt.\
+\
+\
+TODO:\
+- Icons8-App mit Icons. M\'fcssen allerdings verlinkt werden. https://icons8.com\
+- Spracheingabe einbauen\
+\
+Ideen:\
+- Die Abfrage nach der Verbindung kann \'fcber regelm\'e4ssige Cmd: u gemacht werden, und schauen, ob der Status passt.\
+- Evtl. kann in den Sendefunktionen \'fcberpr\'fcft werden, ob ein Antworttelegramm empfangen wurde mit Wait....\
++ Im unteren Teil sollte noch eine Navigationszeile angezeigt werden, mit der man auf Einstellungsseiten usw. kommt\
++ Im Steuerungsprogramm noch Merker vorsehen, welche jeden Rolladen \'fcbe das Steuerungsprogramm automatisch \'f6ffnet und schlie\'dft\
+-!!!! Evtl. eine Kommandoschnittstelle in die Steuerung einbauen, das bei Beschreiben eines Registers eine bestimmte Aktion ausl\'f6st. Damit k\'f6nnte dann z.B. auch das Garagentor ge\'f6ffnet werden.\
+\
+- Android und IOS mit Xamarin, Apache Cordova, Ionic -> hybride Apps\
+\
+\
+Fehler:\
+- Wenn WLAN beim Starten nicht ein ist und im Nachhinein eingeschaltet wird, synchronisiert sich App nicht mehr mit Steuerung. Ein Neustart der App ist notwendig, da nur beim Start der App ein connect() gemacht wird.\
+\
+\
+Kommunikation:\
+- Bei jeder Kommunikation den Timeoutwert aus timeoutJet32 mitnehmen\
+- Kommunikationsanfrage in eine Queue stellen und eine eindeutige ID vergeben.\
+- Wenn Telegramm zur\'fcckkommt, dieses dem entsprechenden Queue-Inhalt zuweisen und aus der Queue entfernen sowie callback-Funktion aufrufen\
+- Bei synchroner Abarbeitung die entsprechende Funktion aufrufen (vorerst nicht machen)\
+- Bei Disconnect bzw. connect zuerst die ganze Kommunikationsqueue l\'f6schen\
+- Kommunikationsreferenz ist aktuell das \'fcbergebene tag\
+- Bei jeder Kommunikationsr\'fcckmeldung die Queue durchgehen und auf TimeOuts untersuchen\
+- Nach jedem PRotokoll senden, einen Timeout neu setzen. Bei Ende des Timeouts die Queue durchgehen und auf Timeouts untersuchen\
+- Eine Queue als separate Klassen in Jet32 instantiieren.\
+- Telegramme in Queue ablegen und sofort senden.\
+\
+\
+\
+}
