@@ -35,16 +35,7 @@ extension Jet32 : PlcDataAccessibleProtocol {
         // wenn kein passender Eintrag gefunden wird, dann diesen einfach löschen und ignorieren
         // anschliessend diesen Eintrag löschen
         
-        
-        
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     

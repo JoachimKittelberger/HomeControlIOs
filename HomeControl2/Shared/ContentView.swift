@@ -31,6 +31,21 @@ struct ContentView: View {
         //.background(.red)
     #endif
 
+        // wird statt viewDidLoad verwendet
+        // TODO: Sollte lieber beim Start der App inmd beim Ändern der Settings einmalig gemacht werden
+        .onAppear {
+            print("ContentView.onAppear")
+        }
+        .onDisappear() {
+            print("ContentView.onDisappear")
+        }
+        // used with own modifier
+        .onViewDidLoad {
+            // TODO: do something only one time in this closure
+            // will be called after .onAppear
+            print("ContentView.onViewDidLoad Modifier")
+        }
+   
 
     }
 }

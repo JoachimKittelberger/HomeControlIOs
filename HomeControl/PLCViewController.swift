@@ -80,19 +80,19 @@ class PLCViewController: UIViewController {
     @IBOutlet weak var labelSunsetTime: UILabel!
     
     @IBAction func allShuttersUp(_ sender: Any) {
-        homeConnection.setFlag(JetGlobalVariables.flagCmdAllAutomaticShuttersUp)
+        homeConnection.setFlag(Jet32GlobalVariables.flagCmdAllAutomaticShuttersUp)
     }
 
     @IBAction func allShuttersDown(_ sender: Any) {
-        homeConnection.setFlag(JetGlobalVariables.flagCmdAllAutomaticShuttersDown)
+        homeConnection.setFlag(Jet32GlobalVariables.flagCmdAllAutomaticShuttersDown)
     }
     
     @IBAction func allShuttersSommerPosUp(_ sender: Any) {
-        homeConnection.setFlag(JetGlobalVariables.flagCmdAllAutomaticShuttersUpSummerPos)
+        homeConnection.setFlag(Jet32GlobalVariables.flagCmdAllAutomaticShuttersUpSummerPos)
     }
     
     @IBAction func allShuttersSommerPosDown(_ sender: Any) {
-        homeConnection.setFlag(JetGlobalVariables.flagCmdAllAutomaticShuttersDownSummerPos)
+        homeConnection.setFlag(Jet32GlobalVariables.flagCmdAllAutomaticShuttersDownSummerPos)
     }
     
     
@@ -177,24 +177,24 @@ class PLCViewController: UIViewController {
    }
     
     func readTimeFromPLC() {
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regSecond, tag: UInt32(PLCViewControllerTag.readSecond.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regMinute, tag: UInt32(PLCViewControllerTag.readMinute.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regHour, tag: UInt32(PLCViewControllerTag.readHour.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regSecond, tag: UInt32(PLCViewControllerTag.readSecond.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regMinute, tag: UInt32(PLCViewControllerTag.readMinute.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regHour, tag: UInt32(PLCViewControllerTag.readHour.rawValue))
     }
 
     func readStatesFromPLC() {
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regCurrentStateNightDay, tag: UInt32(PLCViewControllerTag.readCurrentStateNightDay.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regCurrentStateWind, tag: UInt32(PLCViewControllerTag.readCurrentStateWind.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regCurrentStateLight, tag: UInt32(PLCViewControllerTag.readCurrentStateLight.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regCurrentStateNightDay, tag: UInt32(PLCViewControllerTag.readCurrentStateNightDay.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regCurrentStateWind, tag: UInt32(PLCViewControllerTag.readCurrentStateWind.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regCurrentStateLight, tag: UInt32(PLCViewControllerTag.readCurrentStateLight.rawValue))
     }
 
     
     // TODO for Test sync calls
     func readStatesFromPLCSync() {
 
-        let currentStateNightDay = homeConnection.readIntRegSync(JetGlobalVariables.regCurrentStateNightDay, tag: UInt32(PLCViewControllerTag.readCurrentStateNightDay.rawValue))
-        let currentStateWind = homeConnection.readIntRegSync(JetGlobalVariables.regCurrentStateWind, tag: UInt32(PLCViewControllerTag.readCurrentStateWind.rawValue))
-        let currentStateLight = homeConnection.readIntRegSync(JetGlobalVariables.regCurrentStateLight, tag: UInt32(PLCViewControllerTag.readCurrentStateLight.rawValue))
+        let currentStateNightDay = homeConnection.readIntRegSync(Jet32GlobalVariables.regCurrentStateNightDay, tag: UInt32(PLCViewControllerTag.readCurrentStateNightDay.rawValue))
+        let currentStateWind = homeConnection.readIntRegSync(Jet32GlobalVariables.regCurrentStateWind, tag: UInt32(PLCViewControllerTag.readCurrentStateWind.rawValue))
+        let currentStateLight = homeConnection.readIntRegSync(Jet32GlobalVariables.regCurrentStateLight, tag: UInt32(PLCViewControllerTag.readCurrentStateLight.rawValue))
         
         setModeLabelText(mode: Int(currentStateNightDay))
         setStateWindLabelText(state: Int(currentStateWind))
@@ -204,27 +204,27 @@ class PLCViewController: UIViewController {
     
 
     func readTimeSettingsFromPLC() {
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regUpTimeHour, tag: UInt32(PLCViewControllerTag.readHourShutterUp.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regUpTimeMinute, tag: UInt32(PLCViewControllerTag.readMinuteShutterUp.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regDownTimeHour, tag: UInt32(PLCViewControllerTag.readHourShutterDown.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regDownTimeMinute, tag: UInt32(PLCViewControllerTag.readMinuteShutterDown.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regUpTimeHourWeekend, tag: UInt32(PLCViewControllerTag.readHourShutterUpWeekend.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regUpTimeMinuteWeekend, tag: UInt32(PLCViewControllerTag.readMinuteShutterUpWeekend.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regUpTimeHour, tag: UInt32(PLCViewControllerTag.readHourShutterUp.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regUpTimeMinute, tag: UInt32(PLCViewControllerTag.readMinuteShutterUp.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regDownTimeHour, tag: UInt32(PLCViewControllerTag.readHourShutterDown.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regDownTimeMinute, tag: UInt32(PLCViewControllerTag.readMinuteShutterDown.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regUpTimeHourWeekend, tag: UInt32(PLCViewControllerTag.readHourShutterUpWeekend.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regUpTimeMinuteWeekend, tag: UInt32(PLCViewControllerTag.readMinuteShutterUpWeekend.rawValue))
     }
     
     func readShutterSettingsFromPLC() {
-        let _ = homeConnection.readFlagOld(JetGlobalVariables.flagIsAutomaticBlind, tag: UInt32(PLCViewControllerTag.readIsAutomaticBlind.rawValue))
-        let _ = homeConnection.readFlagOld(JetGlobalVariables.flagIsAutomaticShutter, tag: UInt32(PLCViewControllerTag.readIsAutomaticShutter.rawValue))
-        let _ = homeConnection.readFlagOld(JetGlobalVariables.flagIsAutomaticSummerMode, tag: UInt32(PLCViewControllerTag.readIsAutomaticSummerMode.rawValue))
+        let _ = homeConnection.readFlagOld(Jet32GlobalVariables.flagIsAutomaticBlind, tag: UInt32(PLCViewControllerTag.readIsAutomaticBlind.rawValue))
+        let _ = homeConnection.readFlagOld(Jet32GlobalVariables.flagIsAutomaticShutter, tag: UInt32(PLCViewControllerTag.readIsAutomaticShutter.rawValue))
+        let _ = homeConnection.readFlagOld(Jet32GlobalVariables.flagIsAutomaticSummerMode, tag: UInt32(PLCViewControllerTag.readIsAutomaticSummerMode.rawValue))
     }
     
     func readOtherSettingsFromPLC() {
-        let _ = homeConnection.readFlagOld(JetGlobalVariables.flagIsSaunaOn, tag: UInt32(PLCViewControllerTag.readIsSaunaOn.rawValue))
+        let _ = homeConnection.readFlagOld(Jet32GlobalVariables.flagIsSaunaOn, tag: UInt32(PLCViewControllerTag.readIsSaunaOn.rawValue))
 
-        let _ = homeConnection.readFlagOld(JetGlobalVariables.flagUseSunsetSettings, tag: UInt32(PLCViewControllerTag.readUseSunsetSettings.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regSunsetOffsetInMin, tag: UInt32(PLCViewControllerTag.readSunsetOffsetInMin.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regSunsetHourForToday, tag: UInt32(PLCViewControllerTag.readSunsetHourForToday.rawValue))
-        let _ = homeConnection.readIntReg(JetGlobalVariables.regSunsetMinuteForToday, tag: UInt32(PLCViewControllerTag.readSunsetMinuteForToday.rawValue))
+        let _ = homeConnection.readFlagOld(Jet32GlobalVariables.flagUseSunsetSettings, tag: UInt32(PLCViewControllerTag.readUseSunsetSettings.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regSunsetOffsetInMin, tag: UInt32(PLCViewControllerTag.readSunsetOffsetInMin.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regSunsetHourForToday, tag: UInt32(PLCViewControllerTag.readSunsetHourForToday.rawValue))
+        let _ = homeConnection.readIntReg(Jet32GlobalVariables.regSunsetMinuteForToday, tag: UInt32(PLCViewControllerTag.readSunsetMinuteForToday.rawValue))
     }
     
     
@@ -242,13 +242,13 @@ class PLCViewController: UIViewController {
         let month = calendar.component(.month, from: date)
         let year = calendar.component(.year, from: date) - 2000
 
-        let _ = homeConnection.writeIntRegister(JetGlobalVariables.regYear, to: year)
-        let _ = homeConnection.writeIntRegister(JetGlobalVariables.regMonth, to: month)
-        let _ = homeConnection.writeIntRegister(JetGlobalVariables.regDay, to: day)
+        let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regYear, to: year)
+        let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regMonth, to: month)
+        let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regDay, to: day)
         
-        let _ = homeConnection.writeIntRegister(JetGlobalVariables.regHour, to: hour)
-        let _ = homeConnection.writeIntRegister(JetGlobalVariables.regMinute, to: minutes)
-        let _ = homeConnection.writeIntRegister(JetGlobalVariables.regSecond, to: seconds)
+        let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regHour, to: hour)
+        let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regMinute, to: minutes)
+        let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regSecond, to: seconds)
     }
     
     
@@ -343,20 +343,20 @@ class PLCViewController: UIViewController {
             
             switch (plcTag) {
             case .readIsAutomaticBlind:
-                isOn ? homeConnection.setFlag(JetGlobalVariables.flagIsAutomaticBlind) : homeConnection.resetFlag(JetGlobalVariables.flagIsAutomaticBlind)
+                isOn ? homeConnection.setFlag(Jet32GlobalVariables.flagIsAutomaticBlind) : homeConnection.resetFlag(Jet32GlobalVariables.flagIsAutomaticBlind)
                 
             case .readIsAutomaticShutter:
                 isShutterSommerPos.isEnabled = isOn
-                isOn ? homeConnection.setFlag(JetGlobalVariables.flagIsAutomaticShutter) : homeConnection.resetFlag(JetGlobalVariables.flagIsAutomaticShutter)
+                isOn ? homeConnection.setFlag(Jet32GlobalVariables.flagIsAutomaticShutter) : homeConnection.resetFlag(Jet32GlobalVariables.flagIsAutomaticShutter)
                 
             case .readIsAutomaticSummerMode:
-                isOn ? homeConnection.setFlag(JetGlobalVariables.flagIsAutomaticSummerMode) : homeConnection.resetFlag(JetGlobalVariables.flagIsAutomaticSummerMode)
+                isOn ? homeConnection.setFlag(Jet32GlobalVariables.flagIsAutomaticSummerMode) : homeConnection.resetFlag(Jet32GlobalVariables.flagIsAutomaticSummerMode)
 
             case .readIsSaunaOn:
-                isOn ? homeConnection.setFlag(JetGlobalVariables.flagIsSaunaOn) : homeConnection.resetFlag(JetGlobalVariables.flagIsSaunaOn)
+                isOn ? homeConnection.setFlag(Jet32GlobalVariables.flagIsSaunaOn) : homeConnection.resetFlag(Jet32GlobalVariables.flagIsSaunaOn)
 
             case .readUseSunsetSettings:
-                isOn ? homeConnection.setFlag(JetGlobalVariables.flagUseSunsetSettings) : homeConnection.resetFlag(JetGlobalVariables.flagUseSunsetSettings)
+                isOn ? homeConnection.setFlag(Jet32GlobalVariables.flagUseSunsetSettings) : homeConnection.resetFlag(Jet32GlobalVariables.flagUseSunsetSettings)
 
             default:
                 print("Error: switchChanged no case for tag \(mySwitch.tag)")
@@ -496,21 +496,21 @@ extension PLCViewController: UITextFieldDelegate {
         if let plcTag = PLCViewControllerTag(rawValue: UInt32(textField.tag)) {
             switch (plcTag) {
             case .readHourShutterUp:
-                let _ = homeConnection.writeIntRegister(JetGlobalVariables.regUpTimeHour, to: Int(textField.text!)!)
+                let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regUpTimeHour, to: Int(textField.text!)!)
             case .readMinuteShutterUp:
-                let _ = homeConnection.writeIntRegister(JetGlobalVariables.regUpTimeMinute, to: Int(textField.text!)!)
+                let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regUpTimeMinute, to: Int(textField.text!)!)
             case .readHourShutterDown:
-                let _ = homeConnection.writeIntRegister(JetGlobalVariables.regDownTimeHour, to: Int(textField.text!)!)
+                let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regDownTimeHour, to: Int(textField.text!)!)
             case .readMinuteShutterDown:
-                let _ = homeConnection.writeIntRegister(JetGlobalVariables.regDownTimeMinute, to: Int(textField.text!)!)
+                let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regDownTimeMinute, to: Int(textField.text!)!)
             case .readHourShutterUpWeekend:
-                let _ = homeConnection.writeIntRegister(JetGlobalVariables.regUpTimeHourWeekend, to: Int(textField.text!)!)
+                let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regUpTimeHourWeekend, to: Int(textField.text!)!)
             case .readMinuteShutterUpWeekend:
-                let _ = homeConnection.writeIntRegister(JetGlobalVariables.regUpTimeMinuteWeekend, to: Int(textField.text!)!)
+                let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regUpTimeMinuteWeekend, to: Int(textField.text!)!)
             case .readSunsetOffsetInMin:
-                let _ = homeConnection.writeIntRegister(JetGlobalVariables.regSunsetOffsetInMin, to: Int(textField.text!)!)
+                let _ = homeConnection.writeIntRegister(Jet32GlobalVariables.regSunsetOffsetInMin, to: Int(textField.text!)!)
                 // read new values for shutters down
-                let _ = homeConnection.readIntReg(JetGlobalVariables.regSunsetOffsetInMin, tag: UInt32(PLCViewControllerTag.readSunsetOffsetInMin.rawValue))
+                let _ = homeConnection.readIntReg(Jet32GlobalVariables.regSunsetOffsetInMin, tag: UInt32(PLCViewControllerTag.readSunsetOffsetInMin.rawValue))
             default:
                 print("Error: textFieldDidEndEditing no case for tag \(textField.tag)")
                 
@@ -553,7 +553,7 @@ extension PLCViewController: PlcDataAccessibleDelegate {
     func didRedeiveSetFlag(_ number: UInt, tag: UInt) {
         
     }
-    func didRedeiveClearFlag(_number: UInt, tag: UInt) {
+    func didRedeiveClearFlag(_ number: UInt, tag: UInt) {
         
     }
     

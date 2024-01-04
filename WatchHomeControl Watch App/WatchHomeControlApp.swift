@@ -13,9 +13,9 @@ struct WatchHomeControl_Watch_AppApp: App {
     
     @StateObject var shutterList = ShutterList()
     
-    // Geht nur über iPhone mit z.B. UDPManager oder WCSession, ...
-//    let homeControlConnection = Jet32.sharedInstance
-
+    // Communication instance. Geht bei Watch nur über iPhone und WCSession ...
+    let plcComMgr = PlcComMgr.sharedInstance
+    
     
     var body: some Scene {
         WindowGroup {

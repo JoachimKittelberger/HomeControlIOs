@@ -93,7 +93,7 @@ extension Jet32NW : PlcDataAccessibleProtocol {
     func setFlag(_ number: UInt, tag: UInt) {
         
     }
-    func clearFlag(_number: UInt, tag: UInt) {
+    func clearFlag(_ number: UInt, tag: UInt) {
         
     }
     

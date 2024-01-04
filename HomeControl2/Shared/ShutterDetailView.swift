@@ -12,9 +12,6 @@ import SwiftUI
 struct ShutterDetailView: View {
     let shutterItem: ShutterItem
  
-    // geht nicht, da Watch-OS keine UDP-Sockets unterstützt
-//    let homeControlConnection = Jet32.sharedInstance
-
     
     var body: some View {
         VStack {
