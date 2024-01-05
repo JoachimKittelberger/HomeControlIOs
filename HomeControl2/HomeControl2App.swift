@@ -14,6 +14,10 @@ struct HomeControl2App: App {
     @StateObject var shutterList = ShutterList()
     
     
+    // TODO: Test Connectivity
+    let connectivity = Connectivity.sharedInstance
+    
+    
     //this function will be called at startup before WindowGroup will be initialized
     init() {
         print("HomeControl2App.init()");

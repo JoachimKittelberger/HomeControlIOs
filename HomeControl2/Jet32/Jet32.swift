@@ -21,8 +21,8 @@ class Jet32 : NSObject, GCDAsyncUdpSocketDelegate {
     }
     
     deinit {
+        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
         disconnect()
-        print("Jet32.deinit called")
     }
     
     
@@ -38,7 +38,7 @@ class Jet32 : NSObject, GCDAsyncUdpSocketDelegate {
         print("PlcDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
     }
         
-    
+    // socket settings
     var udpPortSend: UInt16 = 0
     var udpPortReceive: UInt16 = 0
     var host = "127.0.0.1"
@@ -47,6 +47,7 @@ class Jet32 : NSObject, GCDAsyncUdpSocketDelegate {
     var inSocket: GCDAsyncUdpSocket?
     var outSocket: GCDAsyncUdpSocket?
 
+    
     var timeout: TimeInterval = 2   // Default Timeout: 2s
     var isConnected : Bool = false     // TODO: mit Timeout-Überprüfung
     
@@ -72,7 +73,7 @@ class Jet32 : NSObject, GCDAsyncUdpSocketDelegate {
                 var inValue: UInt = 0
                 
                 
-                // TODO: anhand ComRef die eigentliche Referenz herausfinden und den WErt zurückgeben
+                // TODO: anhand ComRef die eigentliche Referenz herausfinden und den Wert zurückgeben
                 if comRef != 0 {
 
                     let telegramID = UInt32(comRef)

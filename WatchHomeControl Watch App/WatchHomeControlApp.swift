@@ -12,6 +12,9 @@ import SwiftUI
 struct WatchHomeControl_Watch_AppApp: App {
     
     @StateObject var shutterList = ShutterList()
+
+    // Connectivity to iPhone
+    let connectivity = Connectivity.sharedInstance
     
     // Communication instance. Geht bei Watch nur über iPhone und WCSession ...
     let plcComMgr = PlcComMgr.sharedInstance

@@ -17,6 +17,7 @@ struct PLCView: View {
     // TODO: For Test. Starte Timer im Modus gestoppt und Zähle dann die Sekunden hoch
     @State private var currentSeconds = 0
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common)
+
     
     var body: some View {
         //NavigationStack {
@@ -30,12 +31,12 @@ struct PLCView: View {
         .navigationBarTitleDisplayMode(.large)
 
         .onReceive(timer) { _ in
-            print("PLCView.onReceive(timer)")
+            //print("PLCView.onReceive(timer)")
             let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(PLCViewControllerTag.readSecond.rawValue))
         }
 
         // wird statt viewDidLoad verwendet
-        // TODO: Sollte lieber beim Start der App inmd beim Ändern der Settings einmalig gemacht werden
+        // TODO: Sollte lieber beim Start der App und beim Ändern der Settings einmalig gemacht werden
         .onAppear {
             print("PLCView.onAppear")
             homeControlConnection.setDelegate(delegate: self)
@@ -65,35 +66,7 @@ struct PLCView: View {
 
 extension PLCView: Jet32Delegate {
    
-    enum PLCViewControllerTag: UInt32 {
-        case readSecond
-        case readMinute
-        case readHour
-        case readHourShutterUp
-        case readMinuteShutterUp
-        case readHourShutterDown
-        case readMinuteShutterDown
-        case readHourShutterUpWeekend
-        case readMinuteShutterUpWeekend
-        
-        case readIsAutomaticBlind
-        case readIsAutomaticShutter
-        case readIsAutomaticSummerMode
 
-        case readIsSaunaOn
-        
-        case readCurrentStateNightDay
-        case readCurrentStateWind
-        case readCurrentStateLight
-        
-        case readUseSunsetSettings
-        case readSunsetHourForToday
-        case readSunsetMinuteForToday
-        case readSunsetOffsetInMin
-    }
-
-    
-    
     func didReceiveReadRegister(value: UInt, tag: UInt) {
         if let plcTag = PLCViewControllerTag(rawValue: UInt32(tag)) {
             switch (plcTag) {

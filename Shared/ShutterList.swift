@@ -37,7 +37,11 @@ enum Shutters: Int {
     HobbyRight
 }
 
-// used with rawValue
+// used with rawValue bzw. ShutterItem.ID
+let offsetFlagUp: UInt = 288              // offset for Flags up (Shutters.rawValue + offsetFlagUp = RealFlagUp)
+let offsetFlagDown: UInt = 256            // offset for Flags up (Shutters.rawValue + offsetFlagDwon = RealFlagDown)
+
+
 
 //MARK: implementation of ShutterList
 class ShutterList : NSObject, ObservableObject {

@@ -85,7 +85,14 @@ extension Jet32 : PlcDataAccessibleProtocol {
         
     }
     func setFlag(_ number: UInt, tag: UInt) {
+
+        // ohne PlcDataAccessEntry arbeiten
         
+        let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.setFlag, number: UInt32(number))
+        outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
+        print("setFlag \(number)")
+        // TODO: udpsocket ReceiveWithTimeOut?????
+
     }
     func clearFlag(_ number: UInt, tag: UInt) {
         

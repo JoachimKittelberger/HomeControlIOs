@@ -11,7 +11,11 @@ import Foundation
 
 
 class Jet32Watch : NSObject {
-    
+
+    // Connectivity tp iPhone
+    let connectivity = Connectivity.sharedInstance
+
+
     // singleton Zugriff ueber Jet32.sharedInstance
     static let sharedInstance = Jet32Watch()
     
@@ -75,7 +79,20 @@ extension Jet32Watch : PlcDataAccessibleProtocol {
     }
 
     func setFlag(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+        
+        // TODO: Test sending Message
+        let key = ConnectivityUserInfoKey.setFlag.rawValue
+        let message = [key: number]
+        connectivity.send(message: message,
+            replyHandler: nil,
+            errorHandler: nil
+            //errorHandler: { error in
+            //    print("Error sending message:", error)
+            //}
+        )
+
+        
     }
 
     func clearFlag(_ number: UInt, tag: UInt) {
