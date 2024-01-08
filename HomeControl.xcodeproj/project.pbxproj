@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		277DB6AD2B3C6FA700CA9A39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27C8769E1EE8450A00CD4A3F /* Assets.xcassets */; };
-		277DB6B42B3C97AE00CA9A39 /* ShutterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876AD1EE845DD00CD4A3F /* ShutterItem.swift */; };
-		277DB6B62B3C97D600CA9A39 /* ShutterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876AF1EE8463F00CD4A3F /* ShutterList.swift */; };
 		278999F42B44668F0099D60F /* ShutterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F32B44668F0099D60F /* ShutterList.swift */; };
 		278999F62B4467470099D60F /* ShutterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F52B4467470099D60F /* ShutterDetailView.swift */; };
 		278999F82B4468300099D60F /* PLCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F72B4468300099D60F /* PLCView.swift */; };
@@ -21,37 +18,14 @@
 		278999FF2B449C8D0099D60F /* PLCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F72B4468300099D60F /* PLCView.swift */; };
 		27899A002B449D010099D60F /* ShutterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F52B4467470099D60F /* ShutterDetailView.swift */; };
 		27899A012B449D960099D60F /* ShutterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF57222B4465FA00955FCD /* ShutterListView.swift */; };
-		278DCF811F72FA0B008DEFEA /* HomeControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278DCF801F72FA0B008DEFEA /* HomeControlTests.swift */; };
-		279261EF1FA4B02A0069FE47 /* Jet32+PlcDataAccessibleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279261EE1FA4B02A0069FE47 /* Jet32+PlcDataAccessibleProtocol.swift */; };
 		2798AA342B3C481F001F6258 /* WatchHomeControlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798AA332B3C481F001F6258 /* WatchHomeControlApp.swift */; };
 		2798AA382B3C4821001F6258 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2798AA372B3C4821001F6258 /* Assets.xcassets */; };
 		2798AA3B2B3C4821001F6258 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2798AA3A2B3C4821001F6258 /* Preview Assets.xcassets */; };
 		2798AA452B3C4821001F6258 /* WatchHomeControl_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798AA442B3C4821001F6258 /* WatchHomeControl_Watch_AppTests.swift */; };
 		2798AA4F2B3C4821001F6258 /* WatchHomeControl_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798AA4E2B3C4821001F6258 /* WatchHomeControl_Watch_AppUITests.swift */; };
 		2798AA512B3C4821001F6258 /* WatchHomeControl_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798AA502B3C4821001F6258 /* WatchHomeControl_Watch_AppUITestsLaunchTests.swift */; };
-		2798AA542B3C4821001F6258 /* WatchHomeControl.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2798AA312B3C481F001F6258 /* WatchHomeControl.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27A115202B44BEA900DF9B9E /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A1151C2B44BEA900DF9B9E /* GCDAsyncSocket.m */; };
 		27A115212B44BEA900DF9B9E /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A1151E2B44BEA900DF9B9E /* GCDAsyncUdpSocket.m */; };
-		27A115272B44BEE600DF9B9E /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A115232B44BEE600DF9B9E /* GCDAsyncSocket.m */; };
-		27A115282B44BEE600DF9B9E /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A115252B44BEE600DF9B9E /* GCDAsyncUdpSocket.m */; };
-		27A5E8531EEBE0BB005ABA8F /* Jet32DataTelegram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5E8521EEBE0BB005ABA8F /* Jet32DataTelegram.swift */; };
-		27B642631EF2F70800E485B1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B642621EF2F70800E485B1 /* SettingsViewController.swift */; };
-		27B642651EF429A600E485B1 /* PLCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B642641EF429A600E485B1 /* PLCViewController.swift */; };
-		27B642671EF43DD900E485B1 /* Jet32Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B642661EF43DD900E485B1 /* Jet32Delegate.swift */; };
-		27BFA7DC2371E4CC00D2D0AB /* NWConnectionDemoClientServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BFA7DB2371E4CC00D2D0AB /* NWConnectionDemoClientServer.swift */; };
-		27C33A26225E3EF900C9AB16 /* Jet32NW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C33A25225E3EF900C9AB16 /* Jet32NW.swift */; };
-		27C33A28225E406700C9AB16 /* Jet32NW+PlcDataAccessibleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C33A27225E406700C9AB16 /* Jet32NW+PlcDataAccessibleProtocol.swift */; };
-		27C79FFC1F2A344100928A31 /* appdefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27C79FFB1F2A344100928A31 /* appdefaults.plist */; };
-		27C876981EE8450A00CD4A3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876971EE8450A00CD4A3F /* AppDelegate.swift */; };
-		27C8769D1EE8450A00CD4A3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27C8769B1EE8450A00CD4A3F /* Main.storyboard */; };
-		27C8769F1EE8450A00CD4A3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27C8769E1EE8450A00CD4A3F /* Assets.xcassets */; };
-		27C876A21EE8450A00CD4A3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27C876A01EE8450A00CD4A3F /* LaunchScreen.storyboard */; };
-		27C876B21EE84B0400CD4A3F /* ShutterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876B11EE84B0400CD4A3F /* ShutterTableViewController.swift */; };
-		27C876B41EE8586F00CD4A3F /* ShutterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876B31EE8586F00CD4A3F /* ShutterTableViewCell.swift */; };
-		27C876B61EE92BBA00CD4A3F /* Jet32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876B51EE92BBA00CD4A3F /* Jet32.swift */; };
-		27C876BC1EE969AE00CD4A3F /* Jet32GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876BB1EE969AE00CD4A3F /* Jet32GlobalVariables.swift */; };
-		27C876C81EEAB08900CD4A3F /* ShutterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876C71EEAB08900CD4A3F /* ShutterDetailViewController.swift */; };
-		27C876CA1EEAFF8500CD4A3F /* Data+hexEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C876C91EEAFF8500CD4A3F /* Data+hexEncodedString.swift */; };
 		27D48A6D2B45BFCB00572FA1 /* Data+hexEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D48A652B45BFCB00572FA1 /* Data+hexEncodedString.swift */; };
 		27D48A6E2B45BFCB00572FA1 /* Jet32Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D48A662B45BFCB00572FA1 /* Jet32Delegate.swift */; };
 		27D48A6F2B45BFCB00572FA1 /* PlcDataAccessibleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D48A672B45BFCB00572FA1 /* PlcDataAccessibleDelegate.swift */; };
@@ -79,9 +53,6 @@
 		27D48A982B482CAC00572FA1 /* ConnectivityUserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D48A962B482CAC00572FA1 /* ConnectivityUserInfoKey.swift */; };
 		27D48A9A2B485D7500572FA1 /* PLCViewControllerTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D48A992B485D7500572FA1 /* PLCViewControllerTag.swift */; };
 		27D48A9B2B485D7500572FA1 /* PLCViewControllerTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D48A992B485D7500572FA1 /* PLCViewControllerTag.swift */; };
-		27EEB5B41F890FE00033427E /* PlcDataAccessibleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EEB5B31F890FE00033427E /* PlcDataAccessibleProtocol.swift */; };
-		27EEB5B61F8917F40033427E /* PlcDataAccessibleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EEB5B51F8917F40033427E /* PlcDataAccessibleDelegate.swift */; };
-		27EEB5B81F8919540033427E /* PlcDataAccessEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EEB5B71F8919540033427E /* PlcDataAccessEntry.swift */; };
 		27FF57172B4464EC00955FCD /* HomeControl2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF57162B4464EC00955FCD /* HomeControl2App.swift */; };
 		27FF57192B4464EC00955FCD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF57182B4464EC00955FCD /* ContentView.swift */; };
 		27FF571B2B4464EE00955FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27FF571A2B4464EE00955FCD /* Assets.xcassets */; };
@@ -91,13 +62,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		278DCF831F72FA0B008DEFEA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 27C8768C1EE8450A00CD4A3F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 27C876931EE8450A00CD4A3F;
-			remoteInfo = HomeControl;
-		};
 		2798AA412B3C4821001F6258 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 27C8768C1EE8450A00CD4A3F /* Project object */;
@@ -122,17 +86,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2798AA552B3C4821001F6258 /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				2798AA542B3C4821001F6258 /* WatchHomeControl.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		27D48A8F2B481E1F00572FA1 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,10 +104,6 @@
 		278999F52B4467470099D60F /* ShutterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShutterDetailView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		278999F72B4468300099D60F /* PLCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLCView.swift; sourceTree = "<group>"; };
 		278999F92B4468340099D60F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		278DCF7E1F72FA0B008DEFEA /* HomeControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		278DCF801F72FA0B008DEFEA /* HomeControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControlTests.swift; sourceTree = "<group>"; };
-		278DCF821F72FA0B008DEFEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		279261EE1FA4B02A0069FE47 /* Jet32+PlcDataAccessibleProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Jet32+PlcDataAccessibleProtocol.swift"; sourceTree = "<group>"; };
 		2798AA312B3C481F001F6258 /* WatchHomeControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchHomeControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2798AA332B3C481F001F6258 /* WatchHomeControlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHomeControlApp.swift; sourceTree = "<group>"; };
 		2798AA372B3C4821001F6258 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -169,34 +118,6 @@
 		27A1151D2B44BEA900DF9B9E /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
 		27A1151E2B44BEA900DF9B9E /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		27A1151F2B44BEA900DF9B9E /* HomeControl-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HomeControl-Bridging-Header.h"; sourceTree = "<group>"; };
-		27A115222B44BEE600DF9B9E /* HomeControl-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HomeControl-Bridging-Header.h"; sourceTree = "<group>"; };
-		27A115232B44BEE600DF9B9E /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
-		27A115242B44BEE600DF9B9E /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
-		27A115252B44BEE600DF9B9E /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
-		27A115262B44BEE600DF9B9E /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
-		27A5E8521EEBE0BB005ABA8F /* Jet32DataTelegram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jet32DataTelegram.swift; sourceTree = "<group>"; };
-		27B642621EF2F70800E485B1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		27B642641EF429A600E485B1 /* PLCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLCViewController.swift; sourceTree = "<group>"; };
-		27B642661EF43DD900E485B1 /* Jet32Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jet32Delegate.swift; sourceTree = "<group>"; };
-		27BFA7DB2371E4CC00D2D0AB /* NWConnectionDemoClientServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NWConnectionDemoClientServer.swift; sourceTree = "<group>"; };
-		27C33A25225E3EF900C9AB16 /* Jet32NW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jet32NW.swift; sourceTree = "<group>"; };
-		27C33A27225E406700C9AB16 /* Jet32NW+PlcDataAccessibleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Jet32NW+PlcDataAccessibleProtocol.swift"; sourceTree = "<group>"; };
-		27C79FFB1F2A344100928A31 /* appdefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = appdefaults.plist; sourceTree = "<group>"; };
-		27C876941EE8450A00CD4A3F /* HomeControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		27C876971EE8450A00CD4A3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		27C8769C1EE8450A00CD4A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		27C8769E1EE8450A00CD4A3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		27C876A11EE8450A00CD4A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		27C876A31EE8450A00CD4A3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		27C876AD1EE845DD00CD4A3F /* ShutterItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShutterItem.swift; sourceTree = "<group>"; };
-		27C876AF1EE8463F00CD4A3F /* ShutterList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShutterList.swift; sourceTree = "<group>"; };
-		27C876B11EE84B0400CD4A3F /* ShutterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShutterTableViewController.swift; sourceTree = "<group>"; };
-		27C876B31EE8586F00CD4A3F /* ShutterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShutterTableViewCell.swift; sourceTree = "<group>"; };
-		27C876B51EE92BBA00CD4A3F /* Jet32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jet32.swift; sourceTree = "<group>"; };
-		27C876BB1EE969AE00CD4A3F /* Jet32GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jet32GlobalVariables.swift; sourceTree = "<group>"; };
-		27C876BD1EE96E4000CD4A3F /* TODO.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
-		27C876C71EEAB08900CD4A3F /* ShutterDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShutterDetailViewController.swift; sourceTree = "<group>"; };
-		27C876C91EEAFF8500CD4A3F /* Data+hexEncodedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+hexEncodedString.swift"; sourceTree = "<group>"; };
 		27D48A652B45BFCB00572FA1 /* Data+hexEncodedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+hexEncodedString.swift"; sourceTree = "<group>"; };
 		27D48A662B45BFCB00572FA1 /* Jet32Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jet32Delegate.swift; sourceTree = "<group>"; };
 		27D48A672B45BFCB00572FA1 /* PlcDataAccessibleDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlcDataAccessibleDelegate.swift; sourceTree = "<group>"; };
@@ -213,9 +134,6 @@
 		27D48A932B482BC200572FA1 /* Delivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delivery.swift; sourceTree = "<group>"; };
 		27D48A962B482CAC00572FA1 /* ConnectivityUserInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityUserInfoKey.swift; sourceTree = "<group>"; };
 		27D48A992B485D7500572FA1 /* PLCViewControllerTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLCViewControllerTag.swift; sourceTree = "<group>"; };
-		27EEB5B31F890FE00033427E /* PlcDataAccessibleProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlcDataAccessibleProtocol.swift; sourceTree = "<group>"; };
-		27EEB5B51F8917F40033427E /* PlcDataAccessibleDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlcDataAccessibleDelegate.swift; sourceTree = "<group>"; };
-		27EEB5B71F8919540033427E /* PlcDataAccessEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlcDataAccessEntry.swift; sourceTree = "<group>"; };
 		27FF57142B4464EC00955FCD /* HomeControl2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeControl2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FF57162B4464EC00955FCD /* HomeControl2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControl2App.swift; sourceTree = "<group>"; };
 		27FF57182B4464EC00955FCD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -226,13 +144,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		278DCF7B1F72FA0B008DEFEA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2798AA2E2B3C481F001F6258 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,13 +165,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		27C876911EE8450A00CD4A3F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		27FF57112B4464EC00955FCD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -271,15 +175,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		278DCF7F1F72FA0B008DEFEA /* HomeControlTests */ = {
-			isa = PBXGroup;
-			children = (
-				278DCF801F72FA0B008DEFEA /* HomeControlTests.swift */,
-				278DCF821F72FA0B008DEFEA /* Info.plist */,
-			);
-			path = HomeControlTests;
-			sourceTree = "<group>";
-		};
 		2798AA322B3C481F001F6258 /* WatchHomeControl Watch App */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,18 +211,6 @@
 			path = "WatchHomeControl Watch AppUITests";
 			sourceTree = "<group>";
 		};
-		27A115292B44BEF700DF9B9E /* Socket */ = {
-			isa = PBXGroup;
-			children = (
-				27A115262B44BEE600DF9B9E /* GCDAsyncSocket.h */,
-				27A115232B44BEE600DF9B9E /* GCDAsyncSocket.m */,
-				27A115242B44BEE600DF9B9E /* GCDAsyncUdpSocket.h */,
-				27A115252B44BEE600DF9B9E /* GCDAsyncUdpSocket.m */,
-				27A115222B44BEE600DF9B9E /* HomeControl-Bridging-Header.h */,
-			);
-			name = Socket;
-			sourceTree = "<group>";
-		};
 		27A1152A2B44BF1900DF9B9E /* Socket */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,8 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				27D48A8A2B481D3000572FA1 /* Shared */,
-				27C876961EE8450A00CD4A3F /* HomeControl */,
-				278DCF7F1F72FA0B008DEFEA /* HomeControlTests */,
 				2798AA322B3C481F001F6258 /* WatchHomeControl Watch App */,
 				2798AA432B3C4821001F6258 /* WatchHomeControl Watch AppTests */,
 				2798AA4D2B3C4821001F6258 /* WatchHomeControl Watch AppUITests */,
@@ -358,80 +239,12 @@
 		27C876951EE8450A00CD4A3F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				27C876941EE8450A00CD4A3F /* HomeControl.app */,
-				278DCF7E1F72FA0B008DEFEA /* HomeControlTests.xctest */,
 				2798AA312B3C481F001F6258 /* WatchHomeControl.app */,
 				2798AA402B3C4821001F6258 /* WatchHomeControl Watch AppTests.xctest */,
 				2798AA4A2B3C4821001F6258 /* WatchHomeControl Watch AppUITests.xctest */,
 				27FF57142B4464EC00955FCD /* HomeControl2.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		27C876961EE8450A00CD4A3F /* HomeControl */ = {
-			isa = PBXGroup;
-			children = (
-				27A115292B44BEF700DF9B9E /* Socket */,
-				27C876AB1EE8457200CD4A3F /* Model */,
-				27C876AC1EE8457900CD4A3F /* View */,
-				27C876AA1EE8456C00CD4A3F /* Controller */,
-				27C876A91EE8455400CD4A3F /* Resources */,
-				27C876BD1EE96E4000CD4A3F /* TODO.rtf */,
-			);
-			path = HomeControl;
-			sourceTree = "<group>";
-		};
-		27C876A91EE8455400CD4A3F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				27C8769E1EE8450A00CD4A3F /* Assets.xcassets */,
-				27C876A31EE8450A00CD4A3F /* Info.plist */,
-				27C79FFB1F2A344100928A31 /* appdefaults.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		27C876AA1EE8456C00CD4A3F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				27C876B11EE84B0400CD4A3F /* ShutterTableViewController.swift */,
-				27C876C71EEAB08900CD4A3F /* ShutterDetailViewController.swift */,
-				27B642621EF2F70800E485B1 /* SettingsViewController.swift */,
-				27B642641EF429A600E485B1 /* PLCViewController.swift */,
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
-		27C876AB1EE8457200CD4A3F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				27C876971EE8450A00CD4A3F /* AppDelegate.swift */,
-				27C876AD1EE845DD00CD4A3F /* ShutterItem.swift */,
-				27C876AF1EE8463F00CD4A3F /* ShutterList.swift */,
-				27C876B51EE92BBA00CD4A3F /* Jet32.swift */,
-				27C876BB1EE969AE00CD4A3F /* Jet32GlobalVariables.swift */,
-				27C876C91EEAFF8500CD4A3F /* Data+hexEncodedString.swift */,
-				27A5E8521EEBE0BB005ABA8F /* Jet32DataTelegram.swift */,
-				27B642661EF43DD900E485B1 /* Jet32Delegate.swift */,
-				27EEB5B31F890FE00033427E /* PlcDataAccessibleProtocol.swift */,
-				27EEB5B51F8917F40033427E /* PlcDataAccessibleDelegate.swift */,
-				27EEB5B71F8919540033427E /* PlcDataAccessEntry.swift */,
-				279261EE1FA4B02A0069FE47 /* Jet32+PlcDataAccessibleProtocol.swift */,
-				27C33A25225E3EF900C9AB16 /* Jet32NW.swift */,
-				27C33A27225E406700C9AB16 /* Jet32NW+PlcDataAccessibleProtocol.swift */,
-				27BFA7DB2371E4CC00D2D0AB /* NWConnectionDemoClientServer.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		27C876AC1EE8457900CD4A3F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				27C8769B1EE8450A00CD4A3F /* Main.storyboard */,
-				27C876A01EE8450A00CD4A3F /* LaunchScreen.storyboard */,
-				27C876B31EE8586F00CD4A3F /* ShutterTableViewCell.swift */,
-			);
-			name = View;
 			sourceTree = "<group>";
 		};
 		27D48A542B45BF6300572FA1 /* Jet32 */ = {
@@ -508,24 +321,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		278DCF7D1F72FA0B008DEFEA /* HomeControlTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 278DCF871F72FA0B008DEFEA /* Build configuration list for PBXNativeTarget "HomeControlTests" */;
-			buildPhases = (
-				278DCF7A1F72FA0B008DEFEA /* Sources */,
-				278DCF7B1F72FA0B008DEFEA /* Frameworks */,
-				278DCF7C1F72FA0B008DEFEA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				278DCF841F72FA0B008DEFEA /* PBXTargetDependency */,
-			);
-			name = HomeControlTests;
-			productName = HomeControlTests;
-			productReference = 278DCF7E1F72FA0B008DEFEA /* HomeControlTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		2798AA302B3C481F001F6258 /* WatchHomeControl Watch App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2798AA5C2B3C4821001F6258 /* Build configuration list for PBXNativeTarget "WatchHomeControl Watch App" */;
@@ -579,24 +374,6 @@
 			productReference = 2798AA4A2B3C4821001F6258 /* WatchHomeControl Watch AppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		27C876931EE8450A00CD4A3F /* HomeControl */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 27C876A61EE8450A00CD4A3F /* Build configuration list for PBXNativeTarget "HomeControl" */;
-			buildPhases = (
-				27C876901EE8450A00CD4A3F /* Sources */,
-				27C876911EE8450A00CD4A3F /* Frameworks */,
-				27C876921EE8450A00CD4A3F /* Resources */,
-				2798AA552B3C4821001F6258 /* Embed Watch Content */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = HomeControl;
-			productName = HomeControl;
-			productReference = 27C876941EE8450A00CD4A3F /* HomeControl.app */;
-			productType = "com.apple.product-type.application";
-		};
 		27FF57132B4464EC00955FCD /* HomeControl2 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27FF571F2B4464EE00955FCD /* Build configuration list for PBXNativeTarget "HomeControl2" */;
@@ -627,13 +404,6 @@
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Joachim Kittelberger";
 				TargetAttributes = {
-					278DCF7D1F72FA0B008DEFEA = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 4AW7RY7L4G;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 27C876931EE8450A00CD4A3F;
-					};
 					2798AA302B3C481F001F6258 = {
 						CreatedOnToolsVersion = 15.1;
 						DevelopmentTeam = FNGMABF4M4;
@@ -650,12 +420,6 @@
 						DevelopmentTeam = FNGMABF4M4;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2798AA302B3C481F001F6258;
-					};
-					27C876931EE8450A00CD4A3F = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = FNGMABF4M4;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
 					};
 					27FF57132B4464EC00955FCD = {
 						CreatedOnToolsVersion = 15.1;
@@ -678,8 +442,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				27C876931EE8450A00CD4A3F /* HomeControl */,
-				278DCF7D1F72FA0B008DEFEA /* HomeControlTests */,
 				2798AA302B3C481F001F6258 /* WatchHomeControl Watch App */,
 				2798AA3F2B3C4821001F6258 /* WatchHomeControl Watch AppTests */,
 				2798AA492B3C4821001F6258 /* WatchHomeControl Watch AppUITests */,
@@ -689,19 +451,11 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		278DCF7C1F72FA0B008DEFEA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2798AA2F2B3C481F001F6258 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2798AA3B2B3C4821001F6258 /* Preview Assets.xcassets in Resources */,
-				277DB6AD2B3C6FA700CA9A39 /* Assets.xcassets in Resources */,
 				2798AA382B3C4821001F6258 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -720,17 +474,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		27C876921EE8450A00CD4A3F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				27C79FFC1F2A344100928A31 /* appdefaults.plist in Resources */,
-				27C876A21EE8450A00CD4A3F /* LaunchScreen.storyboard in Resources */,
-				27C8769F1EE8450A00CD4A3F /* Assets.xcassets in Resources */,
-				27C8769D1EE8450A00CD4A3F /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		27FF57122B4464EC00955FCD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -743,14 +486,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		278DCF7A1F72FA0B008DEFEA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				278DCF811F72FA0B008DEFEA /* HomeControlTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2798AA2D2B3C481F001F6258 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -794,35 +529,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		27C876901EE8450A00CD4A3F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277DB6B62B3C97D600CA9A39 /* ShutterList.swift in Sources */,
-				27EEB5B41F890FE00033427E /* PlcDataAccessibleProtocol.swift in Sources */,
-				27C876BC1EE969AE00CD4A3F /* Jet32GlobalVariables.swift in Sources */,
-				27EEB5B61F8917F40033427E /* PlcDataAccessibleDelegate.swift in Sources */,
-				27C33A28225E406700C9AB16 /* Jet32NW+PlcDataAccessibleProtocol.swift in Sources */,
-				27C876C81EEAB08900CD4A3F /* ShutterDetailViewController.swift in Sources */,
-				27C876981EE8450A00CD4A3F /* AppDelegate.swift in Sources */,
-				27C876B41EE8586F00CD4A3F /* ShutterTableViewCell.swift in Sources */,
-				27C33A26225E3EF900C9AB16 /* Jet32NW.swift in Sources */,
-				277DB6B42B3C97AE00CA9A39 /* ShutterItem.swift in Sources */,
-				27BFA7DC2371E4CC00D2D0AB /* NWConnectionDemoClientServer.swift in Sources */,
-				27C876B21EE84B0400CD4A3F /* ShutterTableViewController.swift in Sources */,
-				27A115282B44BEE600DF9B9E /* GCDAsyncUdpSocket.m in Sources */,
-				27A115272B44BEE600DF9B9E /* GCDAsyncSocket.m in Sources */,
-				27B642671EF43DD900E485B1 /* Jet32Delegate.swift in Sources */,
-				27B642651EF429A600E485B1 /* PLCViewController.swift in Sources */,
-				27C876CA1EEAFF8500CD4A3F /* Data+hexEncodedString.swift in Sources */,
-				27A5E8531EEBE0BB005ABA8F /* Jet32DataTelegram.swift in Sources */,
-				27EEB5B81F8919540033427E /* PlcDataAccessEntry.swift in Sources */,
-				27B642631EF2F70800E485B1 /* SettingsViewController.swift in Sources */,
-				279261EF1FA4B02A0069FE47 /* Jet32+PlcDataAccessibleProtocol.swift in Sources */,
-				27C876B61EE92BBA00CD4A3F /* Jet32.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		27FF57102B4464EC00955FCD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -858,11 +564,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		278DCF841F72FA0B008DEFEA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 27C876931EE8450A00CD4A3F /* HomeControl */;
-			targetProxy = 278DCF831F72FA0B008DEFEA /* PBXContainerItemProxy */;
-		};
 		2798AA422B3C4821001F6258 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2798AA302B3C481F001F6258 /* WatchHomeControl Watch App */;
@@ -880,62 +581,7 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		27C8769B1EE8450A00CD4A3F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				27C8769C1EE8450A00CD4A3F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		27C876A01EE8450A00CD4A3F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				27C876A11EE8450A00CD4A3F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		278DCF851F72FA0B008DEFEA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 4AW7RY7L4G;
-				INFOPLIST_FILE = HomeControlTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.KibeSoft.HomeControlTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HomeControl.app/HomeControl";
-			};
-			name = Debug;
-		};
-		278DCF861F72FA0B008DEFEA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 4AW7RY7L4G;
-				INFOPLIST_FILE = HomeControlTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.KibeSoft.HomeControlTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HomeControl.app/HomeControl";
-			};
-			name = Release;
-		};
 		2798AA562B3C4821001F6258 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1252,51 +898,6 @@
 			};
 			name = Release;
 		};
-		27C876A71EE8450A00CD4A3F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = FNGMABF4M4;
-				INFOPLIST_FILE = HomeControl/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.Jetter.HomeControl;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "HomeControl/HomeControl-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		27C876A81EE8450A00CD4A3F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = FNGMABF4M4;
-				INFOPLIST_FILE = HomeControl/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.Jetter.HomeControl;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "HomeControl/HomeControl-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 		27FF57202B4464EE00955FCD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1387,15 +988,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		278DCF871F72FA0B008DEFEA /* Build configuration list for PBXNativeTarget "HomeControlTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				278DCF851F72FA0B008DEFEA /* Debug */,
-				278DCF861F72FA0B008DEFEA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2798AA5C2B3C4821001F6258 /* Build configuration list for PBXNativeTarget "WatchHomeControl Watch App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1428,15 +1020,6 @@
 			buildConfigurations = (
 				27C876A41EE8450A00CD4A3F /* Debug */,
 				27C876A51EE8450A00CD4A3F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		27C876A61EE8450A00CD4A3F /* Build configuration list for PBXNativeTarget "HomeControl" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				27C876A71EE8450A00CD4A3F /* Debug */,
-				27C876A81EE8450A00CD4A3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
