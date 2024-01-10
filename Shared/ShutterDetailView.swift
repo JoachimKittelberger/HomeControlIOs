@@ -38,10 +38,11 @@ struct ShutterDetailView: View {
                     #endif
                     print(shutterItem.name + " Up pressed")
 
+                    homeControlConnection.setDelegate(delegate: nil)
                     homeControlConnection.connect()
                     let _ = homeControlConnection.setFlag(offsetFlagUp + UInt(shutterItem.ID), tag: 0)       // Offset for Flags up
                     //let _ = homeControlConnection.setFlag(offsetFlagDown + UInt(shutterItem.ID), tag: 0)       // Offset for Flags down
-                    homeControlConnection.setDelegate(delegate: nil)
+                    //homeControlConnection.setDelegate(delegate: nil)
 
                     
  /*
@@ -74,11 +75,12 @@ struct ShutterDetailView: View {
                     Text("Auf")
                     #if os(iOS)
                         //.padding(.horizontal, 20)
-                        .padding(.vertical, 8)
-                        .frame(width: 100)
+                        .padding(.vertical, 16)
+                        .frame(width: 120)
                         .foregroundColor(.white)
-                        .background(.green)
-                        .cornerRadius(8)
+                        .background(.gray)
+                        .cornerRadius(16)
+                        .font(.title2)
                     #endif
                 }
                 #if os(iOS)
@@ -93,20 +95,22 @@ struct ShutterDetailView: View {
                     #endif
                     print(shutterItem.name + " Down pressed")
                     
+                    homeControlConnection.setDelegate(delegate: nil)
                     homeControlConnection.connect()
                     //let _ = homeControlConnection.setFlag(offsetFlagUp + UInt(shutterItem.ID), tag: 0)       // Offset for Flags up
                     let _ = homeControlConnection.setFlag(offsetFlagDown + UInt(shutterItem.ID), tag: 0)       // Offset for Flags down
-                    homeControlConnection.setDelegate(delegate: nil)
+                    //homeControlConnection.setDelegate(delegate: nil)
 
                 } label: {
                     Text("Ab")
                     #if os(iOS)
                         //.padding(.horizontal, 20)
-                        .padding(.vertical, 8)
-                        .frame(width: 100)
+                        .padding(.vertical, 16)
+                        .frame(width: 120)
                         .foregroundColor(.white)
-                        .background(.green)
-                        .cornerRadius(8)
+                        .background(.gray)
+                        .cornerRadius(16)
+                        .font(.title2)
                     #endif
                 }
                 #if os(iOS)

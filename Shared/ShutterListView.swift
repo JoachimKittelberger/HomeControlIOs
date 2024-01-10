@@ -12,9 +12,10 @@ import SwiftUI
 
 struct ShutterListView: View {
     @EnvironmentObject private var shutterListModel: ShutterList
+    @Binding var selectedTab: Int
     
     var body: some View {
-        NavigationStack {
+        //NavigationStack {
             List {
                 ForEach($shutterListModel.items) { $item in
                     NavigationLink(destination: ShutterDetailView(shutterItem: item)) {
@@ -35,44 +36,62 @@ struct ShutterListView: View {
             .navigationTitle("Rolläden")
 //            .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitleDisplayMode(.large)
-            #if os(watchOS)
-                //.listStyle(.plain)               // nur für watchOS
-                .listStyle(.elliptical)               // nur für watchOS
-            #endif
+        #if os(watchOS)
+            //.listStyle(.plain)               // nur für watchOS
+            .listStyle(.elliptical)               // nur für watchOS
+        #endif
 
-            // damit werden ... für den Tab-Switcher angezeigt, ohne Überlappung durch die Liste
-            #if os(iOS)
-                .padding(.bottom, 50)
-            #endif
-            #if os(watchOS)
-                .padding(.bottom, 1)
-            #endif
+        // damit werden ... für den Tab-Switcher angezeigt, ohne Überlappung durch die Liste
+        #if os(iOS)
+            .padding(.bottom, 50)
+        #endif
+        #if os(watchOS)
+            .padding(.bottom, 1)
+        #endif
 
 
             .toolbar {
+                // Toolbarbutton for all blinds up
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
+                    #if os(watchOS)
                         // Perform an action here.
 //                        WKInterfaceDevice.current().play(.click)          // just vibrate
-                        #if os(watchOS)
-                            WKInterfaceDevice.current().play(.start)            // play sound and vibrate
-                        #endif
-                        print("Open all Windows pressed")
+                        WKInterfaceDevice.current().play(.start)            // play sound and vibrate
+                    #endif
+                        print("Open all blinds pressed")
+
+                        let homeControlConnection = PlcComMgr.sharedInstance
+
+                        homeControlConnection.setDelegate(delegate: nil)
+                        homeControlConnection.connect()
+                        let _ = homeControlConnection.setFlag(offsetFlagUp + UInt(Shutters.BlindLeft.rawValue), tag: 0)       // Offset for Flags up
+                        let _ = homeControlConnection.setFlag(offsetFlagUp + UInt(Shutters.BlindMiddle.rawValue), tag: 0)       // Offset for Flags up
+                        let _ = homeControlConnection.setFlag(offsetFlagUp + UInt(Shutters.BlindRight.rawValue), tag: 0)       // Offset for Flags up
+                        //homeControlConnection.setDelegate(delegate: nil)
                     } label: {
-                        Image(systemName:"window.shade.open")
-                        
+                        Image(systemName:"blinds.horizontal.open")
                     }
                 }
+                // Toolbarbutton for all blinds down
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                    #if os(watchOS)
                         // Perform an action here.
 //                        WKInterfaceDevice.current().play(.click)          // just vibrate
-                        #if os(watchOS)
-                            WKInterfaceDevice.current().play(.start)            // play sound and vibrate
-                        #endif
-                        print("Close alle Windows pressed")
+                        WKInterfaceDevice.current().play(.start)            // play sound and vibrate
+                    #endif
+                        print("Close alle blinds pressed")
+                        let homeControlConnection = PlcComMgr.sharedInstance
+
+                        homeControlConnection.setDelegate(delegate: nil)
+                        homeControlConnection.connect()
+                        let _ = homeControlConnection.setFlag(offsetFlagDown + UInt(Shutters.BlindLeft.rawValue), tag: 0)       // Offset for Flags down
+                        let _ = homeControlConnection.setFlag(offsetFlagDown + UInt(Shutters.BlindMiddle.rawValue), tag: 0)       // Offset for Flags down
+                        let _ = homeControlConnection.setFlag(offsetFlagDown + UInt(Shutters.BlindRight.rawValue), tag: 0)       // Offset for Flags down
+                        //homeControlConnection.setDelegate(delegate: nil)
                     } label: {
-                        Image(systemName:"window.shade.closed")
+                        Image(systemName:"blinds.horizontal.closed")
                     }
                 }
                 /*               ToolbarItemGroup(placement: .bottomBar) {
@@ -99,17 +118,27 @@ struct ShutterListView: View {
                  */
             }
 
-
-        }
+            .onChange(of: selectedTab) { oldTab, newTab in
+                print("ShutterListView.onChange: Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
+                if (newTab == TabViews.ShutterListTab.rawValue) {
+                    print("ShutterListView Visible")
+                }
+                if (oldTab == TabViews.ShutterListTab.rawValue) {
+                    print("ShutterListView Invisible")
+                }
+            }
+        //}
 
     }
 }
 
 
 
+
+
 #Preview {
     let shutterList = ShutterList()
-    return ShutterListView()
+    return ShutterListView(selectedTab: .constant(1))
         .environmentObject(shutterList)
 }
 

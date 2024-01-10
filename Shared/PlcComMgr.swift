@@ -16,16 +16,6 @@ class PlcComMgr : NSObject {
     // private initializer for singleton
     private override init() {
         super.init()
-#if os(iOS)
-        // TODO: sollte aus UserDefault an einer anderen Stelle aufgerufen werden. sollte nur einmal aufgerufen werden
-        homeControlConnection.udpPortSend = UInt16(50000)
-        homeControlConnection.udpPortReceive = UInt16(50001)
-        homeControlConnection.host = "192.168.30.51"
-        homeControlConnection.timeoutJet32 = UInt16(2000)
-
-        //homeControlConnection.printSocketBindingInfo()
-        print("set Jet32 Settings to Instance")
-#endif
     }
     
     deinit {

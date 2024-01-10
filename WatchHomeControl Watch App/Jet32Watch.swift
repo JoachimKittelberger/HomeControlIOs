@@ -32,14 +32,17 @@ class Jet32Watch : NSObject {
     
     private var delegate:PlcDataAccessibleDelegate?
     func setDelegate(delegate: PlcDataAccessibleDelegate?) {
-        self.delegate = delegate
-        
+        // Wenn schon ein anderes delegate existiert, darf die queue gelöscht werden
+        if (!(self.delegate == nil)) {
+            //clearPlcDataAccessQueue()
+        }
         // wenn sich niemand mehr dafür interessiert, darf die queue gelöscht werden
         if (delegate == nil) {
             //clearPlcDataAccessQueue()
         }
+        self.delegate = delegate
         
-        print("Jet32Watch.PlcDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
+ //       print("Jet32Watch.PlcDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
     }
 
     // TODO: insert this in protocol

@@ -9,21 +9,73 @@
 import SwiftUI
 
 
+// Wird für Handling der Anzeige der Tabs bebötigt
+// das Enum als Tag() der View mitgeben. In $selectedTab wird dann immer der aktuell
+// angezeigte Tab geschrieben
+// mit     .onChange(of: selectedTab) { oldTab, newTab in
+//         }
+// kann dann auf die Änderung der Tab-Anzeige in der jeweiligen View reagiert werden
+enum TabViews : Int {
+    case NoTab = 0
+    case ShutterListTab
+    case StatusViewTab
+    case PLCViewTab
+    case SettingsViewTab
+}
+
+
+
+
+
 struct ContentView: View {
 
+    @State private var selectedTab = TabViews.NoTab.rawValue
+    
+    
     var body: some View {
         NavigationStack {       // wird hier benötigt, damit in den ShutterDetailView nicht navigiert werden kann.
-            TabView {
-                ShutterListView()
-                PLCView()
-                SettingsView()
+            TabView(selection: $selectedTab) {
+                ShutterListView(selectedTab: $selectedTab)
+                    .tabItem {
+                        Image(systemName:"xserve")
+                        Text("Rolläden")
+                    }
+                    .tag(TabViews.ShutterListTab.rawValue)
+                StatusView(selectedTab: $selectedTab)
+                    .tabItem {
+                        Image(systemName:"xserve")
+                        Text("Status")
+                    }
+                    .tag(TabViews.StatusViewTab.rawValue)
+                PLCView(selectedTab: $selectedTab)
+                    .tabItem {
+                        Image(systemName:"xserve")
+                        Text("Steuerung")
+                    }
+                    .tag(TabViews.PLCViewTab.rawValue)
+    #if os(iOS)
+                SettingsView(selectedTab: $selectedTab)
+                    .tabItem {
+                        Image(systemName:"xserve")
+                        Text("Einstellungen")
+                    }
+                    .tag(TabViews.SettingsViewTab.rawValue)
+    #endif
             }
+//#if os(watchOS)
             .tabViewStyle(.page)
-//        .tabViewStyle(.verticalPage)
+//#endif
+#if os(iOS)
+            //.tabViewStyle(PageTabViewStyle())
+            //.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+#endif
 
+            
 //            #if os(watchOS)
 //                .containerBackground(.gray.gradient, for: .navigation)
 //            #endif
+        
+        
         }
  
     #if os(iOS)
@@ -31,19 +83,27 @@ struct ContentView: View {
         //.background(.red)
     #endif
 
+        .onChange(of: selectedTab) { oldTab, newTab in
+            print("ContentView.onChange: Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
+        }
+
+        /*
         // wird statt viewDidLoad verwendet
-        // TODO: Sollte lieber beim Start der App inmd beim Ändern der Settings einmalig gemacht werden
         .onAppear {
-            print("ContentView.onAppear")
+            print("ContentView.onAppear tab \(selectedTab)")
         }
         .onDisappear() {
             print("ContentView.onDisappear")
         }
+         */
         // used with own modifier
         .onViewDidLoad {
             // TODO: do something only one time in this closure
             // will be called after .onAppear
             print("ContentView.onViewDidLoad Modifier")
+            
+            // call .onChange for the first time the app starts
+            selectedTab = TabViews.ShutterListTab.rawValue
         }
    
 

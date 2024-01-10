@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2798AA302B3C481F001F6258"
+               BuildableName = "HomeControlW.app"
+               BlueprintName = "WatchHomeControl Watch App"
+               ReferencedContainer = "container:HomeControl.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "27FF57132B4464EC00955FCD"
                BuildableName = "HomeControl.app"
                BlueprintName = "HomeControl"
@@ -28,6 +42,30 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2798AA3F2B3C4821001F6258"
+               BuildableName = "WatchHomeControl Watch AppTests.xctest"
+               BlueprintName = "WatchHomeControl Watch AppTests"
+               ReferencedContainer = "container:HomeControl.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2798AA492B3C4821001F6258"
+               BuildableName = "WatchHomeControl Watch AppUITests.xctest"
+               BlueprintName = "WatchHomeControl Watch AppUITests"
+               ReferencedContainer = "container:HomeControl.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -43,9 +81,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "27FF57132B4464EC00955FCD"
-            BuildableName = "HomeControl.app"
-            BlueprintName = "HomeControl"
+            BlueprintIdentifier = "2798AA302B3C481F001F6258"
+            BuildableName = "HomeControlW.app"
+            BlueprintName = "WatchHomeControl Watch App"
             ReferencedContainer = "container:HomeControl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -60,9 +98,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "27FF57132B4464EC00955FCD"
-            BuildableName = "HomeControl.app"
-            BlueprintName = "HomeControl"
+            BlueprintIdentifier = "2798AA302B3C481F001F6258"
+            BuildableName = "HomeControlW.app"
+            BlueprintName = "WatchHomeControl Watch App"
             ReferencedContainer = "container:HomeControl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

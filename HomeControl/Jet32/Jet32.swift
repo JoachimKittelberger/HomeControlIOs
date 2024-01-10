@@ -28,14 +28,18 @@ class Jet32 : NSObject, GCDAsyncUdpSocketDelegate {
     
     private var delegate:PlcDataAccessibleDelegate?
     func setDelegate(delegate: PlcDataAccessibleDelegate?) {
-        self.delegate = delegate
-        
+        // Wenn schon ein anderes delegate existiert, darf die queue gelöscht werden
+        if (!(self.delegate == nil)) {
+            clearPlcDataAccessQueue()
+        }
         // wenn sich niemand mehr dafür interessiert, darf die queue gelöscht werden
         if (delegate == nil) {
             clearPlcDataAccessQueue()
         }
         
-        print("PlcDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
+        self.delegate = delegate
+        
+//        print("PlcDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
     }
         
     // socket settings

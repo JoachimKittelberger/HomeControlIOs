@@ -140,7 +140,7 @@ final class Connectivity: NSObject, ObservableObject {
 
                 homeControlConnection.connect()
                 let _ = homeControlConnection.setFlag(flagNumber, tag: 0)
-                homeControlConnection.setDelegate(delegate: nil)
+                //homeControlConnection.setDelegate(delegate: nil)
             }
         }
 #endif
