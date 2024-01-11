@@ -69,8 +69,19 @@ extension Jet32 : PlcDataAccessibleProtocol {
     
     
     func writeIntRegister(_ number: UInt, to value: Int, tag: UInt) {
+        // TODO: evtl. wird dies beim write gar nicht benötigt
+        // erzeuge einen neuen PlcDataAccessEntry und hänge diesen in die queue hinten rein
+//        let newEntry = PlcDataAccessEntry(type: .IntegerRegister, cmd: .write, comRef: UInt32(tag), number: UInt32(number), value: UInt32(value))
+//        PlcDataAccessQueue.append(newEntry)
+
         
+        //let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.writeIntRegister, number: UInt32(number), value: UInt32(value))
+        let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.writeVariable, number: UInt32(number), value: UInt32(value))
+        outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
+//        print("writeIntRegister \(number) with \(value)")
     }
+
+    
     
     func readFlag(_ number: UInt, tag: UInt) {
 

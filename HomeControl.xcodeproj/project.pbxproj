@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2738DBB82B50536F008E4911 /* OperatorOverloadBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738DBB72B50536F008E4911 /* OperatorOverloadBinding.swift */; };
+		2738DBB92B50536F008E4911 /* OperatorOverloadBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738DBB72B50536F008E4911 /* OperatorOverloadBinding.swift */; };
 		278999F42B44668F0099D60F /* ShutterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F32B44668F0099D60F /* ShutterList.swift */; };
 		278999F62B4467470099D60F /* ShutterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F52B4467470099D60F /* ShutterDetailView.swift */; };
 		278999F82B4468300099D60F /* PLCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F72B4468300099D60F /* PLCView.swift */; };
@@ -104,6 +106,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2738DBB72B50536F008E4911 /* OperatorOverloadBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorOverloadBinding.swift; sourceTree = "<group>"; };
 		278999F32B44668F0099D60F /* ShutterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShutterList.swift; sourceTree = "<group>"; };
 		278999F52B4467470099D60F /* ShutterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShutterDetailView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		278999F72B4468300099D60F /* PLCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLCView.swift; sourceTree = "<group>"; };
@@ -295,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				27D48A7E2B45DB8100572FA1 /* View+onViewDidLoad.swift */,
+				2738DBB72B50536F008E4911 /* OperatorOverloadBinding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -530,6 +534,7 @@
 				278999FB2B449C150099D60F /* ContentView.swift in Sources */,
 				27D48A852B46E25200572FA1 /* PlcDataAccessibleDelegate.swift in Sources */,
 				27D48A872B46EA8F00572FA1 /* Jet32Watch.swift in Sources */,
+				2738DBB82B50536F008E4911 /* OperatorOverloadBinding.swift in Sources */,
 				278999FD2B449C3C0099D60F /* ShutterItem.swift in Sources */,
 				27D48A802B45DB8600572FA1 /* View+onViewDidLoad.swift in Sources */,
 				27D48A892B4746DE00572FA1 /* Jet32Delegate.swift in Sources */,
@@ -592,6 +597,7 @@
 				27CE5D4B2B4D63ED00DE5297 /* View+hideKeyboard.swift in Sources */,
 				27D48A7F2B45DB8100572FA1 /* View+onViewDidLoad.swift in Sources */,
 				27FF57172B4464EC00955FCD /* HomeControl2App.swift in Sources */,
+				2738DBB92B50536F008E4911 /* OperatorOverloadBinding.swift in Sources */,
 				27D48A952B482BC200572FA1 /* Delivery.swift in Sources */,
 				27D48A9B2B485D7500572FA1 /* PLCViewControllerTag.swift in Sources */,
 			);

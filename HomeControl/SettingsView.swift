@@ -32,7 +32,7 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("Haus-Steuerung"), content: {
                     HStack {
-                        Image(systemName:"xserve")
+                        Image(systemName: "xserve")
                         Text("IP-Addresse")
                         TextField("Type here", text: $ipAddress)
                             .multilineTextAlignment(.trailing)
@@ -40,21 +40,21 @@ struct SettingsView: View {
 
                     }
                     HStack {
-                        Image(systemName:"menubar.arrow.up.rectangle")
+                        Image(systemName: "menubar.arrow.up.rectangle")
                         Text("Sendeport")
                         TextField("Type here", value: $sendPort, formatter: formatter)
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
                     }
                     HStack {
-                        Image(systemName:"menubar.arrow.down.rectangle")
+                        Image(systemName: "menubar.arrow.down.rectangle")
                         Text("Empfangsport")
                         TextField("Type here", value: $receivePort, formatter: formatter)
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
                     }
                     HStack {
-                        Image(systemName:"timer")
+                        Image(systemName: "stopwatch")
                         Text("Timeout")
                         TextField("Type here", value: $timeout, formatter: formatter)
                             .multilineTextAlignment(.trailing)

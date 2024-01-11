@@ -124,7 +124,7 @@ struct StatusView: View {
             Form {
                 Section(header: Text("Aktuelle Zustände"), content: {
                     HStack {
-                        Image(systemName:"xserve")
+                        Image(systemName: "sun.max")
                         Text("Status Sonne")
                         Spacer()
                         Text(lightState != nil ? lightState!.description: "unbekannt")
@@ -132,7 +132,7 @@ struct StatusView: View {
                     .foregroundStyle(lightState != nil ? .primary : .tertiary)
 
                     HStack {
-                        Image(systemName:"xserve")
+                        Image(systemName: "wind")
                         Text("Status Wind")
                         Spacer()
                         Text(windState != nil ? windState!.description: "unbekannt")
@@ -140,7 +140,7 @@ struct StatusView: View {
                     .foregroundStyle(windState != nil ? .primary : .tertiary)
 
                     HStack {
-                        Image(systemName:"xserve")
+                        Image(systemName: "moon.stars")
                         Text("Status Licht")
                         Spacer()
                         Text(nightDayState != nil ? nightDayState!.description: "unbekannt")
@@ -151,24 +151,25 @@ struct StatusView: View {
 
                 Section(header: Text("Sonnenuntergang"), content: {
                     HStack {
-                        Image(systemName:"xserve")
-                        Text("Offset SU (min)")
-                        Spacer()
-                        Text(sunsetOffset != nil ? "\(sunsetOffset!)" : "unbekannt")
-                    }
-                    .foregroundStyle(sunsetOffset != nil ? .primary : .tertiary)
-                    HStack {
-                        Image(systemName:"xserve")
-                        Text("Rolläden ab (SU)")
+                        Image(systemName: "sunset")
+                        Text("Sonnenuntergang")
                         Spacer()
                         Text(sunsetDownTime != nil ? "\(sunsetDownTime!)" : "00:00")
                     }
                     .foregroundStyle(sunsetDownTime != nil ? .primary : .tertiary)
+
+                    HStack {
+                        Image(systemName: "timer")
+                        Text("+/- min Rolladen ab")
+                        Spacer()
+                        Text(sunsetOffset != nil ? "\(sunsetOffset!)" : "unbekannt")
+                    }
+                    .foregroundStyle(sunsetOffset != nil ? .primary : .tertiary)
                 })
                 
                 Section(header: Text("Uhrzeit Steuerung"), content: {
                     HStack {
-                        Image(systemName:"xserve")
+                        Image(systemName: "clock")
                         Text("Aktuelle Zeit")
                         Spacer()
                         Text(currentTime != nil ? "\(currentTime!)" : "00:00:00")
@@ -261,16 +262,6 @@ extension StatusView: Jet32Delegate {
             case .readMinuteShutterUpWeekend:
                 print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
 
-            case .readIsAutomaticBlind:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
-            case .readIsAutomaticShutter:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
-            case .readIsAutomaticSummerMode:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
-
-            case .readIsSaunaOn:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
-
             case .readCurrentStateNightDay:
                 nightDayState = NightDayState(rawValue: Int(value))
             case .readCurrentStateWind:
@@ -278,8 +269,6 @@ extension StatusView: Jet32Delegate {
             case .readCurrentStateLight:
                 lightState = LightState(rawValue: Int(value))
 
-            case .readUseSunsetSettings:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
             case .readSunsetHourForToday:
                 sunsetDownHour = Int(value)
                 setSunsetDownTimeString()
@@ -288,10 +277,11 @@ extension StatusView: Jet32Delegate {
                 setSunsetDownTimeString()
             case .readSunsetOffsetInMin:
                 sunsetOffset = Int(value)
+
             default:
-                print("Error: didReceiveReadRegister no case for tag \(tag)")
+                print("Error: StatusView.didReceiveReadRegister no case for tag \(tag)")
             }
-            print("didReceiveReadRegister \(value) \(tag)")
+            //print("didReceiveReadRegister \(value) \(tag)")
         }
     }
 
@@ -301,14 +291,23 @@ extension StatusView: Jet32Delegate {
         if let plcTag = PLCViewControllerTag(rawValue: UInt32(tag)) {
             
             switch (plcTag) {
-                
-            //case .readUseSunsetSettings:
-                //useSunsetSettings.setOn(value, animated: false)
+            case .readIsAutomaticBlind:
+                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+            case .readIsAutomaticShutter:
+                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+            case .readIsAutomaticSummerMode:
+                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+
+            case .readIsSaunaOn:
+                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+
+            case .readUseSunsetSettings:
+                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
 
             default:
-                print("Error: didReceiveReadFlag no case for tag \(tag)")
+                print("Error: StatusView.didReceiveReadFlag no case for tag \(tag)")
             }
-            print("didReceiveReadFlag \(value) \(tag)")
+            //print("StatusView.didReceiveReadFlag \(value) \(tag)")
         }
         
     }
@@ -372,10 +371,6 @@ extension StatusView: PlcDataAccessibleDelegate {
     }
 
 }
-
-
-
-
 
 
 

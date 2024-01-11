@@ -37,26 +37,26 @@ struct ContentView: View {
             TabView(selection: $selectedTab) {
                 ShutterListView(selectedTab: $selectedTab)
                     .tabItem {
-                        Image(systemName:"xserve")
+                        Image(systemName: "window.shade.open")
                         Text("Rolläden")
                     }
                     .tag(TabViews.ShutterListTab.rawValue)
                 StatusView(selectedTab: $selectedTab)
                     .tabItem {
-                        Image(systemName:"xserve")
+                        Image(systemName: "bell")
                         Text("Status")
                     }
                     .tag(TabViews.StatusViewTab.rawValue)
                 PLCView(selectedTab: $selectedTab)
                     .tabItem {
-                        Image(systemName:"xserve")
+                        Image(systemName: "switch.2")
                         Text("Steuerung")
                     }
                     .tag(TabViews.PLCViewTab.rawValue)
     #if os(iOS)
                 SettingsView(selectedTab: $selectedTab)
                     .tabItem {
-                        Image(systemName:"xserve")
+                        Image(systemName: "gear")
                         Text("Einstellungen")
                     }
                     .tag(TabViews.SettingsViewTab.rawValue)
