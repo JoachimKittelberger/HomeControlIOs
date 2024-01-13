@@ -20,9 +20,7 @@ extension Jet32 : PlcDataAccessibleProtocol {
         
         // erzeuge einen neuen PlcDataAccessEntry und hänge diesen in die queue hinten rein
         let newEntry = PlcDataAccessEntry(type: .IntegerRegister, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0)
-        
         PlcDataAccessQueue.append(newEntry)
- 
         
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.readVariable, number: newEntry.number, tag: newEntry.telegramID)
         outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
@@ -43,17 +41,12 @@ extension Jet32 : PlcDataAccessibleProtocol {
         
         // erzeuge einen neuen PlcDataAccessEntry und hänge diesen in die queue hinten rein
         let newEntry = PlcDataAccessEntry(type: .IntegerRegister, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0)
-        
         PlcDataAccessQueue.append(newEntry)
-        
         
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.readVariable, number: newEntry.number, tag: newEntry.telegramID)
         outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
         
-        var value: Int = 0
-        
-        
-        
+        let value: Int = 0
         
         
         
@@ -87,7 +80,6 @@ extension Jet32 : PlcDataAccessibleProtocol {
 
         // erzeuge einen neuen PlcDataAccessEntry und hänge diesen in die queue hinten rein
         let newEntry = PlcDataAccessEntry(type: .Flag, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0)
-        
         PlcDataAccessQueue.append(newEntry)
 
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.readFlag, number: newEntry.number, tag: newEntry.telegramID)
@@ -101,21 +93,38 @@ extension Jet32 : PlcDataAccessibleProtocol {
         
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.setFlag, number: UInt32(number))
         outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
-        print("setFlag \(number)")
+        //print("setFlag \(number)")
         // TODO: udpsocket ReceiveWithTimeOut?????
 
     }
     func clearFlag(_ number: UInt, tag: UInt) {
+
+        // ohne PlcDataAccessEntry arbeiten
         
+        let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.resetFlag, number: UInt32(number))
+        outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
+        //print("resetFlag \(number)")
+        // TODO: udpsocket ReceiveWithTimeOut?????
+
     }
     
+
     func readOutput(_ number: UInt, tag: UInt) {
-        
     }
     func setOutput(_ number: UInt, tag: UInt) {
-        
+        /*
+        let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.setOutput, number: UInt32(number))
+        outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
+        print("setOutput \(number)")
+        // TODO: udpsocket ReceiveWithTimeOut?????
+         */
+
     }
     func clearOutput(_ number: UInt, tag: UInt) {
-        
+/*
+        let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.clearOutput, number: UInt32(number))
+        outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
+        print("clearOutput \(number)")
+*/
     }
  }

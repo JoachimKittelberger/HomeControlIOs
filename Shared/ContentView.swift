@@ -21,6 +21,10 @@ enum TabViews : Int {
     case StatusViewTab
     case PLCViewTab
     case SettingsViewTab
+
+#if os(watchOS)
+    case TestConnectivityView = 15
+#endif
 }
 
 
@@ -30,11 +34,24 @@ enum TabViews : Int {
 struct ContentView: View {
 
     @State private var selectedTab = TabViews.NoTab.rawValue
-    
+
     
     var body: some View {
         NavigationStack {       // wird hier benötigt, damit in den ShutterDetailView nicht navigiert werden kann.
             TabView(selection: $selectedTab) {
+
+
+                // TODO: TEST: Um Connectivity auf Watch zu testen
+                // TODO: Remove also the setting of the first page below in code
+#if os(watchOS)
+            TestConnectivityView(selectedTab: $selectedTab)
+                .tabItem {
+                    Image(systemName: "wrench.and.screwdriver")
+                    Text("TestConnectivity")
+                }
+                .tag(TabViews.TestConnectivityView.rawValue)
+#endif
+
                 ShutterListView(selectedTab: $selectedTab)
                     .tabItem {
                         Image(systemName: "window.shade.open")
@@ -85,8 +102,17 @@ struct ContentView: View {
 
         .onChange(of: selectedTab) { oldTab, newTab in
             print("ContentView.onChange: Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
-        }
 
+
+            // TODO: just for Tests with connectivity
+#if os(watchOS)
+            // if its the first initialisation, navigate to shutterListTab
+            if (oldTab == TabViews.NoTab.rawValue) {
+                selectedTab = TabViews.TestConnectivityView.rawValue
+            }
+#endif
+
+        }
         /*
         // wird statt viewDidLoad verwendet
         .onAppear {
@@ -103,7 +129,7 @@ struct ContentView: View {
             print("ContentView.onViewDidLoad Modifier")
             
             // call .onChange for the first time the app starts
-            selectedTab = TabViews.ShutterListTab.rawValue
+            selectedTab = TabViews.ShutterListTab.rawValue          // because we need the first onChange also in ShutterListTab
         }
    
 

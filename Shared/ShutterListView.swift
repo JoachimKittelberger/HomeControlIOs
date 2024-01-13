@@ -138,7 +138,7 @@ struct ShutterListView: View {
 
 #Preview {
     let shutterList = ShutterList()
-    return ShutterListView(selectedTab: .constant(1))
+    return ShutterListView(selectedTab: .constant(TabViews.ShutterListTab.rawValue))
         .environmentObject(shutterList)
 }
 

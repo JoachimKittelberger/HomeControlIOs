@@ -1,5 +1,5 @@
 //
-//  PLCViewControllerTag.swift
+//  HomeControlControllerTag.swift
 //  HomeControl
 //
 //  Created by Joachim Kittelberger on 05.01.24.
@@ -9,8 +9,8 @@
 import Foundation
 
 
-enum PLCViewControllerTag: UInt32 {
-    case readSecond
+enum HomeControlControllerTag: UInt32 {
+    case readSecond = 1
     case readMinute
     case readHour
     case readHourShutterUp

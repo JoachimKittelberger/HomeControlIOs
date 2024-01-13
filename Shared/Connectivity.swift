@@ -9,6 +9,27 @@
 import Foundation
 import WatchConnectivity
 
+
+
+// TODO: Später wieder in separate Datei auslagern
+enum MessageType: String {
+    //case purchased
+    //case qrCodes
+    //case verified
+    case unknown
+    case readRegister
+    case getFlag
+    case writeRegister
+    case setFlag
+}
+
+
+
+
+
+
+
+
 final class Connectivity: NSObject, ObservableObject {
 
     // Platzhalter für received Data from peer
@@ -57,8 +78,8 @@ final class Connectivity: NSObject, ObservableObject {
     
     
     
-    
-    public func send(message: [String : Any], replyHandler: (([String: Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
+    // send Message with dictionary Data
+    public func sendMessage(_ message: [String : Any], replyHandler: (([String: Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
 
         guard canSendToPeer() else { return }
        
@@ -80,30 +101,30 @@ final class Connectivity: NSObject, ObservableObject {
         
         guard canSendToPeer() else { return }
         
-        var userInfo: [String: Int] = [
-            //ConnectivityUserInfoKey.purchased.rawValue: movieIds
-            ConnectivityUserInfoKey.readRegister.rawValue: regNumber
+        let message: [String: Int] = [
+            //MessageType.purchased.rawValue: movieIds
+            MessageType.readRegister.rawValue: regNumber
         ]
         
         //if let wantedQrCodes {
-        //    let key = ConnectivityUserInfoKey.qrCodes.rawValue
-        //    userInfo[key] = wantedQrCodes
+        //    let key = MessageType.qrCodes.rawValue
+        //    message[key] = wantedQrCodes
         //}
         
         switch delivery {
         case .failable:
-            WCSession.default.sendMessage(userInfo,
+            WCSession.default.sendMessage(message,
                 replyHandler: optionalMainQueueDispatch(handler: replyHandler),
                 errorHandler: optionalMainQueueDispatch(handler: errorHandler)
             )
             
         case .guaranteed:
-            WCSession.default.transferUserInfo(userInfo)
+            WCSession.default.transferUserInfo(message)
             // we will receive the data in session(_:didiReceiveUserInfo:)
             
         case .highPriority:
             do {
-                try WCSession.default.updateApplicationContext(userInfo)
+                try WCSession.default.updateApplicationContext(message)
             } catch {
                 errorHandler?(error)
             }
@@ -111,7 +132,7 @@ final class Connectivity: NSObject, ObservableObject {
     }
     
     
-    
+    // send Data-object
     public func send(data: Data, replyHandler: ((Data) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         guard canSendToPeer() else { return }
         
@@ -120,29 +141,88 @@ final class Connectivity: NSObject, ObservableObject {
             errorHandler: optionalMainQueueDispatch(handler: errorHandler)
         )
     }
-
     
   
     
-    
+    // this fuction will be called from the WCSessionDelegate.session callbacks
     private func update(from dictionary: [String: Any]) {
-        print("update data \(dictionary)")
+        //print("update data \(dictionary)")
 
 #if os(iOS)
         // prüfen auf key setFlag
         // auslesen der Nummer
         // das Flag dann setzen
-        for (key, value) in dictionary {
-            print("\(key) -> \(value)")
-            if (key == ConnectivityUserInfoKey.setFlag.rawValue) {
-                let flagNumber: UInt = UInt((value as AnyObject).integerValue)
-                let homeControlConnection = PlcComMgr.sharedInstance
+        
+        var msgType = MessageType.unknown
+        var number = UInt(0)
+        var value = Int(0)
+        var tag = UInt(0)
+        
+        
+        /*
+                "type": String(MessageType.readRegister.rawValue),
+                "number": String(number),
+                "value": String(0),
+                "tag": String(tag)
+     */
 
-                homeControlConnection.connect()
-                let _ = homeControlConnection.setFlag(flagNumber, tag: 0)
-                //homeControlConnection.setDelegate(delegate: nil)
+        for (key, val) in dictionary {
+            //print("\(key) -> \(val)")
+            
+            if (key == "type") {
+                msgType = MessageType(rawValue: (val as? String ?? MessageType.unknown.rawValue))!
+            }
+            if (key == "number") {
+                //number = Int(val) ?? 0
+                number = UInt((val as AnyObject).integerValue)
+            }
+            if (key == "value") {
+                value = (val as AnyObject).integerValue
+            }
+            if (key == "tag") {
+                tag = UInt((val as AnyObject).integerValue)
             }
         }
+
+        print("\(msgType.rawValue): (number: \(number), value: \(value), tag: \(tag))")
+        switch msgType {
+        case .unknown:
+            print("Error: msgType \(msgType.rawValue) foundd")
+
+        case .readRegister:
+            print("Error: msgType \(msgType.rawValue) not implemented")
+            let homeControlConnection = PlcComMgr.sharedInstance
+            homeControlConnection.connect()
+            let _ = homeControlConnection.readIntRegister(number, tag: tag)
+            //homeControlConnection.setDelegate(delegate: nil)
+
+        case .getFlag:
+            print("Error: msgType \(msgType.rawValue) not implemented")
+            let homeControlConnection = PlcComMgr.sharedInstance
+            homeControlConnection.connect()
+            let _ = homeControlConnection.readFlag(number, tag: tag)
+            //homeControlConnection.setDelegate(delegate: nil)
+
+        case .writeRegister:
+            let homeControlConnection = PlcComMgr.sharedInstance
+            homeControlConnection.connect()
+            let _ = homeControlConnection.writeIntRegister(number, to: value, tag: tag)
+            //homeControlConnection.setDelegate(delegate: nil)
+
+        case .setFlag:
+            let homeControlConnection = PlcComMgr.sharedInstance
+            homeControlConnection.connect()
+            if (value > 0) {
+                let _ = homeControlConnection.setFlag(number, tag: tag)
+                //print("setFlag \(number)")
+            } else {
+                let _ = homeControlConnection.clearFlag(number, tag: tag)
+                //print("resetFlag \(number)")
+            }
+            //homeControlConnection.setDelegate(delegate: nil)
+        }
+    
+ 
 #endif
 
 
@@ -152,7 +232,7 @@ final class Connectivity: NSObject, ObservableObject {
 #if os(iOS)
         //sendQrCodes(dictionary)
 #endif
-        let key = ConnectivityUserInfoKey.readRegister.rawValue
+        let key = MessageType.readRegister.rawValue
         guard let ids = dictionary[key] as? [Int] else {
             return
         }
@@ -185,7 +265,7 @@ final class Connectivity: NSObject, ObservableObject {
 #if os(iOS)
   public func sendQrCodes(_ data: [String: Any]) {
     // 1
-    let key = ConnectivityUserInfoKey.qrCodes.rawValue
+    let key = MessageType.qrCodes.rawValue
     guard let ids = data[key] as? [Int], !ids.isEmpty else { return }
     
     let tempDir = FileManager.default.temporaryDirectory
@@ -258,9 +338,9 @@ extension Connectivity: WCSessionDelegate {
     
     
     // when transfering vie transferUserInfo(_:), you receive it via this function
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+    func session(_ session: WCSession, didReceiveUserInfo message: [String: Any] = [:]) {
         print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-        update(from: userInfo)
+        update(from: message)
     }
   
 
@@ -268,9 +348,13 @@ extension Connectivity: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
         print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
         update(from: message)
+
+// TODO: hier Einsprungpunkt bei Funktionen, die einen Replyhandler angefordert haben
         
+        
+/*
 #if os(iOS)
-        //let key = ConnectivityUserInfoKey.verified.rawValue
+        //let key = MessageType.verified.rawValue
         //replyHandler([key: true])
         let homeControlConnection = PlcComMgr.sharedInstance
         homeControlConnection.connect()
@@ -278,16 +362,18 @@ extension Connectivity: WCSessionDelegate {
         
         // TODO: hier selber setzten und mit await warten???????
         //homeControlConnection.setDelegate(delegate: self)
-        let seconds = homeControlConnection.readIntRegisterSync(UInt(Jet32GlobalVariables.regSecond), tag: UInt(PLCViewControllerTag.readSecond.rawValue))
+        let seconds = homeControlConnection.readIntRegisterSync(UInt(Jet32GlobalVariables.regSecond), tag: UInt(HomeControlControllerTag.readSecond.rawValue))
 
         let replyMsg = ["Seconds": seconds]
         replyHandler(replyMsg)
 #endif
+  */
+        
     }
     
     // This method is called when a message is sent with failable priority and a reply was *not* requested.
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+        //print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
         update(from: message)
     }
     
@@ -303,7 +389,7 @@ extension Connectivity: WCSessionDelegate {
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
 /*
-        let key = ConnectivityUserInfoKey.qrCodes.rawValue
+        let key = MessageType.qrCodes.rawValue
         guard let id = file.metadata?[key] as? Int else {
             return
         }

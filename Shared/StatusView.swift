@@ -29,8 +29,8 @@ enum LightState: Int {
             return "dunkel"
         case .unknown:
             return "unbekannt"
-        default:
-            return "reserved"
+//        default:
+//            return "reserved"
         }
     }
 }
@@ -55,8 +55,8 @@ enum WindState: Int {
             return "kein Wind"
         case .unknown:
             return "unbekannt"
-        default:
-            return "reserved"
+//        default:
+//            return "reserved"
         }
     }
 }
@@ -82,8 +82,8 @@ enum NightDayState: Int {
             return "Nacht"
         case .unknown:
             return "unbekannt"
-        default:
-            return "reserved"
+//        default:
+//            return "reserved"
         }
     }
 }
@@ -186,9 +186,9 @@ struct StatusView: View {
         .onReceive(timer) { _ in
             //print("StatusView.onReceive(timer)")
             // read values for current time continuously
-            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(PLCViewControllerTag.readHour.rawValue))
-            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(PLCViewControllerTag.readMinute.rawValue))
-            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(PLCViewControllerTag.readSecond.rawValue))
+            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(HomeControlControllerTag.readHour.rawValue))
+            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(HomeControlControllerTag.readMinute.rawValue))
+            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(HomeControlControllerTag.readSecond.rawValue))
         }
 
         .onChange(of: selectedTab) { oldTab, newTab in
@@ -200,19 +200,19 @@ struct StatusView: View {
                 homeControlConnection.connect()
  
                 // read values for Status states
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regCurrentStateNightDay), tag: UInt(PLCViewControllerTag.readCurrentStateNightDay.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regCurrentStateWind), tag: UInt(PLCViewControllerTag.readCurrentStateWind.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regCurrentStateLight), tag: UInt(PLCViewControllerTag.readCurrentStateLight.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regCurrentStateNightDay), tag: UInt(HomeControlControllerTag.readCurrentStateNightDay.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regCurrentStateWind), tag: UInt(HomeControlControllerTag.readCurrentStateWind.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regCurrentStateLight), tag: UInt(HomeControlControllerTag.readCurrentStateLight.rawValue))
 
                 // read values for sunset
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSunsetHourForToday), tag: UInt(PLCViewControllerTag.readSunsetHourForToday.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSunsetMinuteForToday), tag: UInt(PLCViewControllerTag.readSunsetMinuteForToday.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSunsetOffsetInMin), tag: UInt(PLCViewControllerTag.readSunsetOffsetInMin.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSunsetHourForToday), tag: UInt(HomeControlControllerTag.readSunsetHourForToday.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSunsetMinuteForToday), tag: UInt(HomeControlControllerTag.readSunsetMinuteForToday.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSunsetOffsetInMin), tag: UInt(HomeControlControllerTag.readSunsetOffsetInMin.rawValue))
 
                 // read values for current time
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(PLCViewControllerTag.readHour.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(PLCViewControllerTag.readMinute.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(PLCViewControllerTag.readSecond.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(HomeControlControllerTag.readHour.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(HomeControlControllerTag.readMinute.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(HomeControlControllerTag.readSecond.rawValue))
             
                 // read current time every second
                 timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -236,7 +236,7 @@ extension StatusView: Jet32Delegate {
    
 
     func didReceiveReadRegister(value: UInt, tag: UInt) {
-        if let plcTag = PLCViewControllerTag(rawValue: UInt32(tag)) {
+        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
             switch (plcTag) {
 
             case .readSecond:
@@ -288,7 +288,7 @@ extension StatusView: Jet32Delegate {
     
     func didReceiveReadFlag(value: Bool, tag: UInt) {
         
-        if let plcTag = PLCViewControllerTag(rawValue: UInt32(tag)) {
+        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
             
             switch (plcTag) {
             case .readIsAutomaticBlind:
@@ -378,5 +378,5 @@ extension StatusView: PlcDataAccessibleDelegate {
 
 
 #Preview {
-    return StatusView(selectedTab: .constant(3))
+    return StatusView(selectedTab: .constant(TabViews.StatusViewTab.rawValue))
 }

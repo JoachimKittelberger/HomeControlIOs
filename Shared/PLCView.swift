@@ -105,7 +105,7 @@ struct PLCView: View {
                                 let calendar = Calendar.current
                                 upTimeHourWeekday = calendar.component(.hour, from: upTimeWeekDay)
                                 upTimeMinuteWeekday = calendar.component(.minute, from: upTimeWeekDay)
-                                print("new Time upTimeHourWeekday: \(upTimeHourWeekday!):\(upTimeMinuteWeekday!)")
+                                //print("new Time upTimeHourWeekday: \(upTimeHourWeekday!):\(upTimeMinuteWeekday!)")
                                 
                                 // write the new values to the plc
                                 let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHour), to: upTimeHourWeekday!, tag: 0)
@@ -136,7 +136,7 @@ struct PLCView: View {
                                 let calendar = Calendar.current
                                 downTimeHourWeekday = calendar.component(.hour, from: downTimeWeekDay)
                                 downTimeMinuteWeekday = calendar.component(.minute, from: downTimeWeekDay)
-                                print("new Time downTimeHourWeekday: \(downTimeHourWeekday!):\(downTimeMinuteWeekday!)")
+                                //print("new Time downTimeHourWeekday: \(downTimeHourWeekday!):\(downTimeMinuteWeekday!)")
                                 
                                 // write the new values to the plc
                                 let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeHour), to: downTimeHourWeekday!, tag: 0)
@@ -169,7 +169,7 @@ struct PLCView: View {
                                 let calendar = Calendar.current
                                 upTimeHourWeekend = calendar.component(.hour, from: upTimeWeekend)
                                 upTimeMinuteWeekend = calendar.component(.minute, from: upTimeWeekend)
-                                print("new Time upTimeWeekend: \(upTimeHourWeekend!):\(upTimeMinuteWeekend!)")
+                                //print("new Time upTimeWeekend: \(upTimeHourWeekend!):\(upTimeMinuteWeekend!)")
                                 
                                 // write the new values to the plc
                                 let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHourWeekend), to: upTimeHourWeekend!, tag: 0)
@@ -401,9 +401,9 @@ struct PLCView: View {
 
         .onReceive(timer) { _ in
             //print("PLCView.onReceive(timer)")
-            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(PLCViewControllerTag.readSecond.rawValue))
-            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(PLCViewControllerTag.readMinute.rawValue))
-            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(PLCViewControllerTag.readHour.rawValue))
+            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(HomeControlControllerTag.readSecond.rawValue))
+            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(HomeControlControllerTag.readMinute.rawValue))
+            let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(HomeControlControllerTag.readHour.rawValue))
         }
 
         // Problem, dass Button in Section dann nicht mehr erkannt wird
@@ -423,23 +423,23 @@ struct PLCView: View {
                 homeControlConnection.connect()
                 
                 // read all needed values from PLC once
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(PLCViewControllerTag.readSecond.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(PLCViewControllerTag.readMinute.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(PLCViewControllerTag.readHour.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(HomeControlControllerTag.readSecond.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(HomeControlControllerTag.readMinute.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(HomeControlControllerTag.readHour.rawValue))
 
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regUpTimeHour), tag: UInt(PLCViewControllerTag.readHourShutterUp.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinute), tag: UInt(PLCViewControllerTag.readMinuteShutterUp.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regDownTimeHour), tag: UInt(PLCViewControllerTag.readHourShutterDown.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regDownTimeMinute), tag: UInt(PLCViewControllerTag.readMinuteShutterDown.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regUpTimeHourWeekend), tag: UInt(PLCViewControllerTag.readHourShutterUpWeekend.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinuteWeekend), tag: UInt(PLCViewControllerTag.readMinuteShutterUpWeekend.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regUpTimeHour), tag: UInt(HomeControlControllerTag.readHourShutterUp.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinute), tag: UInt(HomeControlControllerTag.readMinuteShutterUp.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regDownTimeHour), tag: UInt(HomeControlControllerTag.readHourShutterDown.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regDownTimeMinute), tag: UInt(HomeControlControllerTag.readMinuteShutterDown.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regUpTimeHourWeekend), tag: UInt(HomeControlControllerTag.readHourShutterUpWeekend.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinuteWeekend), tag: UInt(HomeControlControllerTag.readMinuteShutterUpWeekend.rawValue))
 
-                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsAutomaticShutter), tag: UInt(PLCViewControllerTag.readIsAutomaticShutter.rawValue))
-                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsAutomaticSummerMode), tag: UInt(PLCViewControllerTag.readIsAutomaticSummerMode.rawValue))
-                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagUseSunsetSettings), tag: UInt(PLCViewControllerTag.readUseSunsetSettings.rawValue))
-                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSunsetOffsetInMin), tag: UInt(PLCViewControllerTag.readSunsetOffsetInMin.rawValue))
-                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsAutomaticBlind), tag: UInt(PLCViewControllerTag.readIsAutomaticBlind.rawValue))
-                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsSaunaOn), tag: UInt(PLCViewControllerTag.readIsSaunaOn.rawValue))
+                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsAutomaticShutter), tag: UInt(HomeControlControllerTag.readIsAutomaticShutter.rawValue))
+                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsAutomaticSummerMode), tag: UInt(HomeControlControllerTag.readIsAutomaticSummerMode.rawValue))
+                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagUseSunsetSettings), tag: UInt(HomeControlControllerTag.readUseSunsetSettings.rawValue))
+                let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSunsetOffsetInMin), tag: UInt(HomeControlControllerTag.readSunsetOffsetInMin.rawValue))
+                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsAutomaticBlind), tag: UInt(HomeControlControllerTag.readIsAutomaticBlind.rawValue))
+                let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsSaunaOn), tag: UInt(HomeControlControllerTag.readIsSaunaOn.rawValue))
 
 
                 timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -490,7 +490,7 @@ struct PLCView: View {
 extension PLCView: Jet32Delegate {
 
     func didReceiveReadRegister(value: UInt, tag: UInt) {
-        if let plcTag = PLCViewControllerTag(rawValue: UInt32(tag)) {
+        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
             switch (plcTag) {
             case .readSecond:
                 currentSecond = Int(value)
@@ -547,7 +547,7 @@ extension PLCView: Jet32Delegate {
     
     func didReceiveReadFlag(value: Bool, tag: UInt) {
         
-        if let plcTag = PLCViewControllerTag(rawValue: UInt32(tag)) {
+        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
             
             switch (plcTag) {
             case .readIsAutomaticBlind:
@@ -609,8 +609,8 @@ extension PLCView: Jet32Delegate {
 
         // Create a new date using the modified components
         if let newDate = calendar.date(from: newComponents) {
-            print("Existing Date: \(currentDate)")
-            print("Modified Date: \(newDate)")
+            //print("Existing Date: \(currentDate)")
+            //print("Modified Date: \(newDate)")
             return newDate
         } else {
             print("Error creating modified date.")
@@ -633,7 +633,7 @@ extension PLCView: Jet32Delegate {
 extension PLCView: PlcDataAccessibleDelegate {
     func didRedeiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
         print("didRedeiveReadIntRegister(tag: \(tag)): \(number): \(value)")
-        
+ 
         didReceiveReadRegister(value: UInt(value), tag: tag)
     }
     
@@ -653,7 +653,6 @@ extension PLCView: PlcDataAccessibleDelegate {
     func didRedeiveClearFlag(_ number: UInt, tag: UInt) {
         print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    
     func didRedeiveReadOutput(_ number: UInt, with value: Bool, tag: UInt) {
         print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
@@ -672,7 +671,7 @@ extension PLCView: PlcDataAccessibleDelegate {
 
 
 #Preview {
-    return PLCView(selectedTab: .constant(3))
+    return PLCView(selectedTab: .constant(TabViews.PLCViewTab.rawValue))
 }
 
 

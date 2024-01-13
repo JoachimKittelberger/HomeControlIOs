@@ -127,5 +127,5 @@ struct SettingsView: View {
 
 
 #Preview {
-    return SettingsView(selectedTab: .constant(4))
+    return SettingsView(selectedTab: .constant(TabViews.SettingsViewTab.rawValue))
 }
