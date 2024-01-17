@@ -12,8 +12,8 @@ import Foundation
 
 class Jet32 : NSObject {
 
-    // singleton Zugriff ueber Jet32.sharedInstance
-    static let sharedInstance = Jet32()
+    // singleton Zugriff ueber Jet32.shared
+    static let shared = Jet32()
     
     // private initializer for singleton
     private override init() {
@@ -21,14 +21,14 @@ class Jet32 : NSObject {
     }
     
     deinit {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
         disconnect()
     }
 
     
     
-    private(set) var delegate:PlcDataAccessibleDelegate?
-    func setDelegate(delegate: PlcDataAccessibleDelegate?) {
+    private(set) var delegate:PLCDataAccessibleDelegate?
+    func setDelegate(delegate: PLCDataAccessibleDelegate?) {
         // Wenn schon ein anderes delegate existiert, darf die queue gelöscht werden
         if (!(self.delegate == nil)) {
             clearPlcDataAccessQueue()
@@ -39,7 +39,7 @@ class Jet32 : NSObject {
         }
         
         self.delegate = delegate
-//        print("PlcDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
+//        print("PLCDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
     }
 
     
@@ -57,7 +57,7 @@ class Jet32 : NSObject {
     var isConnected : Bool = false     // TODO: mit Timeout-Überprüfung bei SyncCalls
     
     // TODO communication with Queue
-    var PlcDataAccessQueue = [PlcDataAccessEntry]()
+    var PlcDataAccessQueue = [PLCDataAccessEntry]()
     
     
  

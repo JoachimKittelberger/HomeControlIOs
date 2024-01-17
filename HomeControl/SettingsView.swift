@@ -68,7 +68,7 @@ struct SettingsView: View {
                     }
                     .onTapGesture {
                         //print("onTapGesture Button")
-                        let homeControlConnection = Jet32.sharedInstance
+                        let homeControlConnection = Jet32.shared
                         homeControlConnection.host = ipAddress
                         homeControlConnection.udpPortSend = UInt16(sendPort)
                         homeControlConnection.udpPortReceive = UInt16(receivePort)
@@ -108,7 +108,7 @@ struct SettingsView: View {
                 print("SettingsView Visible")
 
                 // load the current settings from the Jet32 instance into local state vars
-                let homeControlConnection = Jet32.sharedInstance
+                let homeControlConnection = Jet32.shared
                 ipAddress = homeControlConnection.host
                 sendPort = Int(homeControlConnection.udpPortSend)
                 receivePort = Int(homeControlConnection.udpPortReceive)

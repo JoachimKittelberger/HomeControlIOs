@@ -13,11 +13,11 @@ import Foundation
 class Jet32Watch : NSObject {
 
     // Connectivity tp iPhone
-    let connectivity = Connectivity.sharedInstance
+    let connectivity = Connectivity.shared
 
 
-    // singleton Zugriff ueber Jet32.sharedInstance
-    static let sharedInstance = Jet32Watch()
+    // singleton Zugriff ueber Jet32.shared
+    static let shared = Jet32Watch()
     
     // private initializer for singleton
     private override init() {
@@ -30,8 +30,8 @@ class Jet32Watch : NSObject {
     }
     
     
-    private var delegate:PlcDataAccessibleDelegate?
-    func setDelegate(delegate: PlcDataAccessibleDelegate?) {
+    private(set) var delegate:PLCDataAccessibleDelegate?
+    func setDelegate(delegate: PLCDataAccessibleDelegate?) {
         // Wenn schon ein anderes delegate existiert, darf die queue gelöscht werden
         if (!(self.delegate == nil)) {
             //clearPlcDataAccessQueue()
@@ -42,16 +42,17 @@ class Jet32Watch : NSObject {
         }
         self.delegate = delegate
         
- //       print("Jet32Watch.PlcDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
+ //       print("Jet32Watch.PLCDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
     }
 
+    
     // TODO: insert this in protocol
     func connect() {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
     }
     
     func disconnect() {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
     }
 }
 
@@ -62,10 +63,10 @@ class Jet32Watch : NSObject {
 // Muss von dem Kommunikationskanal implementiert werden, der Daten aus einer Steuerung lesen und
 // schreiben kann
 
-extension Jet32Watch : PlcDataAccessibleProtocol {
+extension Jet32Watch : PLCDataAccessibleProtocol {
     
-    func readIntRegister(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func readIntRegister(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
 
         // könnte auch in message: JSON verpackt werden
         let message : [String : Any] = [
@@ -75,21 +76,55 @@ extension Jet32Watch : PlcDataAccessibleProtocol {
             "tag": String(tag)
         ]
         connectivity.sendMessage(message,
-            replyHandler: nil,
-            errorHandler: nil
-            //errorHandler: { error in
-            //    print("Error sending message:", error)
-            //}
+            //replyHandler: nil,
+            //errorHandler: nil
+            replyHandler: { response in
+                // handle response from Apple Watch
+                //print("Response from Apple Watch:", response)
+                
+                // test, if we have an response from iPhone to Apple Watch
+                if let val = response["type"] as? String {
+                    let msgType = MessageType(rawValue: (val))!
+                    if (msgType == MessageType.response) {
+         
+                        var number = UInt(0)
+                        var value = Int(0)
+                        var tag = UInt(0)
+                       
+                        if let retVal = response["value"] as? String {
+                            value = (retVal as AnyObject).integerValue
+                            
+                            if let retVal = response["number"] as? String {
+                                number = UInt((retVal as AnyObject).integerValue)
+
+                                if let retVal = response["tag"] as? String {
+                                    tag = UInt((retVal as AnyObject).integerValue)
+
+                                    //print("ResponsefromiPhone: number: \(number) value: \(value) tag: \(tag)")
+                                    self.delegate?.didReceiveReadIntRegister(number, with: value, tag: tag);
+                                }
+                            }
+                        }
+                        return
+                    }
+                }
+            },
+            errorHandler: { error in
+                // handle error
+                print("Error sending message:", error.localizedDescription)
+            }
         )
     }
+  
     
-    func readIntRegisterSync(_ number: UInt, tag: UInt) -> Int {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+    
+    func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) -> Int {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
         return -1
     }
     
     func writeIntRegister(_ number: UInt, to value: Int, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
 
         let message : [String : Any] = [
             "type": MessageType.writeRegister.rawValue,
@@ -99,19 +134,19 @@ extension Jet32Watch : PlcDataAccessibleProtocol {
         ]
         connectivity.sendMessage(message,
             replyHandler: nil,
-            errorHandler: nil
-            //errorHandler: { error in
-            //    print("Error sending message:", error)
-            //}
+            //errorHandler: nil
+            errorHandler: { error in
+            print("Error sending message:", error.localizedDescription)
+            }
         )
     }
     
-    func readFlag(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+    func readFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
     }
 
     func setFlag(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
  
         let message : [String : Any] = [
             "type": MessageType.setFlag.rawValue,
@@ -121,15 +156,15 @@ extension Jet32Watch : PlcDataAccessibleProtocol {
         ]
         connectivity.sendMessage(message,
             replyHandler: nil,
-            errorHandler: nil
-            //errorHandler: { error in
-            //    print("Error sending message:", error)
-            //}
+            //errorHandler: nil
+            errorHandler: { error in
+            print("Error sending message:", error.localizedDescription)
+            }
         )
     }
 
     func clearFlag(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
 
         let message : [String : Any] = [
             "type": MessageType.setFlag.rawValue,
@@ -139,22 +174,22 @@ extension Jet32Watch : PlcDataAccessibleProtocol {
         ]
         connectivity.sendMessage(message,
             replyHandler: nil,
-            errorHandler: nil
-            //errorHandler: { error in
-            //    print("Error sending message:", error)
-            //}
+            //errorHandler: nil
+            errorHandler: { error in
+            print("Error sending message:", error.localizedDescription)
+            }
         )
     }
     
-    func readOutput(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+    func readOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
     }
     
     func setOutput(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
     }
     
     func clearOutput(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
     }
  }

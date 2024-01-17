@@ -6,6 +6,8 @@
 //  Copyright © 2024 Joachim Kittelberger. All rights reserved.
 //
 
+
+
 import Foundation
 
 
@@ -17,38 +19,42 @@ extension Jet32 : GCDAsyncUdpSocketDelegate {
         if (data.count >= 20) {         // check minimum data length required
             if data[0] == 0x4A && data[1] == 0x57 && data[2] == 0x49 && data[3] == 0x50 {
 
-                // read communication-Reference
-                var comRef = (UInt(data[8]) * 256*256*256) + (UInt(data[9]) * 256*256) + (UInt(data[10]) * 256) + UInt(data[11])
-                var inValue: UInt = 0
+                // read communication-Reference as telegramID
+                let telegramID = (UInt(data[8]) * 256*256*256) + (UInt(data[9]) * 256*256) + (UInt(data[10]) * 256) + UInt(data[11])
                 
-                
-                // TODO: anhand ComRef die eigentliche Referenz herausfinden und den Wert zurückgeben
-                if comRef != 0 {
-
-                    let telegramID = UInt32(comRef)
+                // anhand telegramID die eigentliche comRef Referenz herausfinden und den Wert zurückgeben
+                if telegramID != 0 {
                     
+                    // suche PLCDataAccessEntry in PLCDataAcessQueue
                     if let offset = PlcDataAccessQueue.firstIndex(where: { $0.telegramID == telegramID }) {
+
+                        // get the PLCDataAccessEntry for this value
+                        let plcData = PlcDataAccessQueue[offset]        // PLCDataAccessEntry
                         
-                        let originalComRef = UInt(PlcDataAccessQueue[offset].comRef)
+                        let comRef = UInt(plcData.comRef)
+                        let number = plcData.number
                         
-                        comRef = originalComRef
-                        
-                        let type = PlcDataAccessQueue[offset].type
-                        let cmd = PlcDataAccessQueue[offset].cmd
-                        let number = PlcDataAccessQueue[offset].number
-                        
-                        switch type {
+                        switch plcData.type {
                         case .IntegerRegister:
                             
                             if data.count >= 26 {       // for readVariable
+                                var inValue: UInt = 0
+
                                 if data[20] == 0x20 {       // return PCOM-ReadRegister
                                     let datatype = data[21]     // read type of returnvalue
                                     
                                     inValue = (UInt(data[22]) * 256*256*256) + (UInt(data[23]) * 256*256) + (UInt(data[24]) * 256) + UInt(data[25])
                                 }
                                 
-                                // call individual Handler defined in Protocol
-                                delegate?.didRedeiveReadIntRegister(UInt(number), with: Int(inValue), tag: comRef)
+                                if (plcData.delegate != nil) {
+                                    //print("Call individual delegate for Read.IntegerRegister")
+                                    plcData.delegate?.didReceiveReadIntRegister(UInt(number), with: Int(inValue), tag: comRef)
+                                } else {
+                                    //print("Call standard delegate in Jet32 for Read.IntegerRegister")
+
+                                    // TODO: call individual Handler defined in Protocol
+                                    delegate?.didReceiveReadIntRegister(UInt(number), with: Int(inValue), tag: comRef)
+                                }
                             } else {
                                 print("wrong Datalength for Read.IntegerRegister")
                             }
@@ -62,24 +68,24 @@ extension Jet32 : GCDAsyncUdpSocketDelegate {
 //                                    print("didReceive ReadFlag reset \(data[20]) with tag: \(comRef)")
                                         
                                     // call individual Handler defined in Protocol
-                                    delegate?.didRedeiveReadFlag(UInt(number), with: false, tag: comRef)
+                                    delegate?.didReceiveReadFlag(UInt(number), with: false, tag: comRef)
                                 }
                                 else if data[20] == 0x21 {  // Flag is 1
 //                                    print("didReceive ReadFlag set \(data[20]) with tag: \(comRef)")
                                         
                                     // call individual Handler defined in Protocol
-                                    delegate?.didRedeiveReadFlag(UInt(number), with: true, tag: comRef)
+                                    delegate?.didReceiveReadFlag(UInt(number), with: true, tag: comRef)
                                 }
                                 else {
-                                     print("didReceive ReadFlag Status \(data[20]) with tag: \(comRef)")
+                                     print("Warning: didReceive ReadFlag Status \(data[20]) with tag: \(comRef)")
                                 }
                             } else {
-                                print("wrong Datalength for Read.Flag")
+                                print("Error: wrong Datalength for Read.Flag")
                             }
                         
                             
                         default:
-                            print("Datatype not supported!")
+                            print("Warning: Datatype \(plcData.type) not supported!")
                         }
                         
                         /*
@@ -92,19 +98,21 @@ extension Jet32 : GCDAsyncUdpSocketDelegate {
                        */
                         
                         PlcDataAccessQueue.remove(at: offset)
+                    } else {
+                        print("Warning: can not find PLCDataAccessEntry in PLCDataAccessQueue with telegramID: \(telegramID)")
                     }
                 }
                 else {
-                    print("didReceive Status \(data[20]) with tag: \(comRef)")
+                    print("Warning: didReceive Status \(data[20]) with telegramID: \(telegramID)")
                 }
                 return
 
             } else {
-                print("didRecieve other protocol from Socket: \(data.hexEncodedString())")
+                print("Warning: didRecieve other protocol from Socket: \(data.hexEncodedString())")
             }
             
         } else {
-            print("didRecieve other protocol from Socket: \(data.hexEncodedString())")
+            print("Warning: didRecieve other protocol from Socket: \(data.hexEncodedString())")
         }
         
         

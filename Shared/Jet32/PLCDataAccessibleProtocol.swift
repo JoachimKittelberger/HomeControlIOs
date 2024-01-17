@@ -1,5 +1,5 @@
 //
-//  PlcDataAccessibleProtocol.swift
+//  PLCDataAccessibleProtocol.swift
 //  HomeControl
 //
 //  Created by Joachim Kittelberger on 07.10.17.
@@ -13,19 +13,19 @@
 import Foundation
 
 
-protocol PlcDataAccessibleProtocol {
+protocol PLCDataAccessibleProtocol {
     
-    func readIntRegister(_ number: UInt, tag: UInt)
+    func readIntRegister(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
     func writeIntRegister(_ number: UInt, to value: Int, tag: UInt)
     
-    func readFlag(_ number: UInt, tag: UInt)
+    func readFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
     func setFlag(_ number: UInt, tag: UInt)
     func clearFlag(_ number: UInt, tag: UInt)
     
-    func readOutput(_ number: UInt, tag: UInt)
+    func readOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
     func setOutput(_ number: UInt, tag: UInt)
     func clearOutput(_ number: UInt, tag: UInt)
     
-    func readIntRegisterSync(_ number: UInt, tag: UInt) -> Int
+    func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?) -> Int
 }
 

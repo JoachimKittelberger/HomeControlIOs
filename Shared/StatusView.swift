@@ -114,7 +114,7 @@ struct StatusView: View {
     @State private var currentTime: String?         // Timestring to display
 
 
-    let homeControlConnection = PlcComMgr.sharedInstance
+    let homeControlConnection = PLCComMgr.shared
     // read current time continuously
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common)
 
@@ -336,38 +336,38 @@ extension StatusView: Jet32Delegate {
 
 
 
-extension StatusView: PlcDataAccessibleDelegate {
-    func didRedeiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
-        print("didRedeiveReadIntRegister(tag: \(tag)): \(number): \(value)")
+extension StatusView: PLCDataAccessibleDelegate {
+    func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         
-        didReceiveReadRegister(value: UInt(value), tag: tag)
+        didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
     }
     
-    func didRedeiveWriteIntRegister(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
     
-    func didRedeiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
-        print("didReceiveReadFlag(tag: \(tag)): \(number): \(value)")
+    func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         
-        didReceiveReadFlag(value: value, tag: tag)
+        didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
     }
     
-    func didRedeiveSetFlag(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveSetFlag(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    func didRedeiveClearFlag(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveClearFlag(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
     
-    func didRedeiveReadOutput(_ number: UInt, with value: Bool, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveReadOutput(_ number: UInt, with value: Bool, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    func didRedeiveSetOutput(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveSetOutput(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    func didRedeiveClearOutput(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveClearOutput(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
 
 }

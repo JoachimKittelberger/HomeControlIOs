@@ -61,7 +61,7 @@ struct ShutterListView: View {
                     #endif
                         print("Open all blinds pressed")
 
-                        let homeControlConnection = PlcComMgr.sharedInstance
+                        let homeControlConnection = PLCComMgr.shared
 
                         homeControlConnection.setDelegate(delegate: nil)
                         homeControlConnection.connect()
@@ -82,7 +82,7 @@ struct ShutterListView: View {
                         WKInterfaceDevice.current().play(.start)            // play sound and vibrate
                     #endif
                         print("Close alle blinds pressed")
-                        let homeControlConnection = PlcComMgr.sharedInstance
+                        let homeControlConnection = PLCComMgr.shared
 
                         homeControlConnection.setDelegate(delegate: nil)
                         homeControlConnection.connect()

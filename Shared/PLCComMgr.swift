@@ -1,5 +1,5 @@
 //
-//  PlcComMgr.swift
+//  PLCComMgr.swift
 //  HomeControl
 //
 //  Created by Joachim Kittelberger on 04.01.24.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-class PlcComMgr : NSObject {
+class PLCComMgr : NSObject {
     
-    // singleton Zugriff ueber Jet32.sharedInstance
-    static let sharedInstance = PlcComMgr()
+    // singleton Zugriff ueber Jet32.shared
+    static let shared = PLCComMgr()
     
     // private initializer for singleton
     private override init() {
@@ -20,23 +20,30 @@ class PlcComMgr : NSObject {
     
     deinit {
         //disconnect()
-        print("PlcComMgr.deinit called")
+        print("PLCComMgr.deinit called")
     }
     
     // TODO: Evtl. noch mit in Protocol aufnehmen. Ebenso Connect und disconnect
-    private var delegate:PlcDataAccessibleDelegate?
-    func setDelegate(delegate: PlcDataAccessibleDelegate?) {
+    
+    // use delegate of underlaying homeControlConnection
+    //private var delegate: PLCDataAccessibleDelegate?
+    func setDelegate(delegate: PLCDataAccessibleDelegate?) {
+        //self.delegate = delegate
         homeControlConnection.setDelegate(delegate: delegate)
+    }
+    func getDelegate() -> PLCDataAccessibleDelegate? {
+        return homeControlConnection.delegate
     }
 
 
+    
     // Geht nur über iPhone mit z.B. UDPManager oder WCSession, ...
 #if os(iOS)
-    let homeControlConnection = Jet32.sharedInstance   
+    let homeControlConnection = Jet32.shared   
 #endif
 
 #if os(watchOS)
-    let homeControlConnection = Jet32Watch.sharedInstance
+    let homeControlConnection = Jet32Watch.shared
 #endif
 
     func connect() {
@@ -56,22 +63,22 @@ class PlcComMgr : NSObject {
 // Muss von dem Kommunikationskanal implementiert werden, der Daten aus einer Steuerung lesen und
 // schreiben kann
 
-extension PlcComMgr : PlcDataAccessibleProtocol {
+extension PLCComMgr : PLCDataAccessibleProtocol {
     
-    func readIntRegister(_ number: UInt, tag: UInt) {
-        homeControlConnection.readIntRegister(number, tag: tag)
+    func readIntRegister(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        homeControlConnection.readIntRegister(number, tag: tag, delegate: delegate)
     }
     
-    func readIntRegisterSync(_ number: UInt, tag: UInt) -> Int {
-        return homeControlConnection.readIntRegisterSync(number, tag: tag)
+    func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) -> Int {
+        return homeControlConnection.readIntRegisterSync(number, tag: tag, delegate: delegate)
     }
     
     func writeIntRegister(_ number: UInt, to value: Int, tag: UInt) {
         homeControlConnection.writeIntRegister(number, to: value, tag: tag)
     }
     
-    func readFlag(_ number: UInt, tag: UInt) {
-        homeControlConnection.readFlag(number, tag: tag)
+    func readFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        homeControlConnection.readFlag(number, tag: tag, delegate: delegate)
     }
 
     func setFlag(_ number: UInt, tag: UInt) {
@@ -82,8 +89,8 @@ extension PlcComMgr : PlcDataAccessibleProtocol {
         homeControlConnection.clearFlag(number, tag: tag)
     }
     
-    func readOutput(_ number: UInt, tag: UInt) {
-        homeControlConnection.readOutput(number, tag: tag)
+    func readOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        homeControlConnection.readOutput(number, tag: tag, delegate: delegate)
     }
     
     func setOutput(_ number: UInt, tag: UInt) {

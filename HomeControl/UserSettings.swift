@@ -33,7 +33,7 @@ func loadUserDefaults() {
     // Load from UserDefaults
     // TODO: Könnte auch in ViewController mit var userDefaults = UserDefaults.standard und dann Zugriff über userdefaults.integer(forKey: ...) gemacht werden
     let userDefaults = UserDefaults.standard
-    let homeControlConnection = Jet32.sharedInstance
+    let homeControlConnection = Jet32.shared
 
     homeControlConnection.udpPortSend = UInt16(userDefaults.integer(forKey: udpPortSend))
     homeControlConnection.udpPortReceive = UInt16(userDefaults.integer(forKey: udpPortReceive))
@@ -45,7 +45,7 @@ func loadUserDefaults() {
 
 // will be done after changing them in SettingsView
 func saveUserDefaults() {
-    let homeControlConnection = Jet32.sharedInstance
+    let homeControlConnection = Jet32.shared
     
     // store data to UserDefaults
     let userDefaults = UserDefaults.standard

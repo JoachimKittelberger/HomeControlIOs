@@ -15,7 +15,7 @@ struct HomeControl2App: App {
     
     
     // TODO: Test Connectivity to iPhone and iWatch
-    let connectivity = Connectivity.sharedInstance
+    let connectivity = Connectivity.shared
     
     
     //this function will be called at startup before WindowGroup will be initialized
@@ -23,9 +23,9 @@ struct HomeControl2App: App {
         print("HomeControl2App.init()");
 
         // Kommunikation mit Steuerung geht nur über iPhone mit z.B. UDPManager oder WCSession, ...
-        let _ = PlcComMgr.sharedInstance
+        let _ = PLCComMgr.shared
         
-        // read userdefaults and write ite tho Jet32.sharedInstance
+        // read userdefaults and write ite tho Jet32.shared
         // @AppStorage("name") var name = "Anonymous"
         initUserDefaults()
         loadUserDefaults()

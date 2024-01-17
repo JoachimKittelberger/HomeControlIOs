@@ -1,5 +1,5 @@
 //
-//  PlcDataAccessEntry.swift
+//  PLCDataAccessEntry.swift
 //  HomeControl
 //
 //  Created by Joachim Kittelberger on 07.10.17.
@@ -10,7 +10,7 @@ import Foundation
 
 
 
-class PlcDataAccessEntry {
+class PLCDataAccessEntry {
  
     enum DataType {
         case IntegerRegister, Flag, Input, Output, FloatRegister, String
@@ -33,6 +33,12 @@ class PlcDataAccessEntry {
     var telegramID: UInt32
     
     static var globalID: UInt32 = 0;
+
+    
+    
+    // access for callback from WCSession
+    let delegate: PLCDataAccessibleDelegate?
+
     
     
     /*
@@ -50,18 +56,20 @@ class PlcDataAccessEntry {
      
      
      */
-    init(type: DataType, cmd: Command, comRef : UInt32, number: UInt32, value: UInt32) {
+    init(type: DataType, cmd: Command, comRef : UInt32, number: UInt32, value: UInt32, delegate: PLCDataAccessibleDelegate? = nil) {
         self.type = type
         self.cmd = cmd
         self.comRef = comRef
         self.number = number
         self.value = value
         
-        PlcDataAccessEntry.globalID += 1
-        self.telegramID = PlcDataAccessEntry.globalID
+        PLCDataAccessEntry.globalID += 1
+        self.telegramID = PLCDataAccessEntry.globalID
         
         self.retVal = 0;
-//        print("Create new PlcDataAccessEntry \(self.telegramID)")
+//        print("Create new PLCDataAccessEntry \(self.telegramID)")
+        
+        self.delegate = delegate
     }
     
     //send()

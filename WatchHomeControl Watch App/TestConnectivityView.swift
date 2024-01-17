@@ -21,7 +21,7 @@ struct TestConnectivityView: View {
     @State private var currentTime: String?         // Timestring to display
     
     
-    let homeControlConnection = PlcComMgr.sharedInstance
+    let homeControlConnection = PLCComMgr.shared
     // read current time continuously
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common)
     
@@ -38,6 +38,28 @@ struct TestConnectivityView: View {
                     }
                     .foregroundStyle(currentTime != nil ? .primary : .tertiary)
                 })
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        // if used global .onTapGesture
+                        // implementation will be don in .onTapGesture because we use this modifier in form an
+                        // will react in Button also on this modifier
+                        homeControlConnection.setDelegate(delegate: self)
+                        homeControlConnection.connect()
+                        
+                        // read values for current time
+                        let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(HomeControlControllerTag.readSecond.rawValue))
+                        let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(HomeControlControllerTag.readMinute.rawValue))
+                        let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(HomeControlControllerTag.readHour.rawValue))
+                    }) {
+                        HStack {
+                            //Image(systemName: "sunset.fill")
+                            Text("Teste ReadIntRegiser \(currentSecond ?? 0)")
+                        }
+                    }
+//                    .disabled(currentTime != nil ? (false) : (true))        // enable only if connected
+                    Spacer()
+                }
             }
         }
         .navigationTitle("TestConnectivity")
@@ -48,16 +70,18 @@ struct TestConnectivityView: View {
         .onReceive(timer) { _ in
             //print("StatusView.onReceive(timer)")
             // read values for current time continuously
+/*
             let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regHour), tag: UInt(HomeControlControllerTag.readHour.rawValue))
             let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regMinute), tag: UInt(HomeControlControllerTag.readMinute.rawValue))
             let _ = homeControlConnection.readIntRegister(UInt(Jet32GlobalVariables.regSecond), tag: UInt(HomeControlControllerTag.readSecond.rawValue))
+*/
         }
         
         .onChange(of: selectedTab) { oldTab, newTab in
-            print("TestConnectivityView.onChange: Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
+            print(String(describing: type(of: self)) + ".\(#function): Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
             if (newTab == TabViews.TestConnectivityView.rawValue) {
                 print("TestConnectivityView Visible")
-                
+/*
                 homeControlConnection.setDelegate(delegate: self)
                 homeControlConnection.connect()
                 
@@ -69,6 +93,7 @@ struct TestConnectivityView: View {
                 // read current time every second
                 timer = Timer.publish(every: 1, on: .main, in: .common)
                 _ = self.timer.connect()
+*/
             }
             if (oldTab == TabViews.TestConnectivityView.rawValue) {
                 print("TestConnectivityView Invisible")
@@ -103,29 +128,29 @@ extension TestConnectivityView: Jet32Delegate {
                 setCurrentTimeString()
                 
             case .readHourShutterUp:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readMinuteShutterUp:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readHourShutterDown:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readMinuteShutterDown:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readHourShutterUpWeekend:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readMinuteShutterUpWeekend:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
-                
+                fallthrough
+
             case .readCurrentStateNightDay:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readCurrentStateWind:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readCurrentStateLight:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
-                
+                fallthrough
+
             case .readSunsetHourForToday:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readSunsetMinuteForToday:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
+                fallthrough
             case .readSunsetOffsetInMin:
                 print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
                 
@@ -143,15 +168,15 @@ extension TestConnectivityView: Jet32Delegate {
             
             switch (plcTag) {
             case .readIsAutomaticBlind:
-                print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
+                fallthrough
             case .readIsAutomaticShutter:
-                print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
+                fallthrough
             case .readIsAutomaticSummerMode:
-                print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
-                
+                fallthrough
+
             case .readIsSaunaOn:
-                print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
-                
+                fallthrough
+
             case .readUseSunsetSettings:
                 print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
                 
@@ -179,38 +204,42 @@ extension TestConnectivityView: Jet32Delegate {
 
 
 
-extension TestConnectivityView: PlcDataAccessibleDelegate {
-    func didRedeiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
-        print("didRedeiveReadIntRegister(tag: \(tag)): \(number): \(value)")
+extension TestConnectivityView: PLCDataAccessibleDelegate {
+    func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
+        //print("TestConnectivityView.didReceiveReadIntRegister(tag: \(tag)): \(number): \(value)")
+        DispatchQueue.global().async {
+            didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
+        }
+    }
+    
+    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    }
+    
+    func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         
-        didReceiveReadRegister(value: UInt(value), tag: tag)
+        DispatchQueue.global().async {
+            didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
+        }
     }
     
-    func didRedeiveWriteIntRegister(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveSetFlag(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    }
+    func didReceiveClearFlag(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
     
-    func didRedeiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
-        print("didReceiveReadFlag(tag: \(tag)): \(number): \(value)")
-        
-        didReceiveReadFlag(value: value, tag: tag)
+    func didReceiveReadOutput(_ number: UInt, with value: Bool, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    
-    func didRedeiveSetFlag(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveSetOutput(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    func didRedeiveClearFlag(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-    }
-    
-    func didRedeiveReadOutput(_ number: UInt, with value: Bool, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-    }
-    func didRedeiveSetOutput(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-    }
-    func didRedeiveClearOutput(_ number: UInt, tag: UInt) {
-        print("\(#file) " + String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    func didReceiveClearOutput(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
 
 }

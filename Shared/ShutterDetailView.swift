@@ -15,8 +15,8 @@ struct ShutterDetailView: View {
 
 
     // TODO: Test Connectivity
-    //let connectivity = Connectivity.sharedInstance
-    let homeControlConnection = PlcComMgr.sharedInstance
+    //let connectivity = Connectivity.shared
+    let homeControlConnection = PLCComMgr.shared
 
     
     var body: some View {

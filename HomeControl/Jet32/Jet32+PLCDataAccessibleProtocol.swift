@@ -1,5 +1,5 @@
 //
-//  Jet32+PlcDataAccessibleProtocol.swift
+//  Jet32+PLCDataAccessibleProtocol.swift
 //  HomeControl
 //
 //  Created by Joachim Kittelberger on 28.10.17.
@@ -13,13 +13,13 @@ import Foundation
 // Muss von dem Kommunikationskanal implementiert werden, der Daten aus einer Steuerung lesen und
 // schreiben kann
 
-extension Jet32 : PlcDataAccessibleProtocol {
+extension Jet32 : PLCDataAccessibleProtocol {
 
     
-    func readIntRegister(_ number: UInt, tag: UInt) {
+    func readIntRegister(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         
-        // erzeuge einen neuen PlcDataAccessEntry und hänge diesen in die queue hinten rein
-        let newEntry = PlcDataAccessEntry(type: .IntegerRegister, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0)
+        // erzeuge einen neuen PLCDataAccessEntry und hänge diesen in die queue hinten rein
+        let newEntry = PLCDataAccessEntry(type: .IntegerRegister, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0, delegate: delegate)
         PlcDataAccessQueue.append(newEntry)
         
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.readVariable, number: newEntry.number, tag: newEntry.telegramID)
@@ -37,10 +37,10 @@ extension Jet32 : PlcDataAccessibleProtocol {
     
     
     
-    func readIntRegisterSync(_ number: UInt, tag: UInt) -> Int {
+    func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) -> Int {
         
-        // erzeuge einen neuen PlcDataAccessEntry und hänge diesen in die queue hinten rein
-        let newEntry = PlcDataAccessEntry(type: .IntegerRegister, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0)
+        // erzeuge einen neuen PLCDataAccessEntry und hänge diesen in die queue hinten rein
+        let newEntry = PLCDataAccessEntry(type: .IntegerRegister, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0, delegate: delegate)
         PlcDataAccessQueue.append(newEntry)
         
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.readVariable, number: newEntry.number, tag: newEntry.telegramID)
@@ -63,8 +63,8 @@ extension Jet32 : PlcDataAccessibleProtocol {
     
     func writeIntRegister(_ number: UInt, to value: Int, tag: UInt) {
         // TODO: evtl. wird dies beim write gar nicht benötigt
-        // erzeuge einen neuen PlcDataAccessEntry und hänge diesen in die queue hinten rein
-//        let newEntry = PlcDataAccessEntry(type: .IntegerRegister, cmd: .write, comRef: UInt32(tag), number: UInt32(number), value: UInt32(value))
+        // erzeuge einen neuen PLCDataAccessEntry und hänge diesen in die queue hinten rein
+//        let newEntry = PLCDataAccessEntry(type: .IntegerRegister, cmd: .write, comRef: UInt32(tag), number: UInt32(number), value: UInt32(value))
 //        PlcDataAccessQueue.append(newEntry)
 
         
@@ -76,10 +76,10 @@ extension Jet32 : PlcDataAccessibleProtocol {
 
     
     
-    func readFlag(_ number: UInt, tag: UInt) {
+    func readFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
 
-        // erzeuge einen neuen PlcDataAccessEntry und hänge diesen in die queue hinten rein
-        let newEntry = PlcDataAccessEntry(type: .Flag, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0)
+        // erzeuge einen neuen PLCDataAccessEntry und hänge diesen in die queue hinten rein
+        let newEntry = PLCDataAccessEntry(type: .Flag, cmd: .read, comRef: UInt32(tag), number: UInt32(number), value: 0, delegate: delegate)
         PlcDataAccessQueue.append(newEntry)
 
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.readFlag, number: newEntry.number, tag: newEntry.telegramID)
@@ -89,7 +89,7 @@ extension Jet32 : PlcDataAccessibleProtocol {
     }
     func setFlag(_ number: UInt, tag: UInt) {
 
-        // ohne PlcDataAccessEntry arbeiten
+        // ohne PLCDataAccessEntry arbeiten
         
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.setFlag, number: UInt32(number))
         outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
@@ -99,7 +99,7 @@ extension Jet32 : PlcDataAccessibleProtocol {
     }
     func clearFlag(_ number: UInt, tag: UInt) {
 
-        // ohne PlcDataAccessEntry arbeiten
+        // ohne PLCDataAccessEntry arbeiten
         
         let Jet32Data = Jet32DataTelegram(receivePort: UInt32(udpPortReceive), command: Jet32Command.resetFlag, number: UInt32(number))
         outSocket?.send(Jet32Data.getData() as Data, withTimeout: timeout, tag:0)
@@ -109,7 +109,7 @@ extension Jet32 : PlcDataAccessibleProtocol {
     }
     
 
-    func readOutput(_ number: UInt, tag: UInt) {
+    func readOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
     }
     func setOutput(_ number: UInt, tag: UInt) {
         /*
