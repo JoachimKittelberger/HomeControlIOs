@@ -13,11 +13,7 @@ import SwiftUI
 struct ShutterDetailView: View {
     let shutterItem: ShutterItem
 
-
-    // TODO: Test Connectivity
-    //let connectivity = Connectivity.shared
     let homeControlConnection = PLCComMgr.shared
-
     
     var body: some View {
         VStack {
@@ -43,34 +39,6 @@ struct ShutterDetailView: View {
                     let _ = homeControlConnection.setFlag(offsetFlagUp + UInt(shutterItem.ID), tag: 0)       // Offset for Flags up
                     //let _ = homeControlConnection.setFlag(offsetFlagDown + UInt(shutterItem.ID), tag: 0)       // Offset for Flags down
                     //homeControlConnection.setDelegate(delegate: nil)
-
-                    
- /*
-                    // TODO: Test sending Message
-            #if os(iOS)
-                    let message = ["Message": "Hello from iPhone"]
-                    //connectivity.send(message: message, replyHandler: nil, errorHandler: nil)
-                    connectivity.send(message: message,
-                        replyHandler: nil,
-                        errorHandler: { error in
-                            print("Error sending message:", error)
-                        }
-                    )
-        #endif
-            #if os(watchOS)
-                    let message = ["Message": "Hello from Watch"]
-                    //connectivity.send(message: message, replyHandler: nil, errorHandler: nil)
-                    connectivity.send(message: message, 
-                        replyHandler: { response in
-                            print("Received response", response)
-                        },
-                        errorHandler: { error in
-                            print("Error sending message:", error)
-                        }
-                    )
-            #endif
-   */
-                    
                 } label: {
                     Text("Auf")
                     #if os(iOS)

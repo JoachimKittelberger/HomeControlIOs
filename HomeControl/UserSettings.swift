@@ -31,7 +31,6 @@ func initUserDefaults() {
 // should bei donn in application(didFinishLaunchingWithOptions just one time
 func loadUserDefaults() {
     // Load from UserDefaults
-    // TODO: Könnte auch in ViewController mit var userDefaults = UserDefaults.standard und dann Zugriff über userdefaults.integer(forKey: ...) gemacht werden
     let userDefaults = UserDefaults.standard
     let homeControlConnection = Jet32.shared
 

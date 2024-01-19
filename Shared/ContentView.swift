@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  HomeControl2
+//  HomeControl
 //
 //  Created by Joachim Kittelberger on 02.01.24.
 //  Copyright © 2024 Joachim Kittelberger. All rights reserved.
@@ -126,7 +126,7 @@ struct ContentView: View {
          */
         // used with own modifier
         .onViewDidLoad {
-            // TODO: do something only one time in this closure
+            // do something only one time in this closure
             // will be called after .onAppear
             print("ContentView.onViewDidLoad Modifier")
             

@@ -26,7 +26,20 @@ enum MessageType: String {
 
 
 
+// TODO: this is just for example code below
+enum Delivery {
+  /// Deliver immediately. No retries on failure.
+  case failable
 
+  /// Deliver as soon as possible. Automatically retries on failure.
+  /// All instances of the data will be transferred sequentially.
+  case guaranteed
+
+  /// High priority data like app settings. Only the most recent value is
+  /// used. Any transfers of this type not yet delivered will be replaced
+  /// with the new one.
+  case highPriority
+}
 
 
 
@@ -244,7 +257,7 @@ final class Connectivity: NSObject, ObservableObject {
 
             // sync call and get return value
             responseReadIntSemaphore = DispatchSemaphore(value: 0)
-            receivedReadIntValue = nil     // TODO: evtl. wird das hier nicht benötigt
+            receivedReadIntValue = nil
             let _ = homeControlConnection.readIntRegister(number, tag: tag, delegate: self)
             
             // hier auf Ergebnis des Lesens warten
@@ -267,10 +280,10 @@ final class Connectivity: NSObject, ObservableObject {
             
             // sync call and get return value
             responseReadBoolSemaphore = DispatchSemaphore(value: 0)
-            receivedReadBoolValue = nil     // TODO: evtl. wird das hier nicht benötigt
+            receivedReadBoolValue = nil
             let _ = homeControlConnection.readFlag(number, tag: tag, delegate: self)
             
-            // TODO: hier auf Ergebnis des Lesens warten
+            // hier auf Ergebnis des Lesens warten
             // Wait for the response with a timeout
             let timeoutResult = responseReadBoolSemaphore?.wait(timeout: DispatchTime.now() + DispatchTimeInterval.seconds(4))
 
@@ -504,14 +517,14 @@ extension Connectivity: WCSessionDelegate {
             case .responseReadRegister:
                 //print("ResponsefromiPhone: msgType \(msgType.rawValue) number: \(number) value: \(value) tag: \(tag)")
 
-                // TODO: sende das Ergebnis über dsa Delegate der homeControlConnection
+                // sende das Ergebnis über dsa Delegate der homeControlConnection
                 let homeControlConnection = PLCComMgr.shared
                 homeControlConnection.getDelegate()?.didReceiveReadIntRegister(number, with: value, tag: tag);
 
             case .responseReadFlag:
                 //print("ResponsefromiPhone: msgType \(msgType.rawValue) number: \(number) value: \(value) tag: \(tag)")
 
-                // TODO: sende das Ergebnis über dsa Delegate der homeControlConnection
+                // sende das Ergebnis über dsa Delegate der homeControlConnection
                 let homeControlConnection = PLCComMgr.shared
                 homeControlConnection.getDelegate()?.didReceiveReadFlag(number, with: value != 0 ? true : false, tag: tag);
             }
@@ -631,7 +644,6 @@ extension Connectivity: PLCDataAccessibleDelegate {
 
         receivedReadIntValue = value
         responseReadIntSemaphore?.signal()
-        //didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
     }
 /*
     func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
@@ -643,7 +655,6 @@ extension Connectivity: PLCDataAccessibleDelegate {
 
         receivedReadBoolValue = value ? 1 : 0
         responseReadBoolSemaphore?.signal()
-        //didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
     }
 /*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {

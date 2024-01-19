@@ -56,20 +56,19 @@ class Jet32 : NSObject {
     var timeout: TimeInterval = 2   // Default Timeout GCDAsyncUdpSocket: 2s
     var isConnected : Bool = false     // TODO: mit Timeout-Überprüfung bei SyncCalls
     
-    // TODO communication with Queue
+    // communication with Queue
     var PlcDataAccessQueue = [PLCDataAccessEntry]()
     
     
  
     
     
-    // TODO for Test. Print communication settings of socket
+    // for Test. Print communication settings of socket
     func printSocketBindingInfo() {
         print("Connect to \(host) Send: \(udpPortSend) Receive: \(udpPortReceive) TimeOut: \(timeoutJet32)")
     }
   
     
-    // TODO: implement
     func connect() {
         // printSocketBindingInfo()
         
@@ -141,7 +140,7 @@ class Jet32 : NSObject {
         }
         outSocket = nil
         
-        // TODO finalize the queues
+        // finalize the queues
         clearPlcDataAccessQueue()
     }
 
@@ -149,7 +148,7 @@ class Jet32 : NSObject {
     
     func clearPlcDataAccessQueue() {
         print("PlcDataAccessQueue.count ≠\(PlcDataAccessQueue.count)")
-        PlcDataAccessQueue.removeAll()         // TODO hier sollte sicher sein, dass nicht noch ein Element verwendet wird.
+        PlcDataAccessQueue.removeAll()
     }
      
 }

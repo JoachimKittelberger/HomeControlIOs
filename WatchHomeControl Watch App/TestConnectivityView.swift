@@ -168,91 +168,6 @@ struct TestConnectivityView: View {
             }
         }
     }
-}
-    
-
-
-
-
-
-extension TestConnectivityView: Jet32Delegate {
-    
-    
-    func didReceiveReadRegister(value: UInt, tag: UInt) {
-        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
-            switch (plcTag) {
-                
-            case .readSecond:
-                currentSecond = Int(value)
-                setCurrentTimeString()
-            case .readMinute:
-                currentMinute = Int(value)
-                setCurrentTimeString()
-            case .readHour:
-                currentHour = Int(value)
-                setCurrentTimeString()
-                
-            case .readHourShutterUp:
-                fallthrough
-            case .readMinuteShutterUp:
-                fallthrough
-            case .readHourShutterDown:
-                fallthrough
-            case .readMinuteShutterDown:
-                fallthrough
-            case .readHourShutterUpWeekend:
-                fallthrough
-            case .readMinuteShutterUpWeekend:
-                fallthrough
-
-            case .readCurrentStateNightDay:
-                fallthrough
-            case .readCurrentStateWind:
-                fallthrough
-            case .readCurrentStateLight:
-                fallthrough
-
-            case .readSunsetHourForToday:
-                fallthrough
-            case .readSunsetMinuteForToday:
-                fallthrough
-            case .readSunsetOffsetInMin:
-                print("TestConnectivityView.didReceiveReadRegister: no implementation for \(plcTag)")
-                
-            default:
-                print("Error: TestConnectivityView.didReceiveReadRegister no case for tag \(tag)")
-            }
-            //print("didReceiveReadRegister \(value) \(tag)")
-        }
-    }
-    
-    
-    func didReceiveReadFlag(value: Bool, tag: UInt) {
-        
-        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
-            
-            switch (plcTag) {
-            case .readIsAutomaticBlind:
-                fallthrough
-            case .readIsAutomaticShutter:
-                print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
-
-            case .readIsAutomaticSummerMode:
-                isAutomaticSummerMode = value
-
-            case .readIsSaunaOn:
-                fallthrough
-
-            case .readUseSunsetSettings:
-                print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
-                
-            default:
-                print("Error: TestConnectivityView.didReceiveReadFlag no case for tag \(tag)")
-            }
-            //print("StatusView.didReceiveReadFlag \(value) \(tag)")
-        }
-        
-    }
     
     
     // helper functions
@@ -262,10 +177,11 @@ extension TestConnectivityView: Jet32Delegate {
             currentTime = String(format: "%02d:%02d:%02d", currentHour!, currentMinute!, currentSecond!)
         }
     }
+
+    
     
 }
-
-
+    
 
 
 
@@ -275,7 +191,52 @@ extension TestConnectivityView: PLCDataAccessibleDelegate {
         print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         //print("TestConnectivityView.didReceiveReadIntRegister(tag: \(tag)): \(number): \(value)")
         DispatchQueue.global().async {
-            didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
+            
+            if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
+                switch (plcTag) {
+                    
+                case .readSecond:
+                    currentSecond = Int(value)
+                    setCurrentTimeString()
+                case .readMinute:
+                    currentMinute = Int(value)
+                    setCurrentTimeString()
+                case .readHour:
+                    currentHour = Int(value)
+                    setCurrentTimeString()
+                    
+                case .readHourShutterUp:
+                    fallthrough
+                case .readMinuteShutterUp:
+                    fallthrough
+                case .readHourShutterDown:
+                    fallthrough
+                case .readMinuteShutterDown:
+                    fallthrough
+                case .readHourShutterUpWeekend:
+                    fallthrough
+                case .readMinuteShutterUpWeekend:
+                    fallthrough
+
+                case .readCurrentStateNightDay:
+                    fallthrough
+                case .readCurrentStateWind:
+                    fallthrough
+                case .readCurrentStateLight:
+                    fallthrough
+
+                case .readSunsetHourForToday:
+                    fallthrough
+                case .readSunsetMinuteForToday:
+                    fallthrough
+                case .readSunsetOffsetInMin:
+                    print("TestConnectivityView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                    
+                default:
+                    print("Error: TestConnectivityView.didReceiveReadIntRegister no case for tag \(tag)")
+                }
+                //print("didReceiveReadRegister \(value) \(tag)")
+            }
         }
     }
 /*
@@ -287,7 +248,28 @@ extension TestConnectivityView: PLCDataAccessibleDelegate {
         print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         
         DispatchQueue.global().async {
-            didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
+            if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
+                
+                switch (plcTag) {
+                case .readIsAutomaticBlind:
+                    fallthrough
+                case .readIsAutomaticShutter:
+                    print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
+
+                case .readIsAutomaticSummerMode:
+                    isAutomaticSummerMode = value
+
+                case .readIsSaunaOn:
+                    fallthrough
+
+                case .readUseSunsetSettings:
+                    print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
+                    
+                default:
+                    print("Error: TestConnectivityView.didReceiveReadFlag no case for tag \(tag)")
+                }
+                //print("StatusView.didReceiveReadFlag \(value) \(tag)")
+            }
         }
     }
     /*

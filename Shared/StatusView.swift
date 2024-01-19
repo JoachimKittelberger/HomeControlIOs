@@ -226,16 +226,33 @@ struct StatusView: View {
             }
         }
     }
+    
+    // helper functions
+    // change currentTime var if all time vars are available
+    func setCurrentTimeString() {
+        if ((currentHour != nil) && (currentMinute != nil) && (currentSecond != nil)) {
+            currentTime = String(format: "%02d:%02d:%02d", currentHour!, currentMinute!, currentSecond!)
+        }
+    }
+    // change sunset down time var if all time vars are available
+    func setSunsetDownTimeString() {
+        if ((sunsetDownHour != nil) && (sunsetDownMinute != nil)) {
+            sunsetDownTime = String(format: "%02d:%02d", sunsetDownHour!, sunsetDownMinute!)
+        }
+    }
+
+    
+    
+    
 }
 
 
 
 
 
-extension StatusView: Jet32Delegate {
-   
-
-    func didReceiveReadRegister(value: UInt, tag: UInt) {
+extension StatusView: PLCDataAccessibleDelegate {
+    func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
+        //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
             switch (plcTag) {
 
@@ -250,17 +267,17 @@ extension StatusView: Jet32Delegate {
                 setCurrentTimeString()
 
             case .readHourShutterUp:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
+                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
             case .readMinuteShutterUp:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
+                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
             case .readHourShutterDown:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
+                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
             case .readMinuteShutterDown:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
+                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
             case .readHourShutterUpWeekend:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
+                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
             case .readMinuteShutterUpWeekend:
-                print("StatusView.didReceiveReadRegister: no implementation for \(plcTag)")
+                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
 
             case .readCurrentStateNightDay:
                 nightDayState = NightDayState(rawValue: Int(value))
@@ -279,15 +296,18 @@ extension StatusView: Jet32Delegate {
                 sunsetOffset = Int(value)
 
             default:
-                print("Error: StatusView.didReceiveReadRegister no case for tag \(tag)")
+                print("Error: StatusView.didReceiveReadIntRegister no case for tag \(tag)")
             }
             //print("didReceiveReadRegister \(value) \(tag)")
         }
     }
-
-    
-    func didReceiveReadFlag(value: Bool, tag: UInt) {
-        
+/*
+    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    }
+  */
+    func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
+        //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
             
             switch (plcTag) {
@@ -309,46 +329,6 @@ extension StatusView: Jet32Delegate {
             }
             //print("StatusView.didReceiveReadFlag \(value) \(tag)")
         }
-        
-    }
-
-    
-    // helper functions
-    // change currentTime var if all time vars are available
-    func setCurrentTimeString() {
-        if ((currentHour != nil) && (currentMinute != nil) && (currentSecond != nil)) {
-            currentTime = String(format: "%02d:%02d:%02d", currentHour!, currentMinute!, currentSecond!)
-        }
-    }
-    // change sunset down time var if all time vars are available
-    func setSunsetDownTimeString() {
-        if ((sunsetDownHour != nil) && (sunsetDownMinute != nil)) {
-            sunsetDownTime = String(format: "%02d:%02d", sunsetDownHour!, sunsetDownMinute!)
-        }
-    }
-
-    
-    
-}
-
-
-
-
-
-
-extension StatusView: PLCDataAccessibleDelegate {
-    func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
-        //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
-    }
-/*
-    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
-        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-    }
-  */
-    func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
-        //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
     }
 /*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {

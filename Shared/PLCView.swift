@@ -486,97 +486,6 @@ struct PLCView: View {
 
     
     
-
-    
-    
-}
-
-
-
-extension PLCView: Jet32Delegate {
-
-    func didReceiveReadRegister(value: UInt, tag: UInt) {
-        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
-            switch (plcTag) {
-            case .readSecond:
-                currentSecond = Int(value)
-                setCurrentTimeString()
-            case .readMinute:
-                currentMinute = Int(value)
-                setCurrentTimeString()
-            case .readHour:
-                currentHour = Int(value)
-                setCurrentTimeString()
-
-            case .readHourShutterUp:
-                upTimeHourWeekday = Int(value)
-                upTimeWeekDay = calcNewTime(upTimeWeekDay, newHour: upTimeHourWeekday)
-            case .readMinuteShutterUp:
-                upTimeMinuteWeekday = Int(value)
-                upTimeWeekDay = calcNewTime(upTimeWeekDay, newMinute: upTimeMinuteWeekday)
-            case .readHourShutterDown:
-                downTimeHourWeekday = Int(value)
-                downTimeWeekDay = calcNewTime(downTimeWeekDay, newHour: downTimeHourWeekday)
-            case .readMinuteShutterDown:
-                downTimeMinuteWeekday = Int(value)
-                downTimeWeekDay = calcNewTime(downTimeWeekDay, newMinute: downTimeMinuteWeekday)
-            case .readHourShutterUpWeekend:
-                upTimeHourWeekend = Int(value)
-                upTimeWeekend = calcNewTime(upTimeWeekend, newHour: upTimeHourWeekend)
-            case .readMinuteShutterUpWeekend:
-                upTimeMinuteWeekend = Int(value)
-                upTimeWeekend = calcNewTime(upTimeWeekend, newMinute: upTimeMinuteWeekend)
-
-            case .readCurrentStateNightDay:
-                print("PLCView.didReceiveReadRegister: no implementation for \(plcTag)")
-            case .readCurrentStateWind:
-                print("PLCView.didReceiveReadRegister: no implementation for \(plcTag)")
-            case .readCurrentStateLight:
-                print("PLCView.didReceiveReadRegister: no implementation for \(plcTag)")
-
-            case .readSunsetHourForToday:
-                print("PLCView.didReceiveReadRegister: no implementation for \(plcTag)")
-            case .readSunsetMinuteForToday:
-                print("PLCView.didReceiveReadRegister: no implementation for \(plcTag)")
-            case .readSunsetOffsetInMin:
-                sunsetOffset = Int(value)
-
-            default:
-                print("Error: PLCView.didReceiveReadRegister no case for tag \(tag)")
-            }
-            //print("didReceiveReadRegister \(value) \(tag)")
-        }
-    }
-
-    
-    
-    
-    func didReceiveReadFlag(value: Bool, tag: UInt) {
-        
-        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
-            
-            switch (plcTag) {
-            case .readIsAutomaticBlind:
-                isAutomaticBlind = Bool(value)
-            case .readIsAutomaticShutter:
-                isAutomaticShutter = Bool(value)
-            case .readIsAutomaticSummerMode:
-                isAutomaticSummerMode = Bool(value)
-
-            case .readIsSaunaOn:
-                isSaunaOn = Bool(value)
-
-            case .readUseSunsetSettings:
-                useSunsetSettings = Bool(value)
-
-            default:
-                print("Error: PLCView.didReceiveReadFlag no case for tag \(tag)")
-            }
-            //print("PLCView.didReceiveReadFlag \(value) \(tag)")
-        }
-        
-    }
-    
     
     // helper functions
     // change currentTime var if all time vars are available
@@ -623,12 +532,6 @@ extension PLCView: Jet32Delegate {
             return currentDate
         }
     }
-    
-    
-    
-    
-    
-    
 }
 
 
@@ -639,7 +542,56 @@ extension PLCView: Jet32Delegate {
 extension PLCView: PLCDataAccessibleDelegate {
     func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
         //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
+        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
+            switch (plcTag) {
+            case .readSecond:
+                currentSecond = Int(value)
+                setCurrentTimeString()
+            case .readMinute:
+                currentMinute = Int(value)
+                setCurrentTimeString()
+            case .readHour:
+                currentHour = Int(value)
+                setCurrentTimeString()
+
+            case .readHourShutterUp:
+                upTimeHourWeekday = Int(value)
+                upTimeWeekDay = calcNewTime(upTimeWeekDay, newHour: upTimeHourWeekday)
+            case .readMinuteShutterUp:
+                upTimeMinuteWeekday = Int(value)
+                upTimeWeekDay = calcNewTime(upTimeWeekDay, newMinute: upTimeMinuteWeekday)
+            case .readHourShutterDown:
+                downTimeHourWeekday = Int(value)
+                downTimeWeekDay = calcNewTime(downTimeWeekDay, newHour: downTimeHourWeekday)
+            case .readMinuteShutterDown:
+                downTimeMinuteWeekday = Int(value)
+                downTimeWeekDay = calcNewTime(downTimeWeekDay, newMinute: downTimeMinuteWeekday)
+            case .readHourShutterUpWeekend:
+                upTimeHourWeekend = Int(value)
+                upTimeWeekend = calcNewTime(upTimeWeekend, newHour: upTimeHourWeekend)
+            case .readMinuteShutterUpWeekend:
+                upTimeMinuteWeekend = Int(value)
+                upTimeWeekend = calcNewTime(upTimeWeekend, newMinute: upTimeMinuteWeekend)
+
+            case .readCurrentStateNightDay:
+                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+            case .readCurrentStateWind:
+                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+            case .readCurrentStateLight:
+                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+
+            case .readSunsetHourForToday:
+                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+            case .readSunsetMinuteForToday:
+                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+            case .readSunsetOffsetInMin:
+                sunsetOffset = Int(value)
+
+            default:
+                print("Error: PLCView.didReceiveReadIntRegister no case for tag \(tag)")
+            }
+            //print("didReceiveReadRegister \(value) \(tag)")
+        }
     }
  /*
     func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
@@ -648,7 +600,28 @@ extension PLCView: PLCDataAccessibleDelegate {
    */
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
         //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
+        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
+            
+            switch (plcTag) {
+            case .readIsAutomaticBlind:
+                isAutomaticBlind = Bool(value)
+            case .readIsAutomaticShutter:
+                isAutomaticShutter = Bool(value)
+            case .readIsAutomaticSummerMode:
+                isAutomaticSummerMode = Bool(value)
+
+            case .readIsSaunaOn:
+                isSaunaOn = Bool(value)
+
+            case .readUseSunsetSettings:
+                useSunsetSettings = Bool(value)
+
+            default:
+                print("Error: PLCView.didReceiveReadFlag no case for tag \(tag)")
+            }
+            //print("PLCView.didReceiveReadFlag \(value) \(tag)")
+        }
+
     }
 /*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {

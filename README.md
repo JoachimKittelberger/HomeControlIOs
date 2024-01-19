@@ -78,11 +78,11 @@ In der Callback-Funktion kann dann z.B. eine State-Variable in der entsprechende
 * [ ] Auf Watch Möglichkeit schaffen, Verbindung zum iPhone zu testen und Elemente nur enablen, wenn Verbindung da ist.
 * [ ] LifeCycle der App tracen (Beispiele bei RayWenderlich)
 * [ ] Override func awake()
-* [ ] Jet32SyncExample.swift einbauen oder rauswerfen  
+* [x] Jet32SyncExample.swift einbauen oder rauswerfen  
 session.delegat = self  
 session.activate  
 ...
-* [ ] Jet32Delegate wird nicht wirklich sauber verwendet. Wir dnur in Views aufgerufen
+* [x] Jet32Delegate wird nicht wirklich sauber verwendet. Wir dnur in Views aufgerufen
 * [x] Evtl. von ReplyHandler bei iPhone auf direktes Senden umstellen, da dies vermutlich performanter ist. -> geht auch nicht schneller
 * [ ] Info-Seite erstellen
 
