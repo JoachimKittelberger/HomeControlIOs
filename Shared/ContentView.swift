@@ -43,6 +43,7 @@ struct ContentView: View {
 
                 // TODO: TEST: Um Connectivity auf Watch zu testen
                 // TODO: Remove also the setting of the first page below in code
+/*
 #if os(watchOS)
             TestConnectivityView(selectedTab: $selectedTab)
                 .tabItem {
@@ -51,7 +52,7 @@ struct ContentView: View {
                 }
                 .tag(TabViews.TestConnectivityView.rawValue)
 #endif
-
+*/
                 ShutterListView(selectedTab: $selectedTab)
                     .tabItem {
                         Image(systemName: "window.shade.open")
@@ -105,13 +106,14 @@ struct ContentView: View {
 
 
             // TODO: just for Tests with connectivity
+/*
 #if os(watchOS)
             // if its the first initialisation, navigate to shutterListTab
             if (oldTab == TabViews.NoTab.rawValue) {
                 selectedTab = TabViews.TestConnectivityView.rawValue
             }
 #endif
-
+*/
         }
         /*
         // wird statt viewDidLoad verwendet

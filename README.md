@@ -7,7 +7,7 @@
 ## Architecture
 
 ### Kommunikation mit der Steuerung
-** Lesen und schreiben von Werten **
+**Lesen und schreiben von Werten**  
 Für die Kommunikation mit der Steuerung werden für jeden Aufrauf ein PLCDataAccessEntry erstellt, das dann in die PLCDataAccessQueue gestellt wird. Dabei wird eine eindeutige ID erstellt und in der telegramID abgespeichert. Diese wird der Steuerung als comRef übergeben und kann beim Empfangen der Nachrichten dann als eindeutige Zuordnung des PLCDataAccessEntry verwendet werden
 In der Funktion udpSocket(:didReceive) wird die comRef ausgelesen und anhand dieser in der PLCDataAccessQueue nach der entsprechenden telegramID gesucht, um den zugehörigen PLCDataAccessEntry zu finden und weiter zu bearbeiten
 Den Jet32-Read-Funktionen kann optional ein Delegate mitgegeben werden, das beim Return aus der Steuerung aufgerufen wird. Ist dieses Delegate nicht gesetz, wird das Standard-Delegate aufgerufen
@@ -68,17 +68,23 @@ In der Callback-Funktion kann dann z.B. eine State-Variable in der entsprechende
 
 
 ## TODO
-- ReadFlags in Watch
-- WriteRegister udn WriteFlags in Watch
-- [ ] Bei SetFlag noch die PLCDataAccessQueue verwenden
-- [ ] LifeCycle der App tracen (Beispiele bei RayWenderlich
-)
-- [ ] Override func awake()
-- [ ] Jet32SyncExample.swift einbauen oder rauswerfen
-session.delegat = self
-session.activate
+* [ ] Bei Jet32.PLCDataAccessibleProtocol eine Funktion schreiben, welche die PLCDataAccessEntry-Einträge übernimmt und daraus die Telegramme über Socket versendet.
+* [x] Function Jet32.udpSocket(didReceive) des GCDAsyncUdpSocketDelegates überarbeiten und mit allen Datentypen testen
+* [x] Prüfen, was bei den Schreibbefehlen zurück gegeben wird. Evtl. Delegate vereinfachen
+* [ ] Synchrones lesen nochmals anschauen, ob an der richtigen Stelle Semaphore verwendet wird
+* [x] ReadFlags in Watch
+* [x] WriteRegister und WriteFlags in Watch
+* [x] Bei SetFlag noch die PLCDataAccessQueue verwenden
+* [ ] Auf Watch Möglichkeit schaffen, Verbindung zum iPhone zu testen und Elemente nur enablen, wenn Verbindung da ist.
+* [ ] LifeCycle der App tracen (Beispiele bei RayWenderlich)
+* [ ] Override func awake()
+* [ ] Jet32SyncExample.swift einbauen oder rauswerfen  
+session.delegat = self  
+session.activate  
 ...
-- [ ] Jet32Delegate wird nicht wirklich sauber verwendet. Wir dnur in Views aufgerufen
+* [ ] Jet32Delegate wird nicht wirklich sauber verwendet. Wir dnur in Views aufgerufen
+* [x] Evtl. von ReplyHandler bei iPhone auf direktes Senden umstellen, da dies vermutlich performanter ist. -> geht auch nicht schneller
+* [ ] Info-Seite erstellen
 
 
 

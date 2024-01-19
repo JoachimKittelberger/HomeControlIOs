@@ -19,7 +19,8 @@ enum MessageType: String {
     case writeRegister      // request from iWatch to iPhone
     case setFlag            // request from iWatch to iPhone
     
-    case response           // response from iPhone to iWatch
+    case responseReadRegister           // response from iPhone to iWatch
+    case responseReadFlag           // response from iPhone to iWatch
 }
 
 
@@ -177,11 +178,14 @@ final class Connectivity: NSObject, ObservableObject {
     
   
     // value from sync read of Jet32 Read call
-    var receivedReadValue: Int?
-    var responseReadSemaphore: DispatchSemaphore?
+    var receivedReadIntValue: Int?
+    var responseReadIntSemaphore: DispatchSemaphore?
+    var receivedReadBoolValue: Int?
+    var responseReadBoolSemaphore: DispatchSemaphore?
 
     
     // this fuction will be called from the WCSessionDelegate.session callbacks
+    // serialize and synchronize the Jet32-Calls
     private func update(from message: [String: Any]) {
         //print("update data \(message)")
 
@@ -190,13 +194,6 @@ final class Connectivity: NSObject, ObservableObject {
         var number = UInt(0)
         var value = Int(0)
         var tag = UInt(0)
-        /*
-            // Initialisation in Jet32Watch
-            "type": String(MessageType.readRegister.rawValue),
-            "number": String(number),
-            "value": String(0),
-            "tag": String(tag)
-        */
  
  /*
         // read values from message dictionary
@@ -242,35 +239,49 @@ final class Connectivity: NSObject, ObservableObject {
             print("Error: msgType \(msgType.rawValue) found!")
 
         case .readRegister:
-            //print("Error: msgType \(msgType.rawValue) not implemented")
             let homeControlConnection = PLCComMgr.shared
             homeControlConnection.connect()
 
             // sync call and get return value
-            responseReadSemaphore = DispatchSemaphore(value: 0)
-            receivedReadValue = nil     // TODO: evtl. wird das hier nicht benötigt
+            responseReadIntSemaphore = DispatchSemaphore(value: 0)
+            receivedReadIntValue = nil     // TODO: evtl. wird das hier nicht benötigt
             let _ = homeControlConnection.readIntRegister(number, tag: tag, delegate: self)
             
-            // TODO: hier auf Ergebnis des Lesens warten
+            // hier auf Ergebnis des Lesens warten
             // Wait for the response with a timeout
-            let timeoutResult = responseReadSemaphore?.wait(timeout: DispatchTime.now() + DispatchTimeInterval.seconds(4))
+            let timeoutResult = responseReadIntSemaphore?.wait(timeout: DispatchTime.now() + DispatchTimeInterval.seconds(4))
 
-            if timeoutResult == .success, let response = receivedReadValue {
-
-   
+            if timeoutResult == .success, let response = receivedReadIntValue {
+                // Rückgabewert wird in der Callback didReceiveReadIntRegister gesetzt.
+                // hier wird nur gewartet und dann in der aufrufenden Funktion das Ergebnis weiter verarbeitet
+                // TODO: könnte auch alles in der aufrufenden Funktion gemacht werden, oder der Funktion update das Session-Objekt noch mit übergeben
+                //print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: Response: \(response)")
             } else {
                 print("Error Reading SyncReg for Response");
             }
-       
-            
-            
             //homeControlConnection.setDelegate(delegate: nil)
 
         case .getFlag:
-            print("Error: msgType \(msgType.rawValue) not implemented")
             let homeControlConnection = PLCComMgr.shared
             homeControlConnection.connect()
-            let _ = homeControlConnection.readFlag(number, tag: tag)
+            
+            // sync call and get return value
+            responseReadBoolSemaphore = DispatchSemaphore(value: 0)
+            receivedReadBoolValue = nil     // TODO: evtl. wird das hier nicht benötigt
+            let _ = homeControlConnection.readFlag(number, tag: tag, delegate: self)
+            
+            // TODO: hier auf Ergebnis des Lesens warten
+            // Wait for the response with a timeout
+            let timeoutResult = responseReadBoolSemaphore?.wait(timeout: DispatchTime.now() + DispatchTimeInterval.seconds(4))
+
+            if timeoutResult == .success, let response = receivedReadBoolValue {
+                // Rückgabewert wird in der Callback didReceiveReadIntRegister gesetzt.
+                // hier wird nur gewartet und dann in der aufrufenden Funktion das Ergebnis weiter verarbeitet
+                // TODO: könnte auch alles in der aufrufenden Funktion gemacht werden, oder der Funktion update das Session-Objekt noch mit übergeben
+                //print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: Response: \(response)")
+            } else {
+                print("Error Reading SyncFlag for Response");
+            }
             //homeControlConnection.setDelegate(delegate: nil)
 
         case .writeRegister:
@@ -287,10 +298,13 @@ final class Connectivity: NSObject, ObservableObject {
             } else {
                 let _ = homeControlConnection.clearFlag(number, tag: tag)
             }
-        case .response:
+
+        case .responseReadRegister:
+            print("Error: msgType \(msgType.rawValue) not implemented")
+        case .responseReadFlag:
             print("Error: msgType \(msgType.rawValue) not implemented")
         }
-    
+
 #endif
 
     }
@@ -328,7 +342,7 @@ final class Connectivity: NSObject, ObservableObject {
 // MARK: - WCSessionDelegate
 extension Connectivity: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: activationState: \(activationState) error: \(error?.localizedDescription) called")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: activationState: \(activationState) error: \(String(describing: error?.localizedDescription)) called")
     }
     
 #if os(iOS)
@@ -360,24 +374,20 @@ extension Connectivity: WCSessionDelegate {
   
 
     // This method is called when a message is sent with failable priority *and* a reply was requested.
+    // wird aufgerufen, wenn mit einem Reply-Handler versehen ist
     func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
-        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+        //print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
         
-        // we have an message from Apple Watch to iPhone
-        update(from: message)
+    #if os(iOS)
+        // we have an message from Apple Watch to iPhone with replyhandler
+        update(from: message)       // read and wait for result of Jet32.readXXX
 
 
-
-        /*
-            // Initialisation response
-            "type": String(MessageType.response.rawValue),
-            "number": String(number),
-            "value": String(0),
-            "tag": String(tag)
-        */
-      
-        
         // Send a response back to the Apple Watch
+        var msgType = MessageType.unknown
+        if let val = message["type"] as? String {
+            msgType = MessageType(rawValue: (val))!
+        }
         var number = UInt(0)
         var tag = UInt(0)
         if let retVal = message["number"] as? String {
@@ -386,97 +396,208 @@ extension Connectivity: WCSessionDelegate {
         if let retVal = message["tag"] as? String {
             tag = UInt((retVal as AnyObject).integerValue)
         }
-        let responseMessage = [
-            "type": String(MessageType.response.rawValue),
-            "value": String(receivedReadValue ?? 0),
-            "number": String(number),
-            "tag": String(tag)
-        ]
-        /*
-         // ends in Connectivity.session(_:didReceiveMessage:)
-         session.sendMessage(responseMessage,
-                replyHandler: nil,
-                //errorHandler: nil)
-                errorHandler: { error in
-                    print("Error sending response to Apple Watch: \(error.localizedDescription)")
-                })
-            */
-        
-        
-        // Send response back via ReplyHanlder
-        replyHandler(responseMessage)
- 
-        
-        
-        
-/*        session.sendMessage(responseMessage, replyHandler: { response in
-            // Handle the response from the Apple Watch
-            print("Received response from Apple Watch: \(response)")
-        }, errorHandler: { error in
-            // Handle error
-            print("Error sending response to Apple Watch: \(error.localizedDescription)")
-        })
-*/
-        
-/*
-#if os(iOS)
-        //let key = MessageType.verified.rawValue
-        //replyHandler([key: true])
-        let homeControlConnection = PLCComMgr.shared
-        homeControlConnection.connect()
 
         
-        // TODO: hier selber setzten und mit await warten???????
-        //homeControlConnection.setDelegate(delegate: self)
-        let seconds = homeControlConnection.readIntRegisterSync(UInt(Jet32GlobalVariables.regSecond), tag: UInt(HomeControlControllerTag.readSecond.rawValue))
+        switch msgType {
+        case .unknown:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
 
-        let replyMsg = ["Seconds": seconds]
-        replyHandler(replyMsg)
-#endif
-  */
+        case .readRegister:
+            //print("Info: msgType \(msgType.rawValue) called!")
+            let responseMessage = [
+                "type": String(MessageType.responseReadRegister.rawValue),
+                "value": String(receivedReadIntValue ?? 0),
+                "number": String(number),
+                "tag": String(tag)
+            ]
+  /*
+             // ends in Connectivity.session(_:didReceiveMessage:)
+             session.sendMessage(responseMessage,
+                    replyHandler: nil,
+                    //errorHandler: nil)
+                    errorHandler: { error in
+                        print("Error sending response to Apple Watch: \(error.localizedDescription)")
+                    })
+    */
+            // Send response back via ReplyHanlder
+            replyHandler(responseMessage)
+
+
+        case .getFlag:
+            //print("Info: msgType \(msgType.rawValue) called!")
+            let responseMessage = [
+                "type": String(MessageType.responseReadFlag.rawValue),
+                "value": String(receivedReadBoolValue ?? 0),
+                "number": String(number),
+                "tag": String(tag)
+            ]
+            /*
+             // ends in Connectivity.session(_:didReceiveMessage:)
+             session.sendMessage(responseMessage,
+                    replyHandler: nil,
+                    //errorHandler: nil)
+                    errorHandler: { error in
+                        print("Error sending response to Apple Watch: \(error.localizedDescription)")
+                    })
+              */
+            // Send response back via ReplyHanlder
+            replyHandler(responseMessage)
+
+        case .writeRegister:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+
+        case .setFlag:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+
+        case .responseReadRegister:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+        case .responseReadFlag:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+        }
         
+    #endif
+
     }
+ 
+    
     
     // This method is called when a message is sent with failable priority and a reply was *not* requested.
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
         
         
-        // test, if we have an response from iPhone to Apple Watch
+        // test, if we have a message from iPhone to Apple Watch. Wird nicht bei Verwendung des Reply-Handlers aufgerufen
     #if os(watchOS)
         if let val = message["type"] as? String {
+
+            var number = UInt(0)
+            var value = Int(0)
+            var tag = UInt(0)
+
+            if let retVal = message["value"] as? String {
+                value = (retVal as AnyObject).integerValue
+            }
+            if let retVal = message["number"] as? String {
+                number = UInt((retVal as AnyObject).integerValue)
+            }
+            if let retVal = message["tag"] as? String {
+                tag = UInt((retVal as AnyObject).integerValue)
+            }
+
             let msgType = MessageType(rawValue: (val))!
-            if (msgType == MessageType.response) {
- 
-                var number = UInt(0)
-                var value = Int(0)
-                var tag = UInt(0)
-               
-                if let retVal = message["value"] as? String {
-                    value = (retVal as AnyObject).integerValue
-                    
-                    if let retVal = message["number"] as? String {
-                        number = UInt((retVal as AnyObject).integerValue)
+            switch msgType {
+            case .unknown:
+                print("Error: msgType \(msgType.rawValue) not implemented!")
 
-                        if let retVal = message["tag"] as? String {
-                            tag = UInt((retVal as AnyObject).integerValue)
+            case .readRegister:
+                print("Error: msgType \(msgType.rawValue) not implemented!")
 
-                            //print("ResponsefromiPhone: number: \(number) value: \(value) tag: \(tag)")
+            case .getFlag:
+                print("Error: msgType \(msgType.rawValue) not implemented!")
 
-                            // TODO: sende das Ergebnis über dsa Delegate der homeControlConnection
-                            let homeControlConnection = PLCComMgr.shared
-                            homeControlConnection.getDelegate()?.didReceiveReadIntRegister(number, with: value, tag: tag);
-                        }
-                    }
-                }
-                return
+            case .writeRegister:
+                print("Error: msgType \(msgType.rawValue) not implemented!")
+
+            case .setFlag:
+                print("Error: msgType \(msgType.rawValue) not implemented!")
+
+            case .responseReadRegister:
+                //print("ResponsefromiPhone: msgType \(msgType.rawValue) number: \(number) value: \(value) tag: \(tag)")
+
+                // TODO: sende das Ergebnis über dsa Delegate der homeControlConnection
+                let homeControlConnection = PLCComMgr.shared
+                homeControlConnection.getDelegate()?.didReceiveReadIntRegister(number, with: value, tag: tag);
+
+            case .responseReadFlag:
+                //print("ResponsefromiPhone: msgType \(msgType.rawValue) number: \(number) value: \(value) tag: \(tag)")
+
+                // TODO: sende das Ergebnis über dsa Delegate der homeControlConnection
+                let homeControlConnection = PLCComMgr.shared
+                homeControlConnection.getDelegate()?.didReceiveReadFlag(number, with: value != 0 ? true : false, tag: tag);
             }
         }
     #endif
+ 
+    #if os(iOS)
+        // test, if we have a message from Watch to iPhone. Wird ohne Reply-Handler aufgerufen
+        // we have an message from Apple Watch to iPhone
+        update(from: message)       // wait and sychronize Jet32.ReadXXX Calls
+
+
+        // Send a response back to the Apple Watch
+        var msgType = MessageType.unknown
+        if let val = message["type"] as? String {
+            msgType = MessageType(rawValue: (val))!
+        }
+        var number = UInt(0)
+        var tag = UInt(0)
+        if let retVal = message["number"] as? String {
+            number = UInt((retVal as AnyObject).integerValue)
+        }
+        if let retVal = message["tag"] as? String {
+            tag = UInt((retVal as AnyObject).integerValue)
+        }
 
         
+        switch msgType {
+        case .unknown:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+
+        case .readRegister:
+            //print("Info: msgType \(msgType.rawValue) called!")
+            let responseMessage = [
+                "type": String(MessageType.responseReadRegister.rawValue),
+                "value": String(receivedReadIntValue ?? 0),
+                "number": String(number),
+                "tag": String(tag)
+            ]
+            
+             // ends in Connectivity.session(_:didReceiveMessage:)
+             session.sendMessage(responseMessage,
+                    replyHandler: nil,
+                    //errorHandler: nil)
+                    errorHandler: { error in
+                        print("Error sending response to Apple Watch: \(error.localizedDescription)")
+                    })
+                
+            // Send response back via ReplyHanlder
+            //replyHandler(responseMessage)
+
+
+        case .getFlag:
+            //print("Info: msgType \(msgType.rawValue) called!")
+            let responseMessage = [
+                "type": String(MessageType.responseReadFlag.rawValue),
+                "value": String(receivedReadBoolValue ?? 0),
+                "number": String(number),
+                "tag": String(tag)
+            ]
+            
+             // ends in Connectivity.session(_:didReceiveMessage:)
+             session.sendMessage(responseMessage,
+                    replyHandler: nil,
+                    //errorHandler: nil)
+                    errorHandler: { error in
+                        print("Error sending response to Apple Watch: \(error.localizedDescription)")
+                    })
+                
+            // Send response back via ReplyHanlder
+            //replyHandler(responseMessage)
+
+        case .writeRegister:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+
+        case .setFlag:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+
+        case .responseReadRegister:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+        case .responseReadFlag:
+            print("Error: msgType \(msgType.rawValue) not implemented!")
+        }
+#endif
         
-        update(from: message)
+        
     }
     
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
@@ -490,11 +611,6 @@ extension Connectivity: WCSessionDelegate {
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: notimplemented")
     }
-
-    
-    
-    
-    
     
 }
 
@@ -513,25 +629,23 @@ extension Connectivity: PLCDataAccessibleDelegate {
     func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
 
-        receivedReadValue = value
-        responseReadSemaphore?.signal()
-
+        receivedReadIntValue = value
+        responseReadIntSemaphore?.signal()
         //didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
     }
-    
+/*
     func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    
+  */
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
 
-//        receivedReadValue = value
-//        responseReadSemaphore?.signal()
-
+        receivedReadBoolValue = value ? 1 : 0
+        responseReadBoolSemaphore?.signal()
         //didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
     }
-    
+/*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
@@ -547,7 +661,7 @@ extension Connectivity: PLCDataAccessibleDelegate {
     func didReceiveClearOutput(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-
+*/
 }
 
 

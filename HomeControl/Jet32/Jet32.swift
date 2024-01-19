@@ -77,27 +77,29 @@ class Jet32 : NSObject {
         if inSocket == nil {
             inSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: DispatchQueue.main)
 
+            // try up to 10 Ports to connect ReceivePort
+            for _ in 0...9 {
+                let isConnected = bindAndBeginReceiving(toPort: udpPortReceive)
+                if isConnected == true {
+                    //print("Connected to ReceivePort: \(udpPortReceive)")
+                    break;
+                }
+                udpPortReceive += 1
+            }
+            
+            /*
             do {
                 try inSocket?.bind(toPort: udpPortReceive)
                 try inSocket?.beginReceiving()
             } catch let error {
                 print(error.localizedDescription)
                 inSocket?.close()
-                
-                // in case of error, try with a +1 PortNumber once again. Perhabs other app is running on same device
-                udpPortReceive += 1
-                do {
-                    try inSocket?.bind(toPort: udpPortReceive)
-                    try inSocket?.beginReceiving()
-                } catch let error {
-                    print(error.localizedDescription)
-                    inSocket?.close()
-                    return
-                }
-//                return
+                return
             }
+             */
         }
 
+            
         // outgoing socket
         if outSocket == nil {
             outSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: DispatchQueue.main)
@@ -113,6 +115,18 @@ class Jet32 : NSObject {
     }
 
     
+    func bindAndBeginReceiving(toPort receivePort: UInt16) -> Bool {
+        do {
+            try inSocket?.bind(toPort: receivePort)
+            try inSocket?.beginReceiving()
+        } catch let error {
+            print(error.localizedDescription)
+            inSocket?.close()
+            return false
+        }
+        return true
+    }
+
     
     func disconnect() {
         // incoming socket

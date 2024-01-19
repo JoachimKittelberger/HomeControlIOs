@@ -21,6 +21,10 @@ struct TestConnectivityView: View {
     @State private var currentTime: String?         // Timestring to display
     
     
+    @State private var isAutomaticSummerMode: Bool?
+
+    
+    
     let homeControlConnection = PLCComMgr.shared
     // read current time continuously
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -60,6 +64,67 @@ struct TestConnectivityView: View {
 //                    .disabled(currentTime != nil ? (false) : (true))        // enable only if connected
                     Spacer()
                 }
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        // if used global .onTapGesture
+                        // implementation will be don in .onTapGesture because we use this modifier in form an
+                        // will react in Button also on this modifier
+                        homeControlConnection.setDelegate(delegate: self)
+                        homeControlConnection.connect()
+                        
+                        let sunsetOffset = 31
+                        // write values for sunset offset
+                        let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regSunsetOffsetInMin), to: sunsetOffset, tag: 0)
+                    }) {
+                        HStack {
+                            //Image(systemName: "sunset.fill")
+                            Text("Write Register ")
+                        }
+                    }
+//                    .disabled(currentTime != nil ? (false) : (true))        // enable only if connected
+                    Spacer()
+                }
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        // if used global .onTapGesture
+                        // implementation will be don in .onTapGesture because we use this modifier in form an
+                        // will react in Button also on this modifier
+                        homeControlConnection.setDelegate(delegate: self)
+                        homeControlConnection.connect()
+                        
+                        // read values for automatic summer mode
+                        let _ = homeControlConnection.readFlag(UInt(Jet32GlobalVariables.flagIsAutomaticSummerMode), tag: UInt(HomeControlControllerTag.readIsAutomaticSummerMode.rawValue))
+                    }) {
+                        HStack {
+                            //Image(systemName: "sunset.fill")
+                            Text("Teste ReadFlag \(isAutomaticSummerMode.map { String($0) } ?? "nil")")
+                        }
+                    }
+//                    .disabled(currentTime != nil ? (false) : (true))        // enable only if connected
+                    Spacer()
+                }
+                HStack {
+                    Image(systemName: "sun.max")
+                    Toggle("Rolladen auf Sommerposition", isOn: $isAutomaticSummerMode ?? false)      // Use Binding operator overload
+                        .onChange(of: isAutomaticSummerMode) {
+                            //print("Action: isAutomaticSummerMode \(isAutomaticSummerMode)")            // we get an optional here
+                        }
+                        .onChange(of: isAutomaticSummerMode) { oldValue, newValue in
+                            //print("isAutomaticSummerMode old: \(oldValue) new: \(newValue)")            // we get an optional here
+                            if let isOn = newValue {
+                                if (isOn == true){
+                                    let _ = homeControlConnection.setFlag(UInt(Jet32GlobalVariables.flagIsAutomaticSummerMode), tag: 0)       // Offset for Flags up
+                                } else {
+                                    let _ = homeControlConnection.clearFlag(UInt(Jet32GlobalVariables.flagIsAutomaticSummerMode), tag: 0)       // Offset for Flags up
+                                }
+                            }
+                        }
+                        .disabled(isAutomaticSummerMode != nil ? (false) : (true))
+                }
+                .foregroundStyle(isAutomaticSummerMode != nil ? .primary : .tertiary)
+
             }
         }
         .navigationTitle("TestConnectivity")
@@ -170,9 +235,10 @@ extension TestConnectivityView: Jet32Delegate {
             case .readIsAutomaticBlind:
                 fallthrough
             case .readIsAutomaticShutter:
-                fallthrough
+                print("TestConnectivityView.didReceiveReadFlag: no implementation for \(plcTag)")
+
             case .readIsAutomaticSummerMode:
-                fallthrough
+                isAutomaticSummerMode = value
 
             case .readIsSaunaOn:
                 fallthrough
@@ -212,11 +278,11 @@ extension TestConnectivityView: PLCDataAccessibleDelegate {
             didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
         }
     }
-    
+/*
     func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    
+  */
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         
@@ -224,7 +290,7 @@ extension TestConnectivityView: PLCDataAccessibleDelegate {
             didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
         }
     }
-    
+    /*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
@@ -241,7 +307,7 @@ extension TestConnectivityView: PLCDataAccessibleDelegate {
     func didReceiveClearOutput(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-
+*/
 }
 
 

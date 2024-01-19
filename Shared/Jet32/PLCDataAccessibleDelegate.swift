@@ -16,14 +16,15 @@ import Foundation
 protocol PLCDataAccessibleDelegate {
     
     func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt)
-    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt)
+//    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt)
     
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt)
-    func didReceiveSetFlag(_ number: UInt, tag: UInt)
-    func didReceiveClearFlag(_ number: UInt, tag: UInt)
-    
+    //func didReceiveSetFlag(_ number: UInt, tag: UInt)
+    //func didReceiveClearFlag(_ number: UInt, tag: UInt)
+ 
+    /*
     func didReceiveReadOutput(_ number: UInt, with value: Bool, tag: UInt)
     func didReceiveSetOutput(_ number: UInt, tag: UInt)
     func didReceiveClearOutput(_ number: UInt, tag: UInt)
-    
+    */
 }

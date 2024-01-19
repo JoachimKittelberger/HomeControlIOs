@@ -16,16 +16,17 @@ import Foundation
 protocol PLCDataAccessibleProtocol {
     
     func readIntRegister(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
-    func writeIntRegister(_ number: UInt, to value: Int, tag: UInt)
+    func writeIntRegister(_ number: UInt, to value: Int, tag: UInt, delegate: PLCDataAccessibleDelegate?)
     
     func readFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
-    func setFlag(_ number: UInt, tag: UInt)
-    func clearFlag(_ number: UInt, tag: UInt)
-    
+    func setFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
+    func clearFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
+ /*
     func readOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
-    func setOutput(_ number: UInt, tag: UInt)
-    func clearOutput(_ number: UInt, tag: UInt)
+    func setOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
+    func clearOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?)
     
     func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate?) -> Int
+  */
 }
 

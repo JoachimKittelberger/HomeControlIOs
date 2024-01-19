@@ -107,9 +107,11 @@ struct PLCView: View {
                                 upTimeMinuteWeekday = calendar.component(.minute, from: upTimeWeekDay)
                                 //print("new Time upTimeHourWeekday: \(upTimeHourWeekday!):\(upTimeMinuteWeekday!)")
                                 
-                                // write the new values to the plc
-                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHour), to: upTimeHourWeekday!, tag: 0)
-                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinute), to: upTimeMinuteWeekday!, tag: 0)
+                                // write the new values to the plc if we have read just one time from plc
+                                if ((upTimeHourWeekday != nil) && (upTimeMinuteWeekday != nil)) {
+                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHour), to: upTimeHourWeekday!, tag: 0)
+                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinute), to: upTimeMinuteWeekday!, tag: 0)
+                                }
                             })
                             .disabled(((upTimeHourWeekday != nil) && (upTimeMinuteWeekday != nil)) ? (false) : (true))
                         #if os(iOS)
@@ -138,9 +140,11 @@ struct PLCView: View {
                                 downTimeMinuteWeekday = calendar.component(.minute, from: downTimeWeekDay)
                                 //print("new Time downTimeHourWeekday: \(downTimeHourWeekday!):\(downTimeMinuteWeekday!)")
                                 
-                                // write the new values to the plc
-                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeHour), to: downTimeHourWeekday!, tag: 0)
-                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeMinute), to: downTimeMinuteWeekday!, tag: 0)
+                                // write the new values to the plc if we have read just one time from plc
+                                if ((downTimeHourWeekday != nil) && (downTimeMinuteWeekday != nil)) {
+                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeHour), to: downTimeHourWeekday!, tag: 0)
+                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeMinute), to: downTimeMinuteWeekday!, tag: 0)
+                                }
                             })
                             .disabled(((downTimeHourWeekday != nil) && (downTimeMinuteWeekday != nil)) ? (false) : (true))
                         #if os(iOS)
@@ -171,9 +175,11 @@ struct PLCView: View {
                                 upTimeMinuteWeekend = calendar.component(.minute, from: upTimeWeekend)
                                 //print("new Time upTimeWeekend: \(upTimeHourWeekend!):\(upTimeMinuteWeekend!)")
                                 
-                                // write the new values to the plc
-                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHourWeekend), to: upTimeHourWeekend!, tag: 0)
-                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinuteWeekend), to: upTimeMinuteWeekend!, tag: 0)
+                                // write the new values to the plc if we have read just one time from plc
+                                if ((upTimeHourWeekend != nil) && (upTimeMinuteWeekend != nil)) {
+                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHourWeekend), to: upTimeHourWeekend!, tag: 0)
+                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinuteWeekend), to: upTimeMinuteWeekend!, tag: 0)
+                                }
                             })
                             .disabled(((upTimeHourWeekend != nil) && (upTimeMinuteWeekend != nil)) ? (false) : (true))
                         #if os(iOS)
@@ -632,27 +638,27 @@ extension PLCView: Jet32Delegate {
 
 extension PLCView: PLCDataAccessibleDelegate {
     func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
-        print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
- 
+        //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
     }
-    
+ /*
     func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    
+   */
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
-        print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        
+        //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
     }
-    
+/*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
     func didReceiveClearFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
+ */
+    /*
     func didReceiveReadOutput(_ number: UInt, with value: Bool, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
@@ -662,7 +668,8 @@ extension PLCView: PLCDataAccessibleDelegate {
     func didReceiveClearOutput(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-
+*/
+    
 }
 
 

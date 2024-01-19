@@ -68,36 +68,37 @@ extension PLCComMgr : PLCDataAccessibleProtocol {
     func readIntRegister(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.readIntRegister(number, tag: tag, delegate: delegate)
     }
-    
+/*
     func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) -> Int {
         return homeControlConnection.readIntRegisterSync(number, tag: tag, delegate: delegate)
     }
-    
-    func writeIntRegister(_ number: UInt, to value: Int, tag: UInt) {
-        homeControlConnection.writeIntRegister(number, to: value, tag: tag)
+  */
+    func writeIntRegister(_ number: UInt, to value: Int, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        homeControlConnection.writeIntRegister(number, to: value, tag: tag, delegate: delegate)
     }
     
     func readFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.readFlag(number, tag: tag, delegate: delegate)
     }
 
-    func setFlag(_ number: UInt, tag: UInt) {
-        homeControlConnection.setFlag(number, tag: tag)
+    func setFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        homeControlConnection.setFlag(number, tag: tag, delegate: delegate)
     }
 
-    func clearFlag(_ number: UInt, tag: UInt) {
-        homeControlConnection.clearFlag(number, tag: tag)
+    func clearFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        homeControlConnection.clearFlag(number, tag: tag, delegate: delegate)
     }
-    
+/*
     func readOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.readOutput(number, tag: tag, delegate: delegate)
     }
     
-    func setOutput(_ number: UInt, tag: UInt) {
-        homeControlConnection.setOutput(number, tag: tag)
+    func setOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        homeControlConnection.setOutput(number, tag: tag, delegate: delegate)
     }
     
-    func clearOutput(_ number: UInt, tag: UInt) {
-        homeControlConnection.clearOutput(number, tag: tag)
+    func clearOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
+        homeControlConnection.clearOutput(number, tag: tag, delegate: delegate)
     }
+ */
  }

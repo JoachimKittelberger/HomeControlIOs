@@ -9,6 +9,10 @@
 import Foundation
 
 
+
+// enumeratiom for all tags, which should be read from application
+// this enum goes into tag-Parameter of read-Functions and come
+// back in callback functions in tag-Parameter
 enum HomeControlControllerTag: UInt32 {
     case readSecond = 1
     case readMinute

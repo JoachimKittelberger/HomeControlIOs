@@ -338,21 +338,19 @@ extension StatusView: Jet32Delegate {
 
 extension StatusView: PLCDataAccessibleDelegate {
     func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
-        print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        
+        //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         didReceiveReadRegister(value: UInt(value), tag: tag)            // call function from Jet32Delegate
     }
-    
+/*
     func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-    
+  */
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
-        print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        
+        //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         didReceiveReadFlag(value: value, tag: tag)            // call function from Jet32Delegate
     }
-    
+/*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
@@ -369,7 +367,7 @@ extension StatusView: PLCDataAccessibleDelegate {
     func didReceiveClearOutput(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
-
+*/
 }
 
 
