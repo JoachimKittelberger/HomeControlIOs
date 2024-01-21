@@ -645,17 +645,13 @@ extension Connectivity: PLCDataAccessibleDelegate {
         receivedReadIntValue = value
         responseReadIntSemaphore?.signal()
     }
-/*
-    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
-        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-    }
-  */
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
 
         receivedReadBoolValue = value ? 1 : 0
         responseReadBoolSemaphore?.signal()
     }
+
 /*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
@@ -670,6 +666,9 @@ extension Connectivity: PLCDataAccessibleDelegate {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
     func didReceiveClearOutput(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    }
+    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
 */

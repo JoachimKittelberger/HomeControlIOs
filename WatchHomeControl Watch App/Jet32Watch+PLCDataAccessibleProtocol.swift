@@ -66,12 +66,6 @@ extension Jet32Watch : PLCDataAccessibleProtocol {
     }
   
     
-/*
-    func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) -> Int {
-        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
-        return -1
-    }
-  */
     func writeIntRegister(_ number: UInt, to value: Int, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
 
@@ -92,7 +86,6 @@ extension Jet32Watch : PLCDataAccessibleProtocol {
     
     func readFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         //print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-
 
         // könnte auch in message: JSON verpackt werden
         let message : [String : Any] = [
@@ -198,5 +191,10 @@ extension Jet32Watch : PLCDataAccessibleProtocol {
     func clearOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
     }
+    func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) -> Int {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: not implemented")
+        return -1
+    }
+
    */
  }

@@ -22,6 +22,8 @@ struct TestConnectivityView: View {
     
     
     @State private var isAutomaticSummerMode: Bool?
+    // wird gesetzt, wenn die Daten das erste Mal gelesen und das Control gesetzt wurde
+    @State private var isAutomaticSummerModeFirstInitialized = false
 
     
     
@@ -114,6 +116,13 @@ struct TestConnectivityView: View {
                         .onChange(of: isAutomaticSummerMode) { oldValue, newValue in
                             //print("isAutomaticSummerMode old: \(oldValue) new: \(newValue)")            // we get an optional here
                             if let isOn = newValue {
+
+                                // if we read the first time, don't write the new value to PLC
+                                if (!isAutomaticSummerModeFirstInitialized) {
+                                    isAutomaticSummerModeFirstInitialized = true
+                                    return
+                                }
+
                                 if (isOn == true){
                                     let _ = homeControlConnection.setFlag(UInt(Jet32GlobalVariables.flagIsAutomaticSummerMode), tag: 0)       // Offset for Flags up
                                 } else {
@@ -239,11 +248,9 @@ extension TestConnectivityView: PLCDataAccessibleDelegate {
             }
         }
     }
-/*
-    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
-        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-    }
-  */
+
+
+
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
         
@@ -272,7 +279,8 @@ extension TestConnectivityView: PLCDataAccessibleDelegate {
             }
         }
     }
-    /*
+
+/*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
@@ -287,6 +295,9 @@ extension TestConnectivityView: PLCDataAccessibleDelegate {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
     func didReceiveClearOutput(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    }
+    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
 */

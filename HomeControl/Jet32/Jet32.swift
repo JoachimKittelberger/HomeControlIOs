@@ -74,8 +74,7 @@ class Jet32 : NSObject {
         
         // incoming socket
         if inSocket == nil {
-            inSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: DispatchQueue.main)
-
+            print("Connect inSocket")
             // try up to 10 Ports to connect ReceivePort
             for _ in 0...9 {
                 let isConnected = bindAndBeginReceiving(toPort: udpPortReceive)
@@ -85,22 +84,12 @@ class Jet32 : NSObject {
                 }
                 udpPortReceive += 1
             }
-            
-            /*
-            do {
-                try inSocket?.bind(toPort: udpPortReceive)
-                try inSocket?.beginReceiving()
-            } catch let error {
-                print(error.localizedDescription)
-                inSocket?.close()
-                return
-            }
-             */
         }
 
             
         // outgoing socket
         if outSocket == nil {
+            print("Connect outSocket")
             outSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: DispatchQueue.main)
             
             do {
@@ -108,6 +97,7 @@ class Jet32 : NSObject {
             } catch let error {
                 print(error.localizedDescription)
                 outSocket?.close()
+                outSocket = nil
                 return
             }
         }
@@ -115,12 +105,14 @@ class Jet32 : NSObject {
 
     
     func bindAndBeginReceiving(toPort receivePort: UInt16) -> Bool {
+        inSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: DispatchQueue.main)
         do {
             try inSocket?.bind(toPort: receivePort)
             try inSocket?.beginReceiving()
         } catch let error {
             print(error.localizedDescription)
             inSocket?.close()
+            inSocket = nil
             return false
         }
         return true
@@ -128,6 +120,7 @@ class Jet32 : NSObject {
 
     
     func disconnect() {
+        print("Jet32.disconnect()")
         // incoming socket
         if inSocket != nil {
             inSocket?.close()

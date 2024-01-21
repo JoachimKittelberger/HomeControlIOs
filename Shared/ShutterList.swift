@@ -73,13 +73,5 @@ class ShutterList : NSObject, ObservableObject {
         items.append(ShutterItem(name: "Rolladen Hobbyraum links", ID: Shutters.HobbyLeft.rawValue, isEnabled: true, outputUp: 100000411, outputDown: 100000412))
         items.append(ShutterItem(name: "Rolladen Hobbyraum rechts", ID: Shutters.HobbyRight.rawValue, isEnabled: true, outputUp: 100000413, outputDown: 100000414))
     }
-/*
-    func getShutterItems() -> [ShutterItem] {
-        return items
-    }
-    
-    func getShutter(forIndex index: Int) -> ShutterItem {
-        return items[index]
-    }
-    */
+
 }

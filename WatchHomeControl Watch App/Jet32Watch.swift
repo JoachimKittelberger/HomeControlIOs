@@ -41,7 +41,6 @@ class Jet32Watch : NSObject {
             //clearPlcDataAccessQueue()
         }
         self.delegate = delegate
-        
  //       print("Jet32Watch.PLCDataAccessibleDelegate.setDelegate \(String(describing: delegate))")
     }
 

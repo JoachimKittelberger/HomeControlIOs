@@ -29,11 +29,16 @@ struct PLCView: View {
     @State private var upTimeHourWeekend: Int?
     @State private var upTimeMinuteWeekend: Int?
     
+
     // hier mit Date/Time variablen arbeiten.
     // evtl. mit anderem Zeitpunkt initialisierren
     @State private var upTimeWeekDay = Date()
     @State private var downTimeWeekDay = Date()
     @State private var upTimeWeekend = Date()
+    // wird gesetzt, wenn die Daten das erste Mal gelesen und das Control gesetzt wurde
+    @State private var upTimeWeekDayFirstInitialized = false
+    @State private var downTimeWeekDayFirstInitialized = false
+    @State private var upTimeWeekendFirstInitialized = false
 
     
     // Automatic settings
@@ -43,7 +48,14 @@ struct PLCView: View {
     @State private var sunsetOffset: Int?
     @State private var isAutomaticBlind: Bool?
     @State private var isSaunaOn: Bool?
-    
+    // wird gesetzt, wenn die Daten das erste Mal gelesen und das Control gesetzt wurde
+    @State private var isAutomaticShutterFirstInitialized = false
+    @State private var isAutomaticSummerModeFirstInitialized = false
+    @State private var useSunsetSettingsFirstInitialized = false
+    //@State private var sunsetOffsetFirstInitialized = false
+    @State private var isAutomaticBlindFirstInitialized = false
+    @State private var isSaunaOnFirstInitialized = false
+
     
     let homeControlConnection = PLCComMgr.shared
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -102,16 +114,22 @@ struct PLCView: View {
                             .labelsHidden()
                             .onChange(of: upTimeWeekDay, {
                                 //print("Changed Date to upTimeWeekDay: \(upTimeWeekDay)")
+                                if ((upTimeHourWeekday == nil) || (upTimeMinuteWeekday == nil)) {
+                                    return
+                                }
+  
                                 let calendar = Calendar.current
                                 upTimeHourWeekday = calendar.component(.hour, from: upTimeWeekDay)
                                 upTimeMinuteWeekday = calendar.component(.minute, from: upTimeWeekDay)
                                 //print("new Time upTimeHourWeekday: \(upTimeHourWeekday!):\(upTimeMinuteWeekday!)")
                                 
-                                // write the new values to the plc if we have read just one time from plc
-                                if ((upTimeHourWeekday != nil) && (upTimeMinuteWeekday != nil)) {
-                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHour), to: upTimeHourWeekday!, tag: 0)
-                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinute), to: upTimeMinuteWeekday!, tag: 0)
+                                // if we read the first time, don't write the new value to PLC
+                                if (!upTimeWeekDayFirstInitialized) {
+                                    upTimeWeekDayFirstInitialized = true
+                                    return
                                 }
+                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHour), to: upTimeHourWeekday!, tag: 0)
+                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinute), to: upTimeMinuteWeekday!, tag: 0)
                             })
                             .disabled(((upTimeHourWeekday != nil) && (upTimeMinuteWeekday != nil)) ? (false) : (true))
                         #if os(iOS)
@@ -135,16 +153,22 @@ struct PLCView: View {
                             .labelsHidden()
                             .onChange(of: downTimeWeekDay, {
                                 //print("Changed Date to downTimeWeekDay: \(downTimeWeekDay)")
+                                if ((downTimeHourWeekday == nil) || (downTimeMinuteWeekday == nil)) {
+                                    return
+                                }
                                 let calendar = Calendar.current
                                 downTimeHourWeekday = calendar.component(.hour, from: downTimeWeekDay)
                                 downTimeMinuteWeekday = calendar.component(.minute, from: downTimeWeekDay)
                                 //print("new Time downTimeHourWeekday: \(downTimeHourWeekday!):\(downTimeMinuteWeekday!)")
-                                
-                                // write the new values to the plc if we have read just one time from plc
-                                if ((downTimeHourWeekday != nil) && (downTimeMinuteWeekday != nil)) {
-                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeHour), to: downTimeHourWeekday!, tag: 0)
-                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeMinute), to: downTimeMinuteWeekday!, tag: 0)
+                                    
+                                // if we read the first time, don't write the new value to PLC
+                                if (!downTimeWeekDayFirstInitialized) {
+                                    downTimeWeekDayFirstInitialized = true
+                                    return
                                 }
+
+                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeHour), to: downTimeHourWeekday!, tag: 0)
+                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regDownTimeMinute), to: downTimeMinuteWeekday!, tag: 0)
                             })
                             .disabled(((downTimeHourWeekday != nil) && (downTimeMinuteWeekday != nil)) ? (false) : (true))
                         #if os(iOS)
@@ -170,16 +194,23 @@ struct PLCView: View {
                             .labelsHidden()
                             .onChange(of: upTimeWeekend, {
                                 //print("Changed Date to upTimeWeekend: \(upTimeWeekend)")
+                                if ((upTimeHourWeekend == nil) || (upTimeMinuteWeekend == nil)) {
+                                    return
+                                }
+                                
                                 let calendar = Calendar.current
                                 upTimeHourWeekend = calendar.component(.hour, from: upTimeWeekend)
                                 upTimeMinuteWeekend = calendar.component(.minute, from: upTimeWeekend)
                                 //print("new Time upTimeWeekend: \(upTimeHourWeekend!):\(upTimeMinuteWeekend!)")
                                 
-                                // write the new values to the plc if we have read just one time from plc
-                                if ((upTimeHourWeekend != nil) && (upTimeMinuteWeekend != nil)) {
-                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHourWeekend), to: upTimeHourWeekend!, tag: 0)
-                                    let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinuteWeekend), to: upTimeMinuteWeekend!, tag: 0)
+                                // if we read the first time, don't write the new value to PLC
+                                if (!upTimeWeekendFirstInitialized) {
+                                    upTimeWeekendFirstInitialized = true
+                                    return
                                 }
+
+                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeHourWeekend), to: upTimeHourWeekend!, tag: 0)
+                                let _ = homeControlConnection.writeIntRegister(UInt(Jet32GlobalVariables.regUpTimeMinuteWeekend), to: upTimeMinuteWeekend!, tag: 0)
                             })
                             .disabled(((upTimeHourWeekend != nil) && (upTimeMinuteWeekend != nil)) ? (false) : (true))
                         #if os(iOS)
@@ -199,6 +230,13 @@ struct PLCView: View {
                             .onChange(of: isAutomaticShutter) { oldValue, newValue in
                                 //print("Rolladenautomatik old: \(oldValue) new: \(newValue)")            // we get an optional here
                                 if let isOn = newValue {
+
+                                    // if we read the first time, don't write the new value to PLC
+                                    if (!isAutomaticShutterFirstInitialized) {
+                                        isAutomaticShutterFirstInitialized = true
+                                        return
+                                    }
+                                    
                                     if (isOn == true){
                                         let _ = homeControlConnection.setFlag(UInt(Jet32GlobalVariables.flagIsAutomaticShutter), tag: 0)       // Offset for Flags up
                                     } else {
@@ -219,6 +257,13 @@ struct PLCView: View {
                             .onChange(of: isAutomaticSummerMode) { oldValue, newValue in
                                 //print("isAutomaticSummerMode old: \(oldValue) new: \(newValue)")            // we get an optional here
                                 if let isOn = newValue {
+
+                                    // if we read the first time, don't write the new value to PLC
+                                    if (!isAutomaticSummerModeFirstInitialized) {
+                                        isAutomaticSummerModeFirstInitialized = true
+                                        return
+                                    }
+
                                     if (isOn == true){
                                         let _ = homeControlConnection.setFlag(UInt(Jet32GlobalVariables.flagIsAutomaticSummerMode), tag: 0)       // Offset for Flags up
                                     } else {
@@ -239,6 +284,13 @@ struct PLCView: View {
                             .onChange(of: useSunsetSettings) { oldValue, newValue in
                                 //print("useSunsetSettings old: \(oldValue) new: \(newValue)")            // we get an optional here
                                 if let isOn = newValue {
+                                    
+                                    // if we read the first time, don't write the new value to PLC
+                                    if (!useSunsetSettingsFirstInitialized) {
+                                        useSunsetSettingsFirstInitialized = true
+                                        return
+                                    }
+
                                     if (isOn == true){
                                         let _ = homeControlConnection.setFlag(UInt(Jet32GlobalVariables.flagUseSunsetSettings), tag: 0)       // Offset for Flags up
                                     } else {
@@ -283,6 +335,13 @@ struct PLCView: View {
                             .onChange(of: isAutomaticBlind) { oldValue, newValue in
                                 //print("isAutomaticBlind old: \(oldValue) new: \(newValue)")            // we get an optional here
                                 if let isOn = newValue {
+                                    
+                                    // if we read the first time, don't write the new value to PLC
+                                    if (!isAutomaticBlindFirstInitialized) {
+                                        isAutomaticBlindFirstInitialized = true
+                                        return
+                                    }
+
                                     if (isOn == true){
                                         let _ = homeControlConnection.setFlag(UInt(Jet32GlobalVariables.flagIsAutomaticBlind), tag: 0)       // Offset for Flags up
                                     } else {
@@ -303,6 +362,13 @@ struct PLCView: View {
                             .onChange(of: isSaunaOn) { oldValue, newValue in
                                 //print("isSaunaOn old: \(oldValue) new: \(newValue)")            // we get an optional here
                                 if let isOn = newValue {
+
+                                    // if we read the first time, don't write the new value to PLC
+                                    if (!isSaunaOnFirstInitialized) {
+                                        isSaunaOnFirstInitialized = true
+                                        return
+                                    }
+
                                     if (isOn == true){
                                         let _ = homeControlConnection.setFlag(UInt(Jet32GlobalVariables.flagIsSaunaOn), tag: 0)       // Offset for Flags up
                                     } else {
@@ -315,7 +381,6 @@ struct PLCView: View {
                     .foregroundStyle(isSaunaOn != nil ? .primary : .tertiary)
                 })
          
-
                 
                 Section(header: Text("Manuell"), content: {
                     HStack {
@@ -542,55 +607,74 @@ struct PLCView: View {
 extension PLCView: PLCDataAccessibleDelegate {
     func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
         //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
-            switch (plcTag) {
-            case .readSecond:
-                currentSecond = Int(value)
-                setCurrentTimeString()
-            case .readMinute:
-                currentMinute = Int(value)
-                setCurrentTimeString()
-            case .readHour:
-                currentHour = Int(value)
-                setCurrentTimeString()
-
-            case .readHourShutterUp:
-                upTimeHourWeekday = Int(value)
-                upTimeWeekDay = calcNewTime(upTimeWeekDay, newHour: upTimeHourWeekday)
-            case .readMinuteShutterUp:
-                upTimeMinuteWeekday = Int(value)
-                upTimeWeekDay = calcNewTime(upTimeWeekDay, newMinute: upTimeMinuteWeekday)
-            case .readHourShutterDown:
-                downTimeHourWeekday = Int(value)
-                downTimeWeekDay = calcNewTime(downTimeWeekDay, newHour: downTimeHourWeekday)
-            case .readMinuteShutterDown:
-                downTimeMinuteWeekday = Int(value)
-                downTimeWeekDay = calcNewTime(downTimeWeekDay, newMinute: downTimeMinuteWeekday)
-            case .readHourShutterUpWeekend:
-                upTimeHourWeekend = Int(value)
-                upTimeWeekend = calcNewTime(upTimeWeekend, newHour: upTimeHourWeekend)
-            case .readMinuteShutterUpWeekend:
-                upTimeMinuteWeekend = Int(value)
-                upTimeWeekend = calcNewTime(upTimeWeekend, newMinute: upTimeMinuteWeekend)
-
-            case .readCurrentStateNightDay:
-                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readCurrentStateWind:
-                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readCurrentStateLight:
-                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-
-            case .readSunsetHourForToday:
-                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readSunsetMinuteForToday:
-                print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readSunsetOffsetInMin:
-                sunsetOffset = Int(value)
-
-            default:
-                print("Error: PLCView.didReceiveReadIntRegister no case for tag \(tag)")
+        DispatchQueue.global().async {
+            if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
+                switch (plcTag) {
+                case .readSecond:
+                    currentSecond = Int(value)
+                    setCurrentTimeString()
+                case .readMinute:
+                    currentMinute = Int(value)
+                    setCurrentTimeString()
+                case .readHour:
+                    currentHour = Int(value)
+                    setCurrentTimeString()
+                    
+                case .readHourShutterUp:
+                    upTimeHourWeekday = Int(value)
+                    // change upTimeWeekDay first if we have hour and minute read from PLC
+                    if ((upTimeHourWeekday != nil) && (upTimeMinuteWeekday != nil)) {
+                        upTimeWeekDay = calcNewTime(upTimeWeekDay, newHour: upTimeHourWeekday, newMinute: upTimeMinuteWeekday)
+                    }
+                case .readMinuteShutterUp:
+                    upTimeMinuteWeekday = Int(value)
+                    // change upTimeWeekDay first if we have hour and minute read from PLC
+                    if ((upTimeHourWeekday != nil) && (upTimeMinuteWeekday != nil)) {
+                        upTimeWeekDay = calcNewTime(upTimeWeekDay, newHour: upTimeHourWeekday, newMinute: upTimeMinuteWeekday)
+                    }
+                case .readHourShutterDown:
+                    downTimeHourWeekday = Int(value)
+                    // change downTimeWeekDay first if we have hour and minute read from PLC
+                    if ((downTimeHourWeekday != nil) && (downTimeMinuteWeekday != nil)) {
+                        downTimeWeekDay = calcNewTime(downTimeWeekDay, newHour: downTimeHourWeekday, newMinute: downTimeMinuteWeekday)
+                    }
+                case .readMinuteShutterDown:
+                    downTimeMinuteWeekday = Int(value)
+                    // change downTimeWeekDay first if we have hour and minute read from PLC
+                    if ((downTimeHourWeekday != nil) && (downTimeMinuteWeekday != nil)) {
+                        downTimeWeekDay = calcNewTime(downTimeWeekDay, newHour: downTimeHourWeekday, newMinute: downTimeMinuteWeekday)
+                    }
+                case .readHourShutterUpWeekend:
+                    upTimeHourWeekend = Int(value)
+                    // change upTimeWeekend first if we have hour and minute read from PLC
+                    if ((upTimeHourWeekend != nil) && (upTimeMinuteWeekend != nil)) {
+                        upTimeWeekend = calcNewTime(upTimeWeekend, newHour: upTimeHourWeekend, newMinute: upTimeMinuteWeekend)
+                    }
+                case .readMinuteShutterUpWeekend:
+                    upTimeMinuteWeekend = Int(value)
+                    // change upTimeWeekend first if we have hour and minute read from PLC
+                    if ((upTimeHourWeekend != nil) && (upTimeMinuteWeekend != nil)) {
+                        upTimeWeekend = calcNewTime(upTimeWeekend, newHour: upTimeHourWeekend, newMinute: upTimeMinuteWeekend)
+                    }
+                case .readCurrentStateNightDay:
+                    print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readCurrentStateWind:
+                    print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readCurrentStateLight:
+                    print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                    
+                case .readSunsetHourForToday:
+                    print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readSunsetMinuteForToday:
+                    print("PLCView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readSunsetOffsetInMin:
+                    sunsetOffset = Int(value)
+                    
+                default:
+                    print("Error: PLCView.didReceiveReadIntRegister no case for tag \(tag)")
+                }
+                //print("didReceiveReadRegister \(value) \(tag)")
             }
-            //print("didReceiveReadRegister \(value) \(tag)")
         }
     }
  /*
@@ -600,28 +684,29 @@ extension PLCView: PLCDataAccessibleDelegate {
    */
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
         //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
-            
-            switch (plcTag) {
-            case .readIsAutomaticBlind:
-                isAutomaticBlind = Bool(value)
-            case .readIsAutomaticShutter:
-                isAutomaticShutter = Bool(value)
-            case .readIsAutomaticSummerMode:
-                isAutomaticSummerMode = Bool(value)
-
-            case .readIsSaunaOn:
-                isSaunaOn = Bool(value)
-
-            case .readUseSunsetSettings:
-                useSunsetSettings = Bool(value)
-
-            default:
-                print("Error: PLCView.didReceiveReadFlag no case for tag \(tag)")
+        DispatchQueue.global().async {
+            if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
+                
+                switch (plcTag) {
+                case .readIsAutomaticBlind:
+                    isAutomaticBlind = Bool(value)
+                case .readIsAutomaticShutter:
+                    isAutomaticShutter = Bool(value)
+                case .readIsAutomaticSummerMode:
+                    isAutomaticSummerMode = Bool(value)
+                    
+                case .readIsSaunaOn:
+                    isSaunaOn = Bool(value)
+                    
+                case .readUseSunsetSettings:
+                    useSunsetSettings = Bool(value)
+                    
+                default:
+                    print("Error: PLCView.didReceiveReadFlag no case for tag \(tag)")
+                }
+                //print("PLCView.didReceiveReadFlag \(value) \(tag)")
             }
-            //print("PLCView.didReceiveReadFlag \(value) \(tag)")
         }
-
     }
 /*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {
@@ -630,8 +715,6 @@ extension PLCView: PLCDataAccessibleDelegate {
     func didReceiveClearFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
- */
-    /*
     func didReceiveReadOutput(_ number: UInt, with value: Bool, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }

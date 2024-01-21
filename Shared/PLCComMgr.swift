@@ -62,29 +62,24 @@ class PLCComMgr : NSObject {
 
 // Muss von dem Kommunikationskanal implementiert werden, der Daten aus einer Steuerung lesen und
 // schreiben kann
+// wird von Jet32 und Jet32Watch implementiert
+// Jet32 geht dabei direkt auf das UDP-Socket
+// Jet32Watch geht über Connectivity und WCSession auf das iPhone und dort erst auf UDP-Socket
 
 extension PLCComMgr : PLCDataAccessibleProtocol {
     
     func readIntRegister(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.readIntRegister(number, tag: tag, delegate: delegate)
     }
-/*
-    func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) -> Int {
-        return homeControlConnection.readIntRegisterSync(number, tag: tag, delegate: delegate)
-    }
-  */
     func writeIntRegister(_ number: UInt, to value: Int, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.writeIntRegister(number, to: value, tag: tag, delegate: delegate)
     }
-    
     func readFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.readFlag(number, tag: tag, delegate: delegate)
     }
-
     func setFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.setFlag(number, tag: tag, delegate: delegate)
     }
-
     func clearFlag(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.clearFlag(number, tag: tag, delegate: delegate)
     }
@@ -100,5 +95,8 @@ extension PLCComMgr : PLCDataAccessibleProtocol {
     func clearOutput(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) {
         homeControlConnection.clearOutput(number, tag: tag, delegate: delegate)
     }
- */
+    func readIntRegisterSync(_ number: UInt, tag: UInt, delegate: PLCDataAccessibleDelegate? = nil) -> Int {
+        return homeControlConnection.readIntRegisterSync(number, tag: tag, delegate: delegate)
+    }
+*/
  }

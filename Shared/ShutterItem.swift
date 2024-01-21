@@ -10,8 +10,7 @@ import Foundation
 
 
 struct ShutterItem : Identifiable, Hashable {
-    let id = UUID()         // TODO: Evtl mit ID tauschen oder ersetzen
-    
+    let id = UUID()         // notwendig für Identifiable-Protocol
     
     let name: String
     let ID: Int
@@ -22,8 +21,7 @@ struct ShutterItem : Identifiable, Hashable {
 
     var isMovingDown: Bool = false
     var isMovingUp: Bool = false
-    
-    
+
     
     init(name: String, ID: Int, isEnabled: Bool, outputUp: Int, outputDown: Int) {
         self.name = name

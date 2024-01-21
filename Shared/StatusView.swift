@@ -240,9 +240,6 @@ struct StatusView: View {
             sunsetDownTime = String(format: "%02d:%02d", sunsetDownHour!, sunsetDownMinute!)
         }
     }
-
-    
-    
     
 }
 
@@ -253,83 +250,85 @@ struct StatusView: View {
 extension StatusView: PLCDataAccessibleDelegate {
     func didReceiveReadIntRegister(_ number: UInt, with value: Int, tag: UInt) {
         //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
-            switch (plcTag) {
-
-            case .readSecond:
-                currentSecond = Int(value)
-                setCurrentTimeString()
-            case .readMinute:
-                currentMinute = Int(value)
-                setCurrentTimeString()
-            case .readHour:
-                currentHour = Int(value)
-                setCurrentTimeString()
-
-            case .readHourShutterUp:
-                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readMinuteShutterUp:
-                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readHourShutterDown:
-                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readMinuteShutterDown:
-                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readHourShutterUpWeekend:
-                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-            case .readMinuteShutterUpWeekend:
-                print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
-
-            case .readCurrentStateNightDay:
-                nightDayState = NightDayState(rawValue: Int(value))
-            case .readCurrentStateWind:
-                windState = WindState(rawValue: Int(value))
-            case .readCurrentStateLight:
-                lightState = LightState(rawValue: Int(value))
-
-            case .readSunsetHourForToday:
-                sunsetDownHour = Int(value)
-                setSunsetDownTimeString()
-            case .readSunsetMinuteForToday:
-                sunsetDownMinute = Int(value)
-                setSunsetDownTimeString()
-            case .readSunsetOffsetInMin:
-                sunsetOffset = Int(value)
-
-            default:
-                print("Error: StatusView.didReceiveReadIntRegister no case for tag \(tag)")
+        DispatchQueue.global().async {
+            if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
+                switch (plcTag) {
+                    
+                case .readSecond:
+                    currentSecond = Int(value)
+                    setCurrentTimeString()
+                case .readMinute:
+                    currentMinute = Int(value)
+                    setCurrentTimeString()
+                case .readHour:
+                    currentHour = Int(value)
+                    setCurrentTimeString()
+                    
+                case .readHourShutterUp:
+                    print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readMinuteShutterUp:
+                    print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readHourShutterDown:
+                    print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readMinuteShutterDown:
+                    print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readHourShutterUpWeekend:
+                    print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                case .readMinuteShutterUpWeekend:
+                    print("StatusView.didReceiveReadIntRegister: no implementation for \(plcTag)")
+                    
+                case .readCurrentStateNightDay:
+                    nightDayState = NightDayState(rawValue: Int(value))
+                case .readCurrentStateWind:
+                    windState = WindState(rawValue: Int(value))
+                case .readCurrentStateLight:
+                    lightState = LightState(rawValue: Int(value))
+                    
+                case .readSunsetHourForToday:
+                    sunsetDownHour = Int(value)
+                    setSunsetDownTimeString()
+                case .readSunsetMinuteForToday:
+                    sunsetDownMinute = Int(value)
+                    setSunsetDownTimeString()
+                case .readSunsetOffsetInMin:
+                    sunsetOffset = Int(value)
+                    
+                default:
+                    print("Error: StatusView.didReceiveReadIntRegister no case for tag \(tag)")
+                }
+                //print("didReceiveReadRegister \(value) \(tag)")
             }
-            //print("didReceiveReadRegister \(value) \(tag)")
         }
     }
-/*
-    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
-        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
-    }
-  */
+
+
     func didReceiveReadFlag(_ number: UInt, with value: Bool, tag: UInt) {
         //print(String(describing: type(of: self)) + ".\(#function)(tag: \(tag)): \(number): \(value)")
-        if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
-            
-            switch (plcTag) {
-            case .readIsAutomaticBlind:
-                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
-            case .readIsAutomaticShutter:
-                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
-            case .readIsAutomaticSummerMode:
-                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
-
-            case .readIsSaunaOn:
-                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
-
-            case .readUseSunsetSettings:
-                print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
-
-            default:
-                print("Error: StatusView.didReceiveReadFlag no case for tag \(tag)")
+        DispatchQueue.global().async {
+            if let plcTag = HomeControlControllerTag(rawValue: UInt32(tag)) {
+                
+                switch (plcTag) {
+                case .readIsAutomaticBlind:
+                    print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+                case .readIsAutomaticShutter:
+                    print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+                case .readIsAutomaticSummerMode:
+                    print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+                    
+                case .readIsSaunaOn:
+                    print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+                    
+                case .readUseSunsetSettings:
+                    print("StatusView.didReceiveReadFlag: no implementation for \(plcTag)")
+                    
+                default:
+                    print("Error: StatusView.didReceiveReadFlag no case for tag \(tag)")
+                }
+                //print("StatusView.didReceiveReadFlag \(value) \(tag)")
             }
-            //print("StatusView.didReceiveReadFlag \(value) \(tag)")
         }
     }
+    
 /*
     func didReceiveSetFlag(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
@@ -345,6 +344,9 @@ extension StatusView: PLCDataAccessibleDelegate {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
     func didReceiveClearOutput(_ number: UInt, tag: UInt) {
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
+    }
+    func didReceiveWriteIntRegister(_ number: UInt, tag: UInt) {
         print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: called")
     }
 */
