@@ -194,7 +194,7 @@ struct StatusView: View {
         .onChange(of: selectedTab) { oldTab, newTab in
             print("StatusView.onChange: Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
             if (newTab == TabViews.StatusViewTab.rawValue) {
-                print("StatusView Visible")
+                //print("StatusView Visible")
 
                 homeControlConnection.setDelegate(delegate: self)
                 homeControlConnection.connect()
@@ -219,7 +219,7 @@ struct StatusView: View {
                 _ = self.timer.connect()
             }
             if (oldTab == TabViews.StatusViewTab.rawValue) {
-                print("StatusView Invisible")
+                //print("StatusView Invisible")
 
                 timer.connect().cancel()
                 //homeControlConnection.setDelegate(delegate: nil)

@@ -8,6 +8,45 @@
 
 import SwiftUI
 
+
+
+
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    
+    func applicationDidFinishLaunching() {
+        print(#function)
+    }
+    
+    func applicationWillEnterForeground() {
+        print(#function)
+    }
+    
+    func applicationDidBecomeActive() {
+        print(#function)
+    }
+    
+    func applicationWillResignActive() {
+        print(#function)
+    }
+    
+    func applicationDidEnterBackground() {
+        print(#function)
+    }
+
+    
+    func applicationWillTerminate() {
+        print(#function)
+    }
+    
+    func applicationDidReceiveMemoryWarning() {
+        print(#function)
+    }
+}
+
+
+
+
+
 @main
 struct HomeControlApp: App {
 
@@ -31,10 +70,28 @@ struct HomeControlApp: App {
     }
 
     
+    // Alternative 2 zu scenePhase
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    
+    @Environment(\.scenePhase) private var scenePhase
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(shutterList)
+        }
+        .onChange(of: scenePhase) { oldValue, newValue in
+            switch newValue {
+            case .active:
+                print("App switched from \(oldValue) to phase \(newValue)")
+            case .background:
+                print("App switched from \(oldValue) to phase \(newValue)")
+            case .inactive:
+                print("App switched from \(oldValue) to phase \(newValue)")
+            @unknown default:
+                print("App switched from \(oldValue) to phase \(newValue)")
+            }
         }
     }
 }

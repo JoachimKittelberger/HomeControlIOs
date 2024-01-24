@@ -16,6 +16,10 @@ class PLCComMgr : NSObject {
     // private initializer for singleton
     private override init() {
         super.init()
+#if os(iOS)
+        // get Jet32 timeout and use it for synctimeout
+        timeoutSyncCall = Int(homeControlConnection.timeoutJet32) / 1000
+#endif
     }
     
     deinit {
@@ -36,8 +40,9 @@ class PLCComMgr : NSObject {
     }
 
 
-    
+
     // Geht nur über iPhone mit z.B. UDPManager oder WCSession, ...
+    var timeoutSyncCall : Int = 5     // Default Timeout 5s für iOS
 #if os(iOS)
     let homeControlConnection = Jet32.shared   
 #endif

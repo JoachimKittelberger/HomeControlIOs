@@ -9,6 +9,7 @@
 // defines the functions getting data from a connected PLC
 // tag ist a userdefined value to match the request with the right response
 // the response comes with the corresponding tag from the request.
+// we don't use the callback functions for Write-Functions, just for Read-Functions
 
 import Foundation
 

@@ -65,11 +65,7 @@ In der Callback-Funktion kann dann z.B. eine State-Variable in der entsprechende
 
 
 
-
-
-
-
-## Umgesetzt
+## Umgesetzte Features
 * [x] Function Jet32.udpSocket(didReceive) des GCDAsyncUdpSocketDelegates überarbeiten und mit allen Datentypen testen
 * [x] Prüfen, was bei den Schreibbefehlen zurück gegeben wird. Evtl. Delegate vereinfachen
 * [x] ReadFlags in Watch
@@ -78,21 +74,16 @@ In der Callback-Funktion kann dann z.B. eine State-Variable in der entsprechende
 * [x] Jet32Delegate wird nicht wirklich sauber verwendet. Wir dnur in Views aufgerufen
 * [x] Evtl. von ReplyHandler bei iPhone auf direktes Senden umstellen, da dies vermutlich performanter ist. -> geht auch nicht schneller
 * [x] Jet32SyncExample.swift einbauen oder rauswerfen  
+* [x] Bei erstmaligem Laden der neuen Werte und setzen in den Controls, diesen das erste Mal nicht wieder in die Steuerung zurückschreiben
+* [x] Synchrones lesen nochmals anschauen, ob an der richtigen Stelle Semaphore verwendet wird
+* [x] LifeCycle der App tracen (Beispiele bei RayWenderlich)
+* [x] Timeout bei Sync-Calls mit Timeout aus Settings umsetzen. Aktuell hardcoded auf 4s
 
 
 
 ## TODO
-* [ ] Bei Jet32.PLCDataAccessibleProtocol eine Funktion schreiben, welche die PLCDataAccessEntry-Einträge übernimmt und daraus die Telegramme über Socket versendet.
-* [ ] Synchrones lesen nochmals anschauen, ob an der richtigen Stelle Semaphore verwendet wird
-* [ ] Auf Watch Möglichkeit schaffen, Verbindung zum iPhone zu testen und Elemente nur enablen, wenn Verbindung da ist.
-* [ ] LifeCycle der App tracen (Beispiele bei RayWenderlich)
-session.delegate = self  
-session.activate  
-...
-* [ ] Override func awake()
+* [ ] Complication erstellen, mit der die App vom Zifferblatt aus gestartet werden kann. WidgetKit und Complication unter iOS und watchOS
 * [ ] Info-Seite erstellen
 * [ ] Versionsnummer beim Build oder manuell inkrementieren und in Info-Seite und beim Start anzeigen
-* [ ] Timeout bei Sync-Calls mit Timeout aus Settings umsetzen. Aktuell hardcoded auf 4s
-* [ ] Complication erstellen, mit der die App vom Zifferblatt aus gestartet werden kann WidgetKit?
-* [ ] Bei erstmaligem Laden der neuen Werte und setzen in den Controls, diesen das erste Mal nicht wieder in die Steuerung zurückschreiben
+* [ ] Auf Watch Möglichkeit schaffen, Verbindung zum iPhone zu testen und Elemente nur enablen, wenn Verbindung da ist.
 

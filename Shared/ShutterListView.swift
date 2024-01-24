@@ -121,10 +121,10 @@ struct ShutterListView: View {
             .onChange(of: selectedTab) { oldTab, newTab in
                 print("ShutterListView.onChange: Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
                 if (newTab == TabViews.ShutterListTab.rawValue) {
-                    print("ShutterListView Visible")
+                    //print("ShutterListView Visible")
                 }
                 if (oldTab == TabViews.ShutterListTab.rawValue) {
-                    print("ShutterListView Invisible")
+                    //print("ShutterListView Invisible")
                 }
             }
         //}

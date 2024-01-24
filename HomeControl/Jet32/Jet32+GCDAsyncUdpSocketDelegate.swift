@@ -149,16 +149,19 @@ extension Jet32 : GCDAsyncUdpSocketDelegate {
     func udpSocket(_ sock: GCDAsyncUdpSocket, didConnectToAddress address: Data) {
         if let host = GCDAsyncUdpSocket.host(fromAddress: address) {
             print("Connected to host: \(host)")
+            isConnected = true
         }
     }
  
     // this method isn't called. Why?
     func onSocket(sock: GCDAsyncUdpSocket!, didConnectToHost host: String!, port: UInt16) {
         print("successfully connected to \(host!) on Port \(port)")
+        isConnected = true
     }
 
     func udpSocket(_ sock: GCDAsyncUdpSocket, didNotConnect error: Error?) {
         print("didNotConnect \(String(describing: error?.localizedDescription))")
+        disconnect()
     }
     
     func udpSocket(_ sock: GCDAsyncUdpSocket, didSendDataWithTag tag: Int) {
@@ -167,6 +170,7 @@ extension Jet32 : GCDAsyncUdpSocketDelegate {
 
     func udpSocket(_ sock: GCDAsyncUdpSocket, didNotSendDataWithTag tag: Int, dueToError error: Error?) {
         print("didNotSendDataWithTag \(tag) \(String(describing: error?.localizedDescription))")
+        //disconnect()
     }
     
 }

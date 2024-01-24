@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Jet32GlobalVariables {
+struct Jet32GlobalVariables {
     
     // flags in PLC. Set the Flags to true and the PLC will do the Commands
     static let flagIsAutomaticBlind = 100

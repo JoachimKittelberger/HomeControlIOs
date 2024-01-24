@@ -262,7 +262,7 @@ final class Connectivity: NSObject, ObservableObject {
             
             // hier auf Ergebnis des Lesens warten
             // Wait for the response with a timeout
-            let timeoutResult = responseReadIntSemaphore?.wait(timeout: DispatchTime.now() + DispatchTimeInterval.seconds(4))
+            let timeoutResult = responseReadIntSemaphore?.wait(timeout: DispatchTime.now() + DispatchTimeInterval.seconds(homeControlConnection.timeoutSyncCall))
 
             if timeoutResult == .success, let response = receivedReadIntValue {
                 // Rückgabewert wird in der Callback didReceiveReadIntRegister gesetzt.
@@ -270,6 +270,7 @@ final class Connectivity: NSObject, ObservableObject {
                 // TODO: könnte auch alles in der aufrufenden Funktion gemacht werden, oder der Funktion update das Session-Objekt noch mit übergeben
                 //print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: Response: \(response)")
             } else {
+                homeControlConnection.disconnect()
                 print("Error Reading SyncReg for Response");
             }
             //homeControlConnection.setDelegate(delegate: nil)
@@ -285,7 +286,7 @@ final class Connectivity: NSObject, ObservableObject {
             
             // hier auf Ergebnis des Lesens warten
             // Wait for the response with a timeout
-            let timeoutResult = responseReadBoolSemaphore?.wait(timeout: DispatchTime.now() + DispatchTimeInterval.seconds(4))
+            let timeoutResult = responseReadBoolSemaphore?.wait(timeout: DispatchTime.now() + DispatchTimeInterval.seconds(homeControlConnection.timeoutSyncCall))
 
             if timeoutResult == .success, let response = receivedReadBoolValue {
                 // Rückgabewert wird in der Callback didReceiveReadIntRegister gesetzt.
@@ -293,6 +294,7 @@ final class Connectivity: NSObject, ObservableObject {
                 // TODO: könnte auch alles in der aufrufenden Funktion gemacht werden, oder der Funktion update das Session-Objekt noch mit übergeben
                 //print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: Response: \(response)")
             } else {
+                homeControlConnection.disconnect()
                 print("Error Reading SyncFlag for Response");
             }
             //homeControlConnection.setDelegate(delegate: nil)
@@ -355,7 +357,7 @@ final class Connectivity: NSObject, ObservableObject {
 // MARK: - WCSessionDelegate
 extension Connectivity: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: activationState: \(activationState) error: \(String(describing: error?.localizedDescription)) called")
+        print(String(describing: type(of: self)) + ".\(#function)[\(#line)]: activationState: \(activationState.rawValue) error: \(String(describing: error?.localizedDescription)) called")
     }
     
 #if os(iOS)

@@ -9,6 +9,7 @@
 // defines the functions to access data from a connected PLC
 // tag ist a userdefined value to match the request with the right response
 // the response comes with the corresponding tag from the request.
+// if delegate is set, callback in delegate will be called
 
 import Foundation
 

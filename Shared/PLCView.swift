@@ -488,7 +488,7 @@ struct PLCView: View {
         .onChange(of: selectedTab) { oldTab, newTab in
             print("PLCView.onChange: Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
             if (newTab == TabViews.PLCViewTab.rawValue) {
-                print("PLCView Visible")
+                //print("PLCView Visible")
                 
                 homeControlConnection.setDelegate(delegate: self)
                 homeControlConnection.connect()
@@ -518,7 +518,7 @@ struct PLCView: View {
                 
             }
             if (oldTab == TabViews.PLCViewTab.rawValue) {
-                print("PLCView Invisible")
+                //print("PLCView Invisible")
                 timer.connect().cancel()
                 //homeControlConnection.setDelegate(delegate: nil)
             }

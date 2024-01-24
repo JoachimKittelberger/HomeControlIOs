@@ -72,21 +72,16 @@ class Jet32 : NSObject {
     func connect() {
         // printSocketBindingInfo()
         
-        // incoming socket
-        if inSocket == nil {
-            print("Connect inSocket")
-            // try up to 10 Ports to connect ReceivePort
-            for _ in 0...9 {
-                let isConnected = bindAndBeginReceiving(toPort: udpPortReceive)
-                if isConnected == true {
-                    //print("Connected to ReceivePort: \(udpPortReceive)")
-                    break;
-                }
-                udpPortReceive += 1
-            }
+ /*
+        // TODO test Errorhandling
+        if !(inSocket?.isConnected() ?? false) {
+            disconnect()
         }
-
-            
+        if !(outSocket?.isConnected() ?? false) {
+            disconnect()
+        }
+*/
+        
         // outgoing socket
         if outSocket == nil {
             print("Connect outSocket")
@@ -99,6 +94,21 @@ class Jet32 : NSObject {
                 outSocket?.close()
                 outSocket = nil
                 return
+            }
+        }
+
+        
+        // incoming socket
+        if inSocket == nil {
+            print("Connect inSocket")
+            // try up to 10 Ports to connect ReceivePort
+            for _ in 0...9 {
+                let isConnected = bindAndBeginReceiving(toPort: udpPortReceive)
+                if isConnected == true {
+                    print("Connected to ReceivePort: \(udpPortReceive)")
+                    break;
+                }
+                udpPortReceive += 1
             }
         }
     }
@@ -135,12 +145,15 @@ class Jet32 : NSObject {
         
         // finalize the queues
         clearPlcDataAccessQueue()
+        isConnected = false
     }
 
   
     
     func clearPlcDataAccessQueue() {
-        print("PlcDataAccessQueue.count ≠\(PlcDataAccessQueue.count)")
+        if (PlcDataAccessQueue.count != 0) {
+            print("PlcDataAccessQueue.count ≠ \(PlcDataAccessQueue.count)")
+        }
         PlcDataAccessQueue.removeAll()
     }
      

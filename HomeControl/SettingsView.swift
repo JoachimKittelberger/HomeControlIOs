@@ -105,7 +105,7 @@ struct SettingsView: View {
         .onChange(of: selectedTab) { oldTab, newTab in
             print("SettingsView.onChange: Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
             if (newTab == TabViews.SettingsViewTab.rawValue) {
-                print("SettingsView Visible")
+                //print("SettingsView Visible")
 
                 // load the current settings from the Jet32 instance into local state vars
                 let homeControlConnection = Jet32.shared
@@ -116,7 +116,7 @@ struct SettingsView: View {
 
             }
             if (oldTab == TabViews.SettingsViewTab.rawValue) {
-                print("SettingsView Invisible")
+                //print("SettingsView Invisible")
             }
         }
 

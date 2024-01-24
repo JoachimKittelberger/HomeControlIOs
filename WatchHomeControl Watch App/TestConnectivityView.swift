@@ -154,7 +154,7 @@ struct TestConnectivityView: View {
         .onChange(of: selectedTab) { oldTab, newTab in
             print(String(describing: type(of: self)) + ".\(#function): Change to tab \(selectedTab) Old: \(oldTab) New: \(newTab)")
             if (newTab == TabViews.TestConnectivityView.rawValue) {
-                print("TestConnectivityView Visible")
+                //print("TestConnectivityView Visible")
 /*
                 homeControlConnection.setDelegate(delegate: self)
                 homeControlConnection.connect()
@@ -170,7 +170,7 @@ struct TestConnectivityView: View {
 */
             }
             if (oldTab == TabViews.TestConnectivityView.rawValue) {
-                print("TestConnectivityView Invisible")
+                //print("TestConnectivityView Invisible")
                 
                 timer.connect().cancel()
                 //homeControlConnection.setDelegate(delegate: nil)
