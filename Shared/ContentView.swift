@@ -133,6 +133,13 @@ struct ContentView: View {
             // call .onChange for the first time the app starts
             selectedTab = TabViews.ShutterListTab.rawValue          // because we need the first onChange also in ShutterListTab
         }
+        // hier könnte vom Widget über URL (z.B. .widgetURL(HomeControlApp://symbol/data) die URL geschickt werden
+        // hier dann mit .onOpenURL empfangen
+        //.onOpenURL(perform: { url in          // damit kann auf ÜBergabe von Widget reagiert weren
+        // guard url.scheme == "HomeControlApp", url.host == "symbol" else {
+        // return
+        // let data = url.pathComponents[1]
+       // })
    
 
     }

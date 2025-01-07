@@ -83,7 +83,15 @@ In der Callback-Funktion kann dann z.B. eine State-Variable in der entsprechende
 
 ## TODO
 * [ ] Complication erstellen, mit der die App vom Zifferblatt aus gestartet werden kann. WidgetKit und Complication unter iOS und watchOS
+- Anzeige im Widget: Sonne/Dunkel, Wind/Kein Wind
+- Datenaustausch mit
+  - AppGroups, Shared UserDefaults. Name: group.bundleidentiefer
+  - widgetURL, onOpenURL
+  - Notifications?
+  - in App: WidgetCenter.shared.reloadAllTimeLines() -> Widget wird neu geladen und timeline-Function wird ausgeführt
+
+
 * [ ] Info-Seite erstellen
 * [ ] Versionsnummer beim Build oder manuell inkrementieren und in Info-Seite und beim Start anzeigen
 * [ ] Auf Watch Möglichkeit schaffen, Verbindung zum iPhone zu testen und Elemente nur enablen, wenn Verbindung da ist.
-
+* [ ] Umgang mit Notification, NotifiactionCenter.Publish -> onReceive(...)

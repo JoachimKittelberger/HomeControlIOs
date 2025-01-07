@@ -8,11 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		271BEAF42B5883F100D01431 /* Jet32Watch+PLCDataAccessibleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271BEAF32B5883F100D01431 /* Jet32Watch+PLCDataAccessibleProtocol.swift */; };
+		273406732B6178AD007A5A0A /* HomeControlWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273406722B6178AD007A5A0A /* HomeControlWidgetEntryView.swift */; };
+		273406752B617AD1007A5A0A /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273406742B617AD1007A5A0A /* States.swift */; };
+		273406762B617AD1007A5A0A /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273406742B617AD1007A5A0A /* States.swift */; };
+		273406772B617AD1007A5A0A /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273406742B617AD1007A5A0A /* States.swift */; };
+		2734067B2B62C0DF007A5A0A /* TimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273406782B62C0DF007A5A0A /* TimelineProvider.swift */; };
+		2734067D2B62C0FC007A5A0A /* TimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2734067C2B62C0FC007A5A0A /* TimelineEntry.swift */; };
 		2738DBB82B50536F008E4911 /* OperatorOverloadBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738DBB72B50536F008E4911 /* OperatorOverloadBinding.swift */; };
 		2738DBB92B50536F008E4911 /* OperatorOverloadBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738DBB72B50536F008E4911 /* OperatorOverloadBinding.swift */; };
 		2738DBBB2B512BED008E4911 /* Jet32+GCDAsyncUdpSocketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738DBBA2B512BED008E4911 /* Jet32+GCDAsyncUdpSocketDelegate.swift */; };
 		2738DBC02B52D745008E4911 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2738DBBF2B52D745008E4911 /* LaunchScreen.storyboard */; };
 		2738DBC32B52E52F008E4911 /* TestConnectivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738DBC22B52E52F008E4911 /* TestConnectivityView.swift */; };
+		278813222B60F563003267FC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278813212B60F563003267FC /* WidgetKit.framework */; };
+		278813242B60F563003267FC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278813232B60F563003267FC /* SwiftUI.framework */; };
+		278813272B60F563003267FC /* HomeControlWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278813262B60F563003267FC /* HomeControlWidget.swift */; };
+		278813292B60F563003267FC /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278813282B60F563003267FC /* AppIntent.swift */; };
+		2788132B2B60F567003267FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2788132A2B60F567003267FC /* Assets.xcassets */; };
+		2788132F2B60F567003267FC /* HomeControlWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 278813202B60F563003267FC /* HomeControlWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		278999F42B44668F0099D60F /* ShutterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F32B44668F0099D60F /* ShutterList.swift */; };
 		278999F62B4467470099D60F /* ShutterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F52B4467470099D60F /* ShutterDetailView.swift */; };
 		278999F82B4468300099D60F /* PLCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278999F72B4468300099D60F /* PLCView.swift */; };
@@ -73,6 +85,13 @@
 			remoteGlobalIDString = 2798AA302B3C481F001F6258;
 			remoteInfo = "WatchHomeControl Watch App";
 		};
+		2788132D2B60F567003267FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27C8768C1EE8450A00CD4A3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2788131F2B60F563003267FC;
+			remoteInfo = HomeControlWidgetExtension;
+		};
 		2798AA412B3C4821001F6258 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 27C8768C1EE8450A00CD4A3F /* Project object */;
@@ -90,6 +109,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		278813302B60F567003267FC /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2788132F2B60F567003267FC /* HomeControlWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27D48A8F2B481E1F00572FA1 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -107,11 +137,22 @@
 		271B33BB2B5C28F90060C84D /* PLCComMgrArchitecture.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = PLCComMgrArchitecture.JPG; sourceTree = "<group>"; };
 		271B33BC2B5DD38B0060C84D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		271BEAF32B5883F100D01431 /* Jet32Watch+PLCDataAccessibleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Jet32Watch+PLCDataAccessibleProtocol.swift"; sourceTree = "<group>"; };
+		273406722B6178AD007A5A0A /* HomeControlWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControlWidgetEntryView.swift; sourceTree = "<group>"; };
+		273406742B617AD1007A5A0A /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
+		273406782B62C0DF007A5A0A /* TimelineProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineProvider.swift; sourceTree = "<group>"; };
+		2734067C2B62C0FC007A5A0A /* TimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineEntry.swift; sourceTree = "<group>"; };
 		2738DBB72B50536F008E4911 /* OperatorOverloadBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorOverloadBinding.swift; sourceTree = "<group>"; };
 		2738DBBA2B512BED008E4911 /* Jet32+GCDAsyncUdpSocketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Jet32+GCDAsyncUdpSocketDelegate.swift"; sourceTree = "<group>"; };
 		2738DBBE2B5148D4008E4911 /* HomeControlIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeControlIcon.png; sourceTree = "<group>"; };
 		2738DBBF2B52D745008E4911 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2738DBC22B52E52F008E4911 /* TestConnectivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConnectivityView.swift; sourceTree = "<group>"; };
+		278813202B60F563003267FC /* HomeControlWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HomeControlWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		278813212B60F563003267FC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		278813232B60F563003267FC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		278813262B60F563003267FC /* HomeControlWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControlWidget.swift; sourceTree = "<group>"; };
+		278813282B60F563003267FC /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		2788132A2B60F567003267FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2788132C2B60F567003267FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		278999F32B44668F0099D60F /* ShutterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShutterList.swift; sourceTree = "<group>"; };
 		278999F52B4467470099D60F /* ShutterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShutterDetailView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		278999F72B4468300099D60F /* PLCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLCView.swift; sourceTree = "<group>"; };
@@ -160,6 +201,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2788131D2B60F563003267FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				278813242B60F563003267FC /* SwiftUI.framework in Frameworks */,
+				278813222B60F563003267FC /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2798AA2E2B3C481F001F6258 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -191,6 +241,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		278813252B60F563003267FC /* HomeControlWidget */ = {
+			isa = PBXGroup;
+			children = (
+				273406782B62C0DF007A5A0A /* TimelineProvider.swift */,
+				278813262B60F563003267FC /* HomeControlWidget.swift */,
+				278813282B60F563003267FC /* AppIntent.swift */,
+				2788132A2B60F567003267FC /* Assets.xcassets */,
+				2788132C2B60F567003267FC /* Info.plist */,
+				273406722B6178AD007A5A0A /* HomeControlWidgetEntryView.swift */,
+				2734067C2B62C0FC007A5A0A /* TimelineEntry.swift */,
+			);
+			path = HomeControlWidget;
+			sourceTree = "<group>";
+		};
 		2798AA322B3C481F001F6258 /* WatchHomeControl Watch App */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +326,7 @@
 				2798AA432B3C4821001F6258 /* WatchHomeControl Watch AppTests */,
 				2798AA4D2B3C4821001F6258 /* WatchHomeControl Watch AppUITests */,
 				27FF57152B4464EC00955FCD /* HomeControl */,
+				278813252B60F563003267FC /* HomeControlWidget */,
 				27C876951EE8450A00CD4A3F /* Products */,
 				27D48A8B2B481E1F00572FA1 /* Frameworks */,
 				27D48B172B4C4CD900572FA1 /* license.txt */,
@@ -277,6 +342,7 @@
 				2798AA402B3C4821001F6258 /* WatchHomeControl Watch AppTests.xctest */,
 				2798AA4A2B3C4821001F6258 /* WatchHomeControl Watch AppUITests.xctest */,
 				27FF57142B4464EC00955FCD /* HomeControl.app */,
+				278813202B60F563003267FC /* HomeControlWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -325,6 +391,7 @@
 				27D48A812B46E14100572FA1 /* PLCComMgr.swift */,
 				27D48A902B48264100572FA1 /* Connectivity.swift */,
 				27CE5D462B4D4D9700DE5297 /* StatusView.swift */,
+				273406742B617AD1007A5A0A /* States.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -332,6 +399,8 @@
 		27D48A8B2B481E1F00572FA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				278813212B60F563003267FC /* WidgetKit.framework */,
+				278813232B60F563003267FC /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -365,6 +434,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2788131F2B60F563003267FC /* HomeControlWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 278813332B60F567003267FC /* Build configuration list for PBXNativeTarget "HomeControlWidgetExtension" */;
+			buildPhases = (
+				2788131C2B60F563003267FC /* Sources */,
+				2788131D2B60F563003267FC /* Frameworks */,
+				2788131E2B60F563003267FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HomeControlWidgetExtension;
+			productName = HomeControlWidgetExtension;
+			productReference = 278813202B60F563003267FC /* HomeControlWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		2798AA302B3C481F001F6258 /* WatchHomeControl Watch App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2798AA5C2B3C4821001F6258 /* Build configuration list for PBXNativeTarget "WatchHomeControl Watch App" */;
@@ -372,10 +458,12 @@
 				2798AA2D2B3C481F001F6258 /* Sources */,
 				2798AA2E2B3C481F001F6258 /* Frameworks */,
 				2798AA2F2B3C481F001F6258 /* Resources */,
+				278813302B60F567003267FC /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2788132E2B60F567003267FC /* PBXTargetDependency */,
 			);
 			name = "WatchHomeControl Watch App";
 			productName = "WatchHomeControl Watch App";
@@ -444,10 +532,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1510;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Joachim Kittelberger";
 				TargetAttributes = {
+					2788131F2B60F563003267FC = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					2798AA302B3C481F001F6258 = {
 						CreatedOnToolsVersion = 15.1;
 						DevelopmentTeam = FNGMABF4M4;
@@ -490,11 +581,20 @@
 				2798AA3F2B3C4821001F6258 /* WatchHomeControl Watch AppTests */,
 				2798AA492B3C4821001F6258 /* WatchHomeControl Watch AppUITests */,
 				27FF57132B4464EC00955FCD /* HomeControl */,
+				2788131F2B60F563003267FC /* HomeControlWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2788131E2B60F563003267FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2788132B2B60F567003267FC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2798AA2F2B3C481F001F6258 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -532,6 +632,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2788131C2B60F563003267FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				273406772B617AD1007A5A0A /* States.swift in Sources */,
+				273406732B6178AD007A5A0A /* HomeControlWidgetEntryView.swift in Sources */,
+				278813272B60F563003267FC /* HomeControlWidget.swift in Sources */,
+				2734067D2B62C0FC007A5A0A /* TimelineEntry.swift in Sources */,
+				278813292B60F563003267FC /* AppIntent.swift in Sources */,
+				2734067B2B62C0DF007A5A0A /* TimelineProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2798AA2D2B3C481F001F6258 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -551,6 +664,7 @@
 				27899A012B449D960099D60F /* ShutterListView.swift in Sources */,
 				2738DBC32B52E52F008E4911 /* TestConnectivityView.swift in Sources */,
 				27D48A912B48264100572FA1 /* Connectivity.swift in Sources */,
+				273406752B617AD1007A5A0A /* States.swift in Sources */,
 				27D48A842B46E21300572FA1 /* PLCDataAccessibleProtocol.swift in Sources */,
 				27899A002B449D010099D60F /* ShutterDetailView.swift in Sources */,
 				271BEAF42B5883F100D01431 /* Jet32Watch+PLCDataAccessibleProtocol.swift in Sources */,
@@ -602,6 +716,7 @@
 				27D48A922B48264100572FA1 /* Connectivity.swift in Sources */,
 				278999F82B4468300099D60F /* PLCView.swift in Sources */,
 				27CE5D4B2B4D63ED00DE5297 /* View+hideKeyboard.swift in Sources */,
+				273406762B617AD1007A5A0A /* States.swift in Sources */,
 				27D48A7F2B45DB8100572FA1 /* View+onViewDidLoad.swift in Sources */,
 				27FF57172B4464EC00955FCD /* HomeControlApp.swift in Sources */,
 				2738DBB92B50536F008E4911 /* OperatorOverloadBinding.swift in Sources */,
@@ -617,6 +732,11 @@
 			target = 2798AA302B3C481F001F6258 /* WatchHomeControl Watch App */;
 			targetProxy = 2738DBB52B4E9273008E4911 /* PBXContainerItemProxy */;
 		};
+		2788132E2B60F567003267FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2788131F2B60F563003267FC /* HomeControlWidgetExtension */;
+			targetProxy = 2788132D2B60F567003267FC /* PBXContainerItemProxy */;
+		};
 		2798AA422B3C4821001F6258 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2798AA302B3C481F001F6258 /* WatchHomeControl Watch App */;
@@ -630,9 +750,86 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		278813312B60F567003267FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FNGMABF4M4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HomeControlWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HomeControlWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Joachim Kittelberger. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.Jetter.HomeControl.watchkitapp.HomeControlWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		278813322B60F567003267FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FNGMABF4M4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HomeControlWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HomeControlWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Joachim Kittelberger. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.Jetter.HomeControl.watchkitapp.HomeControlWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 		2798AA562B3C4821001F6258 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -674,6 +871,7 @@
 		2798AA572B3C4821001F6258 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1042,6 +1240,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		278813332B60F567003267FC /* Build configuration list for PBXNativeTarget "HomeControlWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				278813312B60F567003267FC /* Debug */,
+				278813322B60F567003267FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2798AA5C2B3C4821001F6258 /* Build configuration list for PBXNativeTarget "WatchHomeControl Watch App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
